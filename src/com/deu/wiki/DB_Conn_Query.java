@@ -9,7 +9,7 @@ public class DB_Conn_Query {
 
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
 
-        String id = "hmart";
+        String id = "deu_wiki";
 
         String password = "1234";
 
@@ -17,11 +17,11 @@ public class DB_Conn_Query {
 
             Class.forName("oracle.jdbc.driver.OracleDriver");
 
-            System.out.println("ë“œë¼ì´ë²„ ì ì¬ ì„±ê³µ");
+            System.out.println("µå¶óÀÌ¹ö ÀûÀç ¼º°ø");
 
             con = DriverManager.getConnection(url, id, password);
 
-            System.out.println("DB ì—°ê²° ì„±ê³µ");
+            System.out.println("DB ¿¬°á ¼º°ø");
 
         } catch (ClassNotFoundException e) {
 
@@ -39,7 +39,7 @@ public class DB_Conn_Query {
 
     private void sqlRun() {
 
-        String query = "select ê³ ê°ì•„ì´ë””, ê³ ê°ì´ë¦„, ì ë¦½ê¸ˆ from ê³ ê°";
+        String query = "select °í°´¾ÆÀÌµğ, °í°´ÀÌ¸§, Àû¸³±İ from °í°´";
 
         try {
             Statement stmt = con.createStatement();
@@ -48,9 +48,9 @@ public class DB_Conn_Query {
 
             while (rs.next()) {
 
-                System.out.print("\t" + rs.getString("ê³ ê°ì•„ì´ë””"));
+                System.out.print("\t" + rs.getString("°í°´¾ÆÀÌµğ"));
 
-                System.out.print("\t" + rs.getString("ê³ ê°ì´ë¦„"));
+                System.out.print("\t" + rs.getString("°í°´ÀÌ¸§"));
 
                 System.out.print("\t" + rs.getInt(3) + "\n");
 
@@ -75,8 +75,8 @@ public class DB_Conn_Query {
     public static void main(String arg[]) throws SQLException {
 
         DB_Conn_Query dbconquery = new DB_Conn_Query();
-
-        dbconquery.sqlRun();
+//
+//        dbconquery.sqlRun();
 
     }
 

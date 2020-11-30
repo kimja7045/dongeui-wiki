@@ -2,8 +2,8 @@ package com.deu.wiki;
 
 public class UserDTO {
 	private int idx;
-	private String pNum;  // È¸ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½È£
-	private int point=0; // È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+	private String pNum;  // È¸¿ø ÀüÈ­¹øÈ£
+	private int point=0; // È¸¿ø Æ÷ÀÎÆ®
 	
 	public UserDTO() {	
 		this.idx=0; this.pNum=null; this.point=0;
@@ -11,7 +11,7 @@ public class UserDTO {
 	public UserDTO(String pNum) {
 		this.idx=0; this.pNum=pNum; this.point=0;
 	}
-	public UserDTO(int idx, String pNum, int point) {
+	public UserDTO(int idx,String pNum,int point) {
 		this.idx=idx;
 		this.pNum = pNum;
 		this.point = point;

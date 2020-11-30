@@ -13,26 +13,26 @@ import javax.swing.table.DefaultTableModel;
 
 /*
 class JTableExample extends JFrame {
-   // Table ìƒì„±
-    private String colName[] = { "ì´ë¦„", "ë‚˜ì´", "ì§ì—…" };
+   // Table »ı¼º
+    private String colName[] = { "ÀÌ¸§", "³ªÀÌ", "Á÷¾÷" };
     private DefaultTableModel model = new DefaultTableModel(colName, 0);
-   // Tableì— ë“¤ì–´ê°ˆ ë°ì´í„° ëª©ë¡ë“¤ (í—¤ë”ì •ë³´, ì¶”ê°€ ë  row ê°œìˆ˜)
+   // Table¿¡ µé¾î°¥ µ¥ÀÌÅÍ ¸ñ·Ïµé (Çì´õÁ¤º¸, Ãß°¡ µÉ row °³¼ö)
     private JTable table = new JTable(model);
     private JScrollPane jsp = new JScrollPane(table,
     			JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
     			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     public JTableExample() {
-     //== ê¸°ë³¸ ì„¤ì •(title, sizeâ€¦)ì´ ì¶”ê°€í•´ì•¼ í•¨==
-     // JTableì— ì‚½ì…ë  ë°ì´í„° ìƒì„±. while(rs.next()) {       } ë„ ê°€ëŠ¥
+     //== ±âº» ¼³Á¤(title, size¡¦)ÀÌ Ãß°¡ÇØ¾ß ÇÔ==
+     // JTable¿¡ »ğÀÔµÉ µ¥ÀÌÅÍ »ı¼º. while(rs.next()) {       } µµ °¡´É
     	this.setSize(500, 200);
     	String row1[] = new String[3];
-    	row1[0] = "ì˜¤ë¹ ";
+    	row1[0] = "¿Àºü";
      	row1[1] = "26";
-     	row1[2] = "í”„ë¡œê·¸ë˜ë¨¸"; model.addRow(row1);
+     	row1[2] = "ÇÁ·Î±×·¡¸Ó"; model.addRow(row1);
      	//String row2[] = new String[3];
-     	row1[0] = "ì‹±ê³ ";
+     	row1[0] = "½Ì°í";
      	row1[1] = "26";
-     	row1[2] = "ë°±ìˆ˜";  	  model.addRow(row1);
+     	row1[2] = "¹é¼ö";  	  model.addRow(row1);
      	add(jsp);
      	setVisible(true);
      }
@@ -43,25 +43,26 @@ class DB_Conn_Query1 {
     Connection con = null;
     public DB_Conn_Query1( ) {
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
-        String id = "system";      String password = "oracle";
+        String id = "Deu_wiki ";      
+        String password = "1234";
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            System.out.println("ë“œë¼ì´ë²„ ì ì¬ ì„±ê³µ");
+            System.out.println("µå¶óÀÌ¹ö ÀûÀç ¼º°ø");
             con = DriverManager.getConnection(url, id, password);
-            System.out.println("DB ì—°ê²° ì„±ê³µ");
+            System.out.println("DB ¿¬°á ¼º°ø");
         } catch (ClassNotFoundException e) {         System.out.println("No Driver.");    }
         catch (SQLException e) {         System.out.println("Connection Fail");      }
     }
 
     public void sqlrun(DefaultTableModel model)
     {
-        String query = "select ê³ ê°ì•„ì´ë””, ê³ ê°ì´ë¦„, ì ë¦½ê¸ˆ from ê³ ê°";
+        String query = "select °í°´¾ÆÀÌµğ, °í°´ÀÌ¸§, Àû¸³±İ from °í°´";
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             String row[] = new String[3];
             while (rs.next()) {
-                row[0] = rs.getString("ê³ ê°ì•„ì´ë””");
+                row[0] = rs.getString("°í°´¾ÆÀÌµğ");
                 row[1] = rs.getString(2);
                 row[2] = Integer.toString(rs.getInt(3));
                 model.addRow(row);
@@ -72,10 +73,10 @@ class DB_Conn_Query1 {
 }
 
 class JTableExample extends JFrame {
-    // Table ìƒì„±
-    private String colName[] = { "ê³ ê°ID", "ì´ë¦„", "ì ë¦½ê¸ˆ" };
+    // Table »ı¼º
+    private String colName[] = { "°í°´ID", "ÀÌ¸§", "Àû¸³±İ" };
     public DefaultTableModel model = new DefaultTableModel(colName, 0);
-    // Tableì— ë“¤ì–´ê°ˆ ë°ì´í„° ëª©ë¡ë“¤ (í—¤ë”ì •ë³´, ì¶”ê°€ ë  row ê°œìˆ˜)
+    // Table¿¡ µé¾î°¥ µ¥ÀÌÅÍ ¸ñ·Ïµé (Çì´õÁ¤º¸, Ãß°¡ µÉ row °³¼ö)
     private JTable table = new JTable(model);
     private JScrollPane jsp = new JScrollPane(table,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,

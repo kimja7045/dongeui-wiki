@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class AdminDAO {
     // --------------------------------------------------------
-    // ì‹±ê¸€í†¤ ë””ìì¸ íŒ¨í„´ì„ ì ìš©í•œ ì¸ìŠ¤í„´ìŠ¤ ë¦¬í„´
+    // ½Ì±ÛÅæ µğÀÚÀÎ ÆĞÅÏÀ» Àû¿ëÇÑ ÀÎ½ºÅÏ½º ¸®ÅÏ
     private static AdminDAO instance = new AdminDAO();
 
     private AdminDAO() {}
@@ -25,21 +25,21 @@ public class AdminDAO {
     private ResultSet rs;
 
     private void connectDb() {
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://mydb.cihjn38frpag.ap-northeast-2.rds.amazonaws.com:3305/team4";
-        String user = "mydb";
-        String password = "dkagh1212";
+        String driver = "oracle.jdbc.driver.OracleDriver";
+        String url = "jdbc:oracle:thin:@localhost:1521:XE";
+        String user = "deu_wiki";
+        String password = "1234";
 
         try {
             Class.forName(driver);
-//			System.out.println("ë“œë¼ì´ë²„ ë¡œë“œ ì„±ê³µ!");
+			System.out.println("µå¶óÀÌ¹ö ·Îµå ¼º°ø!");
 
             con = DriverManager.getConnection(url, user, password);
-//			System.out.println("DB ì ‘ì† ì„±ê³µ!");
+			System.out.println("DB Á¢¼Ó ¼º°ø!");
         } catch (ClassNotFoundException e) {
-            System.out.println("ë“œë¼ì´ë²„ ë¡œë“œ ì‹¤íŒ¨! - " + e.getMessage());
+            System.out.println("µå¶óÀÌ¹ö ·Îµå ½ÇÆĞ! - " + e.getMessage());
         } catch (SQLException e) {
-            System.out.println("DB ì ‘ì† ì‹¤íŒ¨! - " + e.getMessage());
+            System.out.println("DB Á¢¼Ó ½ÇÆĞ! - " + e.getMessage());
         }
     }
 
@@ -51,53 +51,54 @@ public class AdminDAO {
 
 
     public int login(AdminDTO dto) {
-        // ì•„ì´ë””, íŒ¨ìŠ¤ì›Œë“œ ì¼ì¹˜ ì—¬ë¶€ì— ë”°ë¼ ë‹¤ë¥¸ ì •ìˆ˜ê°’ ë¦¬í„´
+        // ¾ÆÀÌµğ, ÆĞ½º¿öµå ÀÏÄ¡ ¿©ºÎ¿¡ µû¶ó ´Ù¸¥ Á¤¼ö°ª ¸®ÅÏ
         connectDb();
 
-        int result = 0; // ê¸°ë³¸ê°’. ì•„ì´ë””ê°€ ì—†ì„ ê²½ìš° ê¸°ë³¸ê°’ ë¦¬í„´ë¨
+        int result = 0; // ±âº»°ª. ¾ÆÀÌµğ°¡ ¾øÀ» °æ¿ì ±âº»°ª ¸®ÅÏµÊ
 
         try {
-            // 1. ì•„ì´ë”” ê²€ìƒ‰
-            String sql = "SELECT * FROM member WHERE id=?";
+            // 1. ¾ÆÀÌµğ °Ë»ö
+            String sql = "SELECT * FROM users WHERE id=?";
             pstmt = con.prepareStatement(sql);
+            System.out.println(dto.getId());
             pstmt.setString(1, dto.getId());
             rs = pstmt.executeQuery();
 
-            if(rs.next()) { // ì•„ì´ë””ê°€ ìˆì„ ê²½ìš°
-                // 2. ì•„ì´ë””, íŒ¨ìŠ¤ì›Œë“œ ë™ì‹œ ê²€ìƒ‰
-                sql = "SELECT * FROM member WHERE id=? AND password=?";
+            if(rs.next()) { // ¾ÆÀÌµğ°¡ ÀÖÀ» °æ¿ì
+                // 2. ¾ÆÀÌµğ, ÆĞ½º¿öµå µ¿½Ã °Ë»ö
+                sql = "SELECT * FROM users WHERE id=? AND password=?";
                 pstmt = con.prepareStatement(sql);
                 pstmt.setString(1, dto.getId());
                 pstmt.setString(2, dto.getPassword());
                 rs = pstmt.executeQuery();
 
-                if(rs.next()) { // ì•„ì´ë””ê°€ ìˆê³ , íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•  ê²½ìš°
+                if(rs.next()) { // ¾ÆÀÌµğ°¡ ÀÖ°í, ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÒ °æ¿ì
                     result = 1;
-                } else { // ì•„ì´ë””ê°€ ìˆê³ , íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ì§€ ì•Šì„ ê²½ìš°
+                } else { // ¾ÆÀÌµğ°¡ ÀÖ°í, ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀ» °æ¿ì
                     result = -1;
                 }
             }
 
-            // ì•„ì´ë””ê°€ ì—†ì„ ê²½ìš° result ë³€ìˆ˜ê°’ì€ ê¸°ë³¸ê°’ 0 ê·¸ëŒ€ë¡œ ì‚¬ìš©
+            // ¾ÆÀÌµğ°¡ ¾øÀ» °æ¿ì result º¯¼ö°ªÀº ±âº»°ª 0 ±×´ë·Î »ç¿ë
 //			System.out.println(result);
         } catch (SQLException e) {
-            System.out.println("SQL êµ¬ë¬¸ ì˜¤ë¥˜! - " + e.getMessage());
+            System.out.println("SQL ±¸¹® ¿À·ù! - " + e.getMessage());
         } finally {
             closeDb();
         }
 
-        return result; // ë¡œê·¸ì¸ ê²°ê³¼ ë¦¬í„´
+        return result; // ·Î±×ÀÎ °á°ú ¸®ÅÏ
     }
 
-    // ê´€ë¦¬ì ì¶”ê°€
+    // °ü¸®ÀÚ Ãß°¡
     public int insert(AdminDTO dto) {
         connectDb();
 
-        int result = 0; // ê´€ë¦¬ì ì¶”ê°€ ì„±ê³µ ì—¬ë¶€(0 : ì‹¤íŒ¨, 1 : ë¦¬í„´)
+        int result = 0; // °ü¸®ÀÚ Ãß°¡ ¼º°ø ¿©ºÎ(0 : ½ÇÆĞ, 1 : ¸®ÅÏ)
 
         try {
-            // DTO ê°ì²´ì— ì €ì¥ëœ ë°ì´í„°ë¥¼ DB ì— INSERT
-            String sql = "INSERT INTO member VALUES (null,?,?,?)";
+            // DTO °´Ã¼¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ¸¦ DB ¿¡ INSERT
+            String sql = "INSERT INTO users VALUES (null,?,?,?)";
 
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, dto.getName());
@@ -107,7 +108,7 @@ public class AdminDAO {
             result = pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("SQL êµ¬ë¬¸ ì˜¤ë¥˜! - " + e.getMessage());
+            System.out.println("SQL ±¸¹® ¿À·ù! - " + e.getMessage());
         } finally {
             closeDb();
         }
@@ -115,15 +116,15 @@ public class AdminDAO {
         return result;
     }
 
-    // ê´€ë¦¬ì ìˆ˜ì •
+    // °ü¸®ÀÚ ¼öÁ¤
     public int update(AdminDTO dto) {
         connectDb();
 
-        int result = 0; // ê´€ë¦¬ì ìˆ˜ì • ì„±ê³µ ì—¬ë¶€(0 : ì‹¤íŒ¨, 1 : ë¦¬í„´)
+        int result = 0; // °ü¸®ÀÚ ¼öÁ¤ ¼º°ø ¿©ºÎ(0 : ½ÇÆĞ, 1 : ¸®ÅÏ)
 
         try {
-            // ë ˆì½”ë“œ ìˆ˜ì •
-            String sql = "update member set " + "name=?, " + "id=?," + "password=? " + " where idx=?";
+            // ·¹ÄÚµå ¼öÁ¤
+            String sql = "update users set " + "nickname=?, " + "id=?," + "password=? " + " where idx=?";
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, dto.getName());
             pstmt.setString(2, dto.getId());
@@ -133,7 +134,7 @@ public class AdminDAO {
             result = pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("SQL êµ¬ë¬¸ ì˜¤ë¥˜! - " + e.getMessage());
+            System.out.println("SQL ±¸¹® ¿À·ù! - " + e.getMessage());
         } finally {
             closeDb();
         }
@@ -141,15 +142,15 @@ public class AdminDAO {
         return result;
     }
 
-    // ê´€ë¦¬ì ì‚­ì œ
+    // °ü¸®ÀÚ »èÁ¦
     public int delete(int idx) {
         connectDb();
 
-        int result = 0; // ê´€ë¦¬ì ì‚­ì œ ì„±ê³µ ì—¬ë¶€(0 : ì‹¤íŒ¨, 1 : ë¦¬í„´)
+        int result = 0; // °ü¸®ÀÚ »èÁ¦ ¼º°ø ¿©ºÎ(0 : ½ÇÆĞ, 1 : ¸®ÅÏ)
 
         try {
-            // ì „ë‹¬ë°›ì€ ë²ˆí˜¸(idx)ë¥¼ ì‚¬ìš©í•˜ì—¬ ë ˆì½”ë“œ ì‚­ì œ
-            String sql = "DELETE FROM member WHERE idx=?";
+            // Àü´Ş¹ŞÀº ¹øÈ£(idx)¸¦ »ç¿ëÇÏ¿© ·¹ÄÚµå »èÁ¦
+            String sql = "DELETE FROM users WHERE idx=?";
 
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, idx);
@@ -157,7 +158,7 @@ public class AdminDAO {
             result = pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("SQL êµ¬ë¬¸ ì˜¤ë¥˜! - " + e.getMessage());
+            System.out.println("SQL ±¸¹® ¿À·ù! - " + e.getMessage());
         } finally {
             closeDb();
         }
@@ -166,33 +167,33 @@ public class AdminDAO {
     }
 
 
-    // ê´€ë¦¬ìëª©ë¡ ì¡°íšŒ
+    // °ü¸®ÀÚ¸ñ·Ï Á¶È¸
     public Vector<Vector> select() {
         connectDb();
 
         try {
-            String sql = "SELECT * FROM member";
+            String sql = "SELECT * FROM users";
 
             pstmt = con.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
-            Vector<Vector> data = new Vector<>(); // ì „ì²´ ë ˆì½”ë“œë¥¼ ì €ì¥í•  Vector ê°ì²´
+            Vector<Vector> data = new Vector<>(); // ÀüÃ¼ ·¹ÄÚµå¸¦ ÀúÀåÇÒ Vector °´Ã¼
 
             while(rs.next()) {
-                Vector rowData = new Vector<>(); // 1ê°œ ë ˆì½”ë“œë¥¼ ì €ì¥í•  Vector ê°ì²´
+                Vector rowData = new Vector<>(); // 1°³ ·¹ÄÚµå¸¦ ÀúÀåÇÒ Vector °´Ã¼
 
                 rowData.add(rs.getInt("idx"));
-                rowData.add(rs.getString("name"));
+                rowData.add(rs.getString("nickname"));
                 rowData.add(rs.getString("id"));
                 rowData.add(rs.getString("password"));
 
                 data.add(rowData);
             }
 
-            return data; // ì¡°íšŒ ì„±ê³µ ì‹œ ì €ì¥ëœ Vector ê°ì²´ ë¦¬í„´
+            return data; // Á¶È¸ ¼º°ø ½Ã ÀúÀåµÈ Vector °´Ã¼ ¸®ÅÏ
 
         } catch (SQLException e) {
-            System.out.println("SQL êµ¬ë¬¸ ì˜¤ë¥˜! - " + e.getMessage());
+            System.out.println("SQL ±¸¹® ¿À·ù! - " + e.getMessage());
         } finally {
             closeDb();
         }

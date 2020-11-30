@@ -37,9 +37,9 @@ public class AdminGUI extends JFrame {
     private CardLayout cards = new CardLayout();
 
     public AdminGUI() {
-        setTitle("ë™ì˜ìœ„í‚¤");
+        setTitle("µ¿ÀÇÀ§Å°");
         setBounds(500, 300, 1280, 720);
-        setLocationRelativeTo(null); // í”„ë¡œê·¸ë¨ì´ ì •ì¤‘ì•™ì— ëœ¸
+        setLocationRelativeTo(null); // ÇÁ·Î±×·¥ÀÌ Á¤Áß¾Ó¿¡ ¶ä
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(cards);
         AdminFrame = new showFrame();
@@ -72,35 +72,35 @@ public class AdminGUI extends JFrame {
         JButton btnUpdate2;
         JButton btnCancel2;
 
-        boolean isLogin; // ë¡œê·¸ì¸ ì—¬ë¶€ í‘œì‹œí•  ë³€ìˆ˜
+        boolean isLogin; // ·Î±×ÀÎ ¿©ºÎ Ç¥½ÃÇÒ º¯¼ö
         private String name2, password2, id2;
 
         public showFrame() {
             setLayout(new BorderLayout());
-            // ================= ìƒë‹¨ DB ì ‘ì† íŒ¨ë„ ==================
+            // ================= »ó´Ü DB Á¢¼Ó ÆĞ³Î ==================
             JPanel pNorth = new JPanel();
             add(pNorth, BorderLayout.PAGE_START);
-            // GridLayout ìœ¼ë¡œ ë³€ê²½(4ê°œì˜ ì¹¸ ìƒì„±)
+            // GridLayout À¸·Î º¯°æ(4°³ÀÇ Ä­ »ı¼º)
             pNorth.setLayout(new GridLayout(1, 4));
 
-            // DB IPì£¼ì†Œ ì…ë ¥ íŒ¨ë„
+            // DB IPÁÖ¼Ò ÀÔ·Â ÆĞ³Î
             JPanel pDbIp = new JPanel();
             pNorth.add(pDbIp);
 
 //            pDbIp.add(new JLabel("IP"));
-            tfDbIp = new JTextField(10);
-            tfDbIp.setText("192.168.56.1"); // ì„ì‹œë¡œ IP ì£¼ì†Œë¥¼ ë¯¸ë¦¬ ì…ë ¥
+//            tfDbIp = new JTextField(10);
+//            tfDbIp.setText("192.168.56.1"); // ÀÓ½Ã·Î IP ÁÖ¼Ò¸¦ ¹Ì¸® ÀÔ·Â
 //            pDbIp.add(tfDbIp);
 
-            // DB Username ì…ë ¥ íŒ¨ë„
+            // DB Username ÀÔ·Â ÆĞ³Î
             JPanel pDbUsername = new JPanel();
             pNorth.add(pDbUsername);
 
-            pDbUsername.add(new JLabel("ID(í•™ë²ˆ)"));
+            pDbUsername.add(new JLabel("ID(ÇĞ¹ø)"));
             tfDbUsername = new JTextField(10);
             pDbUsername.add(tfDbUsername);
 
-            // DB Password ì…ë ¥ íŒ¨ë„
+            // DB Password ÀÔ·Â ÆĞ³Î
             JPanel pDbPassword = new JPanel();
             pNorth.add(pDbPassword);
 
@@ -108,24 +108,24 @@ public class AdminGUI extends JFrame {
             pfDbPassword = new JPasswordField(10);
             pDbPassword.add(pfDbPassword);
 
-            // DB Login ë²„íŠ¼ íŒ¨ë„
+            // DB Login ¹öÆ° ÆĞ³Î
             JPanel pDbLogin = new JPanel();
             pNorth.add(pDbLogin);
 
-            btnLogin = new JButton("ë¡œê·¸ì¸");
+            btnLogin = new JButton("·Î±×ÀÎ");
             pDbLogin.add(btnLogin);
 
-            // ================= í•˜ë‹¨ ë²„íŠ¼ íŒ¨ë„ ==================
+            // ================= ÇÏ´Ü ¹öÆ° ÆĞ³Î ==================
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
-            btnInsert = new JButton("ê´€ë¦¬ì ì¶”ê°€");
-            btnUpdate = new JButton("ê´€ë¦¬ì ìˆ˜ì •");
-            btnDelete = new JButton("ê´€ë¦¬ì ì‚­ì œ");
-            btnSelect = new JButton("ê´€ë¦¬ì ëª©ë¡");
-            btnTotal = new JButton("ë§¤ì¶œ ê´€ë¦¬");
-            btnUser = new JButton("íšŒì› ê´€ë¦¬");
-            btnSong = new JButton("ë…¸ë˜ ê´€ë¦¬");
+            btnInsert = new JButton("°ü¸®ÀÚ Ãß°¡");
+            btnUpdate = new JButton("°ü¸®ÀÚ ¼öÁ¤");
+            btnDelete = new JButton("°ü¸®ÀÚ »èÁ¦");
+            btnSelect = new JButton("°ü¸®ÀÚ ¸ñ·Ï");
+            btnTotal = new JButton("¸ÅÃâ °ü¸®");
+            btnUser = new JButton("È¸¿ø °ü¸®");
+            btnSong = new JButton("³ë·¡ °ü¸®");
 
             pSouth.add(btnInsert);
             pSouth.add(btnUpdate);
@@ -143,13 +143,13 @@ public class AdminGUI extends JFrame {
             btnUser.setVisible(false);
             btnSong.setVisible(false);
 
-            // ë¡œê·¸ì¸ ë²„íŠ¼ ì´ë²¤íŠ¸ ì²˜ë¦¬
+            // ·Î±×ÀÎ ¹öÆ° ÀÌº¥Æ® Ã³¸®
             btnLogin.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     dbLogin();
 
-                    // ë²„íŠ¼ 4ê°œ êµ¬ë³„í•˜ëŠ” ë¦¬ìŠ¤ë„ˆ
+                    // ¹öÆ° 4°³ ±¸º°ÇÏ´Â ¸®½º³Ê
                     ActionListener btnListener = new ActionListener() {
 
                         @Override
@@ -166,7 +166,7 @@ public class AdminGUI extends JFrame {
                         }
                     };
 
-                    // ë‹¤ì„¯ ê°œ ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ë™ì‹œ ì—°ê²°
+                    // ´Ù¼¸ °³ ¹öÆ° ¸®½º³Ê µ¿½Ã ¿¬°á
                     btnInsert.addActionListener(btnListener);
                     btnSelect.addActionListener(btnListener);
                     btnDelete.addActionListener(btnListener);
@@ -191,136 +191,136 @@ public class AdminGUI extends JFrame {
                     ChangePanel("Song");
                 }
             });
-            // ================= ì¢Œì¸¡ íšŒì› ì •ë³´ ì…ë ¥ íŒ¨ë„ ==================
+            // ================= ÁÂÃø È¸¿ø Á¤º¸ ÀÔ·Â ÆĞ³Î ==================
             pWest = new JPanel();
             add(pWest, BorderLayout.LINE_START);
-            // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+            // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
             pWest.setLayout(new GridLayout(5, 1));
 
-            // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+            // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
             JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pIdx);
 
-            pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+            pIdx.add(new JLabel("¹ø   È£"));
             tfIdx = new JTextField(10);
-            tfIdx.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+            tfIdx.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
             pIdx.add(tfIdx);
 
             JPanel pName = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pName);
-            pName.add(new JLabel("ì´   ë¦„"));
+            pName.add(new JLabel("ÀÌ   ¸§"));
             tfName = new JTextField(10);
             pName.add(tfName);
 
             JPanel pId = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pId);
-            pId.add(new JLabel("ì•„ ì´ ë””"));
+            pId.add(new JLabel("¾Æ ÀÌ µğ"));
             tfId = new JTextField(10);
             pId.add(tfId);
 
             JPanel pPassword = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pPassword);
-            pPassword.add(new JLabel("íŒ¨ìŠ¤ì›Œë“œ"));
+            pPassword.add(new JLabel("ÆĞ½º¿öµå"));
             tfPassword = new JTextField(10);
             pPassword.add(tfPassword);
 
-            // ================= ì¤‘ì•™ íšŒì› ì •ë³´ ì¶œë ¥ íŒ¨ë„ ==================
-            // ìŠ¤í¬ë¡¤ë°” ê¸°ëŠ¥ì„ ìœ„í•´ JScrollPane ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ Center ì˜ì—­ì— ë¶€ì°©
+            // ================= Áß¾Ó È¸¿ø Á¤º¸ Ãâ·Â ÆĞ³Î ==================
+            // ½ºÅ©·Ñ¹Ù ±â´ÉÀ» À§ÇØ JScrollPane °´Ã¼¸¦ »ı¼ºÇÏ¿© Center ¿µ¿ª¿¡ ºÎÂø
             JScrollPane scrollPane = new JScrollPane();
             add(scrollPane, BorderLayout.CENTER);
 
-            // JTable ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ JScrollPane ì˜ ViewPort ì˜ì—­ì— ë¶€ì°©
+            // JTable °´Ã¼¸¦ »ı¼ºÇÏ¿© JScrollPane ÀÇ ViewPort ¿µ¿ª¿¡ ºÎÂø
             table = new JTable();
-            table.getTableHeader().setReorderingAllowed(false); // ì…€ ì´ë™ ë¶ˆê°€ ì„¤ì •
+            table.getTableHeader().setReorderingAllowed(false); // ¼¿ ÀÌµ¿ ºÒ°¡ ¼³Á¤
             scrollPane.setViewportView(table);
 
-            // í…Œì´ë¸” ì»¬ëŸ¼ëª… í‘œì‹œë¥¼ ìœ„í•´ Vector ê°ì²´ì— ì»¬ëŸ¼ëª…ì„ ì €ì¥í•œ í›„ DefaultTableModel ê°ì²´ì— ì¶”ê°€
+            // Å×ÀÌºí ÄÃ·³¸í Ç¥½Ã¸¦ À§ÇØ Vector °´Ã¼¿¡ ÄÃ·³¸íÀ» ÀúÀåÇÑ ÈÄ DefaultTableModel °´Ã¼¿¡ Ãß°¡
             Vector<String> columnNames = new Vector<String>();
-            columnNames.add("ë²ˆí˜¸");
-            columnNames.add("í‚¤ì›Œë“œ");
-            columnNames.add("ë‚´ìš©");
-            columnNames.add("ë¦¬ë·° ìˆ˜");
+            columnNames.add("¹øÈ£");
+            columnNames.add("Å°¿öµå");
+            columnNames.add("³»¿ë");
+            columnNames.add("¸®ºä ¼ö");
 
 //		DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    return false; // ì…€ í¸ì§‘ ë¶ˆê°€ëŠ¥í•˜ë„ë¡ ì„¤ì •
+                    return false; // ¼¿ ÆíÁı ºÒ°¡´ÉÇÏµµ·Ï ¼³Á¤
                 }
 
             };
 
-            // JTable ì— DefaultTableModel ê°ì²´ ì¶”ê°€
+            // JTable ¿¡ DefaultTableModel °´Ã¼ Ãß°¡
             table.setModel(dtm);
 
-            // í…Œì´ë¸” ë‚´ì˜ ë ˆì½”ë“œ ë˜ëŠ” ì»¬ëŸ¼ í´ë¦­ ì‹œ ì´ë²¤íŠ¸ ì²˜ë¦¬
+            // Å×ÀÌºí ³»ÀÇ ·¹ÄÚµå ¶Ç´Â ÄÃ·³ Å¬¸¯ ½Ã ÀÌº¥Æ® Ã³¸®
             table.addMouseListener(new MouseAdapter() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    // í…Œì´ë¸”ì„ ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•  ê²½ìš° í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
-                    // ì„ íƒëœ ì»¬ëŸ¼ì˜ í–‰, ì—´ ë²ˆí˜¸ ì¶œë ¥
+                    // Å×ÀÌºíÀ» ¸¶¿ì½º·Î Å¬¸¯ÇÒ °æ¿ì È£ÃâµÇ´Â ¸Ş¼­µå
+                    // ¼±ÅÃµÈ ÄÃ·³ÀÇ Çà, ¿­ ¹øÈ£ Ãâ·Â
 //				System.out.println(table.getSelectedRow() + ", " + table.getSelectedColumn());
 
-                    // ì„ íƒëœ ì»¬ëŸ¼ì˜ ë°ì´í„° ì¶œë ¥
+                    // ¼±ÅÃµÈ ÄÃ·³ÀÇ µ¥ÀÌÅÍ Ãâ·Â
 //				System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
 
-                    showAdminInfo(); // ì„ íƒëœ í–‰ì˜ ëª¨ë“  ì»¬ëŸ¼ ë°ì´í„°ë¥¼ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+                    showAdminInfo(); // ¼±ÅÃµÈ ÇàÀÇ ¸ğµç ÄÃ·³ µ¥ÀÌÅÍ¸¦ WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
                 }
             });
         }
 
-        // ë¡œê·¸ì¸ ê¸°ëŠ¥ ìˆ˜í–‰í•˜ëŠ” dbLogin() ë©”ì„œë“œ ì •ì˜
+        // ·Î±×ÀÎ ±â´É ¼öÇàÇÏ´Â dbLogin() ¸Ş¼­µå Á¤ÀÇ
         void dbLogin() {
-            // DB ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œë¥¼ ê°€ì ¸ì™€ì„œ DAO í´ë˜ìŠ¤ì˜ login() ë©”ì„œë“œ í˜¸ì¶œ
-            // => ë¡œê·¸ì¸ ìˆ˜í–‰ ê²°ê³¼ë¥¼ ë¦¬í„´ë°›ì•„ "ì•„ì´ë”” ì—†ìŒ", "íŒ¨ìŠ¤ì›Œë“œ í‹€ë¦¼", "ë¡œê·¸ì¸ ì„±ê³µ" ì„¸ ê°€ì§€ë¡œ ë¶„ë¥˜
-            // 0. ë¡œê·¸ì¸ ë²„íŠ¼ vs ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ íŒë³„
-            // 1. ë¡œê·¸ì¸ ë²„íŠ¼ì¼ ê²½ìš°
-            // 1-1. ì•„ì´ë”” ë˜ëŠ” íŒ¨ìŠ¤ì›Œë“œê°€ ì˜ëª»ëì„ ê²½ìš° ê²½ê³ ë©”ì„¸ì§€ ì¶œë ¥ í›„ í•´ë‹¹ í•„ë“œì— ì»¤ì„œ ìš”ì²­
-            // 1-2. ë¡œê·¸ì¸ ì„±ê³µí•  ê²½ìš° "ë¡œê·¸ì¸" ë²„íŠ¼ì˜ í…ìŠ¤íŠ¸ë¥¼ "ë¡œê·¸ì•„ì›ƒ"ìœ¼ë¡œ ë³€ê²½ í›„
-            // IP, Username, Password í…ìŠ¤íŠ¸í•„ë“œ ì…ë ¥ ë¶ˆê°€ ì„¤ì •
-            // 2. ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ì¼ ê²½ìš°
-            // "ë¡œê·¸ì•„ì›ƒ" ë²„íŠ¼ í…ìŠ¤íŠ¸ë¥¼ "ë¡œê·¸ì¸"ìœ¼ë¡œ ë³€ê²½ í›„
-            // Username, Password í…ìŠ¤íŠ¸í•„ë“œ ì…ë ¥ ê°€ëŠ¥ ì„¤ì •
+            // DB ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå¸¦ °¡Á®¿Í¼­ DAO Å¬·¡½ºÀÇ login() ¸Ş¼­µå È£Ãâ
+            // => ·Î±×ÀÎ ¼öÇà °á°ú¸¦ ¸®ÅÏ¹Ş¾Æ "¾ÆÀÌµğ ¾øÀ½", "ÆĞ½º¿öµå Æ²¸²", "·Î±×ÀÎ ¼º°ø" ¼¼ °¡Áö·Î ºĞ·ù
+            // 0. ·Î±×ÀÎ ¹öÆ° vs ·Î±×¾Æ¿ô ¹öÆ° ÆÇº°
+            // 1. ·Î±×ÀÎ ¹öÆ°ÀÏ °æ¿ì
+            // 1-1. ¾ÆÀÌµğ ¶Ç´Â ÆĞ½º¿öµå°¡ Àß¸øµÆÀ» °æ¿ì °æ°í¸Ş¼¼Áö Ãâ·Â ÈÄ ÇØ´ç ÇÊµå¿¡ Ä¿¼­ ¿äÃ»
+            // 1-2. ·Î±×ÀÎ ¼º°øÇÒ °æ¿ì "·Î±×ÀÎ" ¹öÆ°ÀÇ ÅØ½ºÆ®¸¦ "·Î±×¾Æ¿ô"À¸·Î º¯°æ ÈÄ
+            // IP, Username, Password ÅØ½ºÆ®ÇÊµå ÀÔ·Â ºÒ°¡ ¼³Á¤
+            // 2. ·Î±×¾Æ¿ô ¹öÆ°ÀÏ °æ¿ì
+            // "·Î±×¾Æ¿ô" ¹öÆ° ÅØ½ºÆ®¸¦ "·Î±×ÀÎ"À¸·Î º¯°æ ÈÄ
+            // Username, Password ÅØ½ºÆ®ÇÊµå ÀÔ·Â °¡´É ¼³Á¤
 
-            if (!isLogin) { // ë¡œê·¸ì¸ ìƒíƒœê°€ ì•„ë‹ ê²½ìš°
-                // ------------- ì…ë ¥ ì²´í¬ --------------
+            if (!isLogin) { // ·Î±×ÀÎ »óÅÂ°¡ ¾Æ´Ò °æ¿ì
+                // ------------- ÀÔ·Â Ã¼Å© --------------
 
                 String username = tfDbUsername.getText();
                 String password = new String(pfDbPassword.getPassword());
 
 
                     if (username.length() == 0) {
-                    JOptionPane.showMessageDialog(rootPane, "DB ì ‘ì† ê³„ì •ëª… ì…ë ¥", "DB ì •ë³´ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "DB Á¢¼Ó °èÁ¤¸í ÀÔ·Â", "DB Á¤º¸ ¿À·ù", JOptionPane.ERROR_MESSAGE);
                     tfDbUsername.requestFocus();
                     return;
                 } else if (password.length() == 0) {
-                    JOptionPane.showMessageDialog(rootPane, "DB ì ‘ì† ì•”í˜¸ ì…ë ¥", "DB ì •ë³´ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "DB Á¢¼Ó ¾ÏÈ£ ÀÔ·Â", "DB Á¤º¸ ¿À·ù", JOptionPane.ERROR_MESSAGE);
                     pfDbPassword.requestFocus();
                     return;
                 }
 
-//                AdminDTO dto = new AdminDTO(username, password);
-//                AdminDAO dao = AdminDAO.getInstance();
-//                int result = dao.login(dto);
-                int result = 1;
-
-                if (result == 0) { // ì•„ì´ë””ê°€ ì—†ì„ ê²½ìš°
-                    JOptionPane.showMessageDialog(rootPane, "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê³„ì •ì…ë‹ˆë‹¤.", "ë¡œê·¸ì¸ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                AdminDTO dto = new AdminDTO(username, password);
+                AdminDAO dao = AdminDAO.getInstance();
+                int result = dao.login(dto);
+//                int result = 1;
+                System.out.println(result);
+                if (result == 0) { // ¾ÆÀÌµğ°¡ ¾øÀ» °æ¿ì
+                    JOptionPane.showMessageDialog(rootPane, "Á¸ÀçÇÏÁö ¾Ê´Â °èÁ¤ÀÔ´Ï´Ù.", "·Î±×ÀÎ ¿À·ù", JOptionPane.ERROR_MESSAGE);
                     tfDbUsername.requestFocus();
                     return;
-                } else if (result == -1) { // íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë ¸ì„ ê²½ìš°
-                    JOptionPane.showMessageDialog(rootPane, "íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.", "ë¡œê·¸ì¸ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                } else if (result == -1) { // ÆĞ½º¿öµå°¡ Æ²·ÈÀ» °æ¿ì
+                    JOptionPane.showMessageDialog(rootPane, "ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.", "·Î±×ÀÎ ¿À·ù", JOptionPane.ERROR_MESSAGE);
                     pfDbPassword.requestFocus();
                     return;
                 }
 
-                // ë¡œê·¸ì¸ ì„±ê³µí–ˆì„ ê²½ìš°
+                // ·Î±×ÀÎ ¼º°øÇßÀ» °æ¿ì
                 tfDbIp.setEditable(false);
                 tfDbUsername.setEditable(false);
                 pfDbPassword.setEditable(false);
-                btnLogin.setText("ë¡œê·¸ì•„ì›ƒ");
+                btnLogin.setText("·Î±×¾Æ¿ô");
                 if (username.equals("admin")) {
                     tfName.setVisible(true);
                     tfId.setVisible(true);
@@ -339,14 +339,14 @@ public class AdminGUI extends JFrame {
                     btnUser.setVisible(true);
                     btnSong.setVisible(true);
                 }
-                isLogin = true; // ë¡œê·¸ì¸ ìƒíƒœë¡œ ë³€ê²½
-            } else { // ë¡œê·¸ì¸ ìƒíƒœì¼ ê²½ìš°(ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ì„ í´ë¦­í–ˆì„ ê²½ìš°)
+                isLogin = true; // ·Î±×ÀÎ »óÅÂ·Î º¯°æ
+            } else { // ·Î±×ÀÎ »óÅÂÀÏ °æ¿ì(·Î±×¾Æ¿ô ¹öÆ°À» Å¬¸¯ÇßÀ» °æ¿ì)
                 tfDbIp.setEditable(true);
                 tfDbUsername.setEditable(true);
                 pfDbPassword.setEditable(true);
                 tfDbUsername.setText("");
                 pfDbPassword.setText("");
-                btnLogin.setText("ë¡œê·¸ì¸");
+                btnLogin.setText("·Î±×ÀÎ");
                 btnInsert.setVisible(false);
                 btnSelect.setVisible(false);
                 btnUpdate.setVisible(false);
@@ -355,14 +355,14 @@ public class AdminGUI extends JFrame {
                 table.setVisible(false);
                 btnUser.setVisible(false);
                 btnSong.setVisible(false);
-                isLogin = false; // ë¡œê·¸ì•„ì›ƒ ìƒíƒœë¡œ ë³€ê²½
+                isLogin = false; // ·Î±×¾Æ¿ô »óÅÂ·Î º¯°æ
             }
         }
 
-        // ê´€ë¦¬ìì¶”ê°€
+        // °ü¸®ÀÚÃß°¡
         public void insert() {
             if (!isLogin) {
-                JOptionPane.showMessageDialog(rootPane, "ë¡œê·¸ì¸ í•„ìš”", "ë¡œê·¸ì¸ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "·Î±×ÀÎ ÇÊ¿ä", "·Î±×ÀÎ ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 tfDbUsername.requestFocus();
                 return;
             }
@@ -371,66 +371,66 @@ public class AdminGUI extends JFrame {
             String id = tfId.getText();
             String password = tfPassword.getText();
 
-            // ì…ë ¥ í•­ëª© ì²´í¬
+            // ÀÔ·Â Ç×¸ñ Ã¼Å©
             if (name.length() == 0) {
-                JOptionPane.showMessageDialog(rootPane, "ì´ë¦„ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "ÀÌ¸§ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 tfName.requestFocus();
                 return;
             } else if (id.length() == 0) {
-                JOptionPane.showMessageDialog(rootPane, "ì•„ì´ë”” ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "¾ÆÀÌµğ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 tfId.requestFocus();
                 return;
             } else if (password.length() == 0) {
-                JOptionPane.showMessageDialog(rootPane, "íŒ¨ìŠ¤ì›Œë“œ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "ÆĞ½º¿öµå ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 tfPassword.requestFocus();
                 return;
             }
 
             AdminDTO dto = new AdminDTO(0, name, id, password);
             AdminDAO dao = AdminDAO.getInstance();
-            int result = dao.insert(dto); // íšŒì›ì¶”ê°€ í›„ ê²°ê³¼ê°’ ë¦¬í„´
+            int result = dao.insert(dto); // È¸¿øÃß°¡ ÈÄ °á°ú°ª ¸®ÅÏ
 
-            // ê´€ë¦¬ì ì¶”ê°€ ì—¬ë¶€ íŒë³„
-            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "ê´€ë¦¬ìë¥¼ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+            // °ü¸®ÀÚ Ãß°¡ ¿©ºÎ ÆÇº°
+            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "°ü¸®ÀÚ¸¦ Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "ê´€ë¦¬ìë¥¼ ì¶”ê°€í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+            } else { // ¼º°øÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "°ü¸®ÀÚ¸¦ Ãß°¡ÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
-        // ê´€ë¦¬ì ìˆ˜ì •
+        // °ü¸®ÀÚ ¼öÁ¤
         public void update() {
-            if (table.getSelectedRow() == -1) { // í…Œì´ë¸” ì…€ ì„ íƒ ì•ˆëì„ ê²½ìš° -1 ë¦¬í„´ë¨
+            if (table.getSelectedRow() == -1) { // Å×ÀÌºí ¼¿ ¼±ÅÃ ¾ÈµÆÀ» °æ¿ì -1 ¸®ÅÏµÊ
                 return;
             }
 
-            // í…Œì´ë¸” ì…€ ì„ íƒí–ˆì„ ê²½ìš° ì°½ ìƒˆ í”„ë ˆì„ ìƒì„±í•˜ì—¬ ì„ íƒëœ íšŒì› ì •ë³´ í‘œì‹œ
-            JFrame editFrame = new JFrame("Update"); // ìƒˆ í”„ë ˆì„ ìƒì„±
-            // ìœ„ì¹˜ ì„¤ì • ì‹œ ê¸°ì¡´ ë¶€ëª¨ í”„ë ˆì„ì˜ ìœ„ì¹˜ ì¢Œí‘œ ê°’ì„ ë°›ì•„ì„œ ì‚¬ìš©(doubleíƒ€ì…ì´ë¯€ë¡œ intí˜• í˜•ë³€í™˜)
+            // Å×ÀÌºí ¼¿ ¼±ÅÃÇßÀ» °æ¿ì Ã¢ »õ ÇÁ·¹ÀÓ »ı¼ºÇÏ¿© ¼±ÅÃµÈ È¸¿ø Á¤º¸ Ç¥½Ã
+            JFrame editFrame = new JFrame("Update"); // »õ ÇÁ·¹ÀÓ »ı¼º
+            // À§Ä¡ ¼³Á¤ ½Ã ±âÁ¸ ºÎ¸ğ ÇÁ·¹ÀÓÀÇ À§Ä¡ ÁÂÇ¥ °ªÀ» ¹Ş¾Æ¼­ »ç¿ë(doubleÅ¸ÀÔÀÌ¹Ç·Î intÇü Çüº¯È¯)
             editFrame.setBounds(800, 200, 250, 300);
-            editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // í˜„ì¬ í”„ë ˆì„ë§Œ ì¢…ë£Œ
+            editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ÇöÀç ÇÁ·¹ÀÓ¸¸ Á¾·á
 
             JPanel pWest2 = new JPanel();
             editFrame.add(pWest2, BorderLayout.CENTER);
-            // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+            // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
             pWest2.setLayout(new GridLayout(5, 1));
 
-            // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+            // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
             JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pIdx);
 
-            pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+            pIdx.add(new JLabel("¹ø   È£"));
             JTextField tfIdx2 = new JTextField(10);
             tfIdx2.setText(tfIdx.getText());
             tfIdx2.setHorizontalAlignment(tfIdx2.CENTER);
-            tfIdx2.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+            tfIdx2.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
             pIdx.add(tfIdx2);
 
             JPanel pName2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pName2);
 
-            pName2.add(new JLabel("ì´   ë¦„"));
+            pName2.add(new JLabel("ÀÌ   ¸§"));
             tfName2 = new JTextField(10);
             tfName2.setHorizontalAlignment(tfIdx2.CENTER);
             pName2.add(tfName2);
@@ -438,7 +438,7 @@ public class AdminGUI extends JFrame {
             JPanel pId2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pId2);
 
-            pId2.add(new JLabel("ì•„ ì´ ë””"));
+            pId2.add(new JLabel("¾Æ ÀÌ µğ"));
             tfId2 = new JTextField(10);
             tfId2.setHorizontalAlignment(tfIdx2.CENTER);
             pId2.add(tfId2);
@@ -446,7 +446,7 @@ public class AdminGUI extends JFrame {
             JPanel pPassword2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pPassword2);
 
-            pPassword2.add(new JLabel("íŒ¨ìŠ¤ì›Œë“œ"));
+            pPassword2.add(new JLabel("ÆĞ½º¿öµå"));
             tfPassword2 = new JTextField(10);
             tfPassword2.setHorizontalAlignment(tfIdx2.CENTER);
             pPassword2.add(tfPassword2);
@@ -454,8 +454,8 @@ public class AdminGUI extends JFrame {
             JPanel pSouth2 = new JPanel();
             editFrame.add(pSouth2, BorderLayout.SOUTH);
 
-            btnUpdate2 = new JButton("ìˆ˜ì •");
-            btnCancel2 = new JButton("ì·¨ì†Œ");
+            btnUpdate2 = new JButton("¼öÁ¤");
+            btnCancel2 = new JButton("Ãë¼Ò");
 
             pSouth2.add(btnUpdate2);
             pSouth2.add(btnCancel2);
@@ -463,37 +463,37 @@ public class AdminGUI extends JFrame {
             id2 = tfId2.getText();
             password2 = tfPassword2.getText();
 
-            // ë²„íŠ¼ ë‘ ê°œ êµ¬ë³„í•˜ëŠ” ë¦¬ìŠ¤ë„ˆ
+            // ¹öÆ° µÎ °³ ±¸º°ÇÏ´Â ¸®½º³Ê
             ActionListener btnListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == btnUpdate2) {
-                        // ì…ë ¥ í•­ëª© ì²´í¬
+                        // ÀÔ·Â Ç×¸ñ Ã¼Å©
                         if (tfName2.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(rootPane, "ì´ë¦„ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "ÀÌ¸§ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                             tfName2.requestFocus();
                             return;
                         } else if (tfId2.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(rootPane, "ì•„ì´ë”” ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "¾ÆÀÌµğ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                             tfId2.requestFocus();
                             return;
                         } else if (tfPassword2.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(rootPane, "íŒ¨ìŠ¤ì›Œë“œ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "ÆĞ½º¿öµå ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                             tfPassword2.requestFocus();
                             return;
                         }
                         AdminDTO dto = new AdminDTO(Integer.parseInt(tfIdx2.getText()), tfName2.getText(),
                                 tfId2.getText(), tfPassword2.getText());
                         AdminDAO dao = AdminDAO.getInstance();
-                        int result = dao.update(dto); // ê´€ë¦¬ì ìˆ˜ì • í›„ ê²°ê³¼ê°’ ë¦¬í„´
+                        int result = dao.update(dto); // °ü¸®ÀÚ ¼öÁ¤ ÈÄ °á°ú°ª ¸®ÅÏ
 
-                        // ê´€ë¦¬ì ìˆ˜ì • ì—¬ë¶€ íŒë³„
-                        if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-                            JOptionPane.showMessageDialog(rootPane, "ê´€ë¦¬ìë¥¼ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨",
+                        // °ü¸®ÀÚ ¼öÁ¤ ¿©ºÎ ÆÇº°
+                        if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+                            JOptionPane.showMessageDialog(rootPane, "°ü¸®ÀÚ¸¦ ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ",
                                     JOptionPane.ERROR_MESSAGE);
                             return;
-                        } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-                            JOptionPane.showMessageDialog(rootPane, "ê´€ë¦¬ìë¥¼ ìˆ˜ì •í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ",
+                        } else { // ¼º°øÇßÀ» °æ¿ì
+                            JOptionPane.showMessageDialog(rootPane, "°ü¸®ÀÚ¸¦ ¼öÁ¤ÇÏ¿´½À´Ï´Ù.", "¼º°ø",
                                     JOptionPane.INFORMATION_MESSAGE);
                             editFrame.setVisible(false);
                         }
@@ -502,100 +502,100 @@ public class AdminGUI extends JFrame {
                     }
                 }
             };
-            // ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ë™ì‹œ ì—°ê²°
+            // ¹öÆ° ¸®½º³Ê µ¿½Ã ¿¬°á
             btnUpdate2.addActionListener(btnListener);
             btnCancel2.addActionListener(btnListener);
 
             editFrame.setVisible(true);
         }
 
-        // ê´€ë¦¬ì ëª©ë¡
+        // °ü¸®ÀÚ ¸ñ·Ï
         public void select() {
 //			if(!isLogin) {
 //				JOptionPane.showMessageDialog(
-//						rootPane, "ë¡œê·¸ì¸ í•„ìš”", "ë¡œê·¸ì¸ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+//						rootPane, "·Î±×ÀÎ ÇÊ¿ä", "·Î±×ÀÎ ¿À·ù", JOptionPane.ERROR_MESSAGE);
 //				tfDbUsername.requestFocus();
 //				return;
 //			}
 
             AdminDAO dao = AdminDAO.getInstance();
-            // ê´€ë¦¬ì ëª©ë¡ ì¡°íšŒ í›„ ì „ì²´ ë ˆì½”ë“œë¥¼ Vector íƒ€ì…ìœ¼ë¡œ ì €ì¥í•˜ì—¬ ë¦¬í„´
+            // °ü¸®ÀÚ ¸ñ·Ï Á¶È¸ ÈÄ ÀüÃ¼ ·¹ÄÚµå¸¦ Vector Å¸ÀÔÀ¸·Î ÀúÀåÇÏ¿© ¸®ÅÏ
             Vector<Vector> data = dao.select();
 
-            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ë‹¤ìš´ìºìŠ¤íŒ…
-//			 TableModel tm = table.getModel() í˜•íƒœë¡œë„ ì‚¬ìš© ê°€ëŠ¥(ë‹¤ìš´ìºìŠ¤íŒ… í•˜ì§€ ì•Šì„ ê²½ìš°)
-            // => ë‹¨, addRow() ë“±ì˜ ë©”ì„œë“œê°€ ì—†ìŒ
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ´Ù¿îÄ³½ºÆÃ
+//			 TableModel tm = table.getModel() ÇüÅÂ·Îµµ »ç¿ë °¡´É(´Ù¿îÄ³½ºÆÃ ÇÏÁö ¾ÊÀ» °æ¿ì)
+            // => ´Ü, addRow() µîÀÇ ¸Ş¼­µå°¡ ¾øÀ½
 
-            dtm.setRowCount(0); // ì²«ë²ˆì§¸ í–‰ë¶€í„° ë ˆì½”ë“œë¥¼ ì¶”ê°€í•´ì•¼í•˜ë¯€ë¡œ ì»¤ì„œë¥¼ 0ë²ˆ í–‰ìœ¼ë¡œ ì˜®ê¹€
+            dtm.setRowCount(0); // Ã¹¹øÂ° ÇàºÎÅÍ ·¹ÄÚµå¸¦ Ãß°¡ÇØ¾ßÇÏ¹Ç·Î Ä¿¼­¸¦ 0¹ø ÇàÀ¸·Î ¿Å±è
 
-            // Vector ê°ì²´ì— ì €ì¥ëœ ë ˆì½”ë“œ ìˆ˜ ë§Œí¼ ë°˜ë³µí•˜ë©´ì„œ ë ˆì½”ë“œ ë°ì´í„°ë¥¼ ëª¨ë¸ ê°ì²´ì— ì¶”ê°€(addRow())
+            // Vector °´Ã¼¿¡ ÀúÀåµÈ ·¹ÄÚµå ¼ö ¸¸Å­ ¹İº¹ÇÏ¸é¼­ ·¹ÄÚµå µ¥ÀÌÅÍ¸¦ ¸ğµ¨ °´Ã¼¿¡ Ãß°¡(addRow())
             for (Vector rowData : data) {
                 dtm.addRow(rowData);
             }
 
-            invalidate(); // í”„ë ˆì„ ê°±ì‹ (ìƒˆë¡œ ê·¸ë¦¬ê¸°)
+            invalidate(); // ÇÁ·¹ÀÓ °»½Å(»õ·Î ±×¸®±â)
 
         }
 
-        // ê´€ë¦¬ìì‚­ì œ
+        // °ü¸®ÀÚ»èÁ¦
         public void delete() {
             if (!isLogin) {
-                JOptionPane.showMessageDialog(rootPane, "ë¡œê·¸ì¸ í•„ìš”", "ë¡œê·¸ì¸ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "·Î±×ÀÎ ÇÊ¿ä", "·Î±×ÀÎ ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 tfDbUsername.requestFocus();
                 return;
             }
 
-            // InputDialog ì‚¬ìš©í•˜ì—¬ ì‚­ì œí•  ê´€ë¦¬ì ë²ˆí˜¸ ì…ë ¥ë°›ê¸°
-            String idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  ê´€ë¦¬ì ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+            // InputDialog »ç¿ëÇÏ¿© »èÁ¦ÇÒ °ü¸®ÀÚ ¹øÈ£ ÀÔ·Â¹Ş±â
+            String idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ °ü¸®ÀÚ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 //			System.out.println(idx);
 
             while (idx == null || idx.length() == 0) {
-                // ì·¨ì†Œ(null) í´ë¦­ ë˜ëŠ” ì•„ë¬´ê²ƒë„ ì…ë ¥í•˜ì§€ ì•Šê³  í™•ì¸ í´ë¦­ ì‹œ
-                if (idx == null) { // ì·¨ì†Œ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ì•„ë¬´ ë™ì‘ X
-                    return; // í˜„ì¬ ë©”ì„œë“œ ì¢…ë£Œ
+                // Ãë¼Ò(null) Å¬¸¯ ¶Ç´Â ¾Æ¹«°Íµµ ÀÔ·ÂÇÏÁö ¾Ê°í È®ÀÎ Å¬¸¯ ½Ã
+                if (idx == null) { // Ãë¼Ò ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¾Æ¹« µ¿ÀÛ X
+                    return; // ÇöÀç ¸Ş¼­µå Á¾·á
                 }
 
-                // ì•„ë¬´ ë²ˆí˜¸ë„ ì…ë ¥í•˜ì§€ ì•Šê³ (ë„ìŠ¤íŠ¸ë§ê°’ ì „ë‹¬) í™•ì¸ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ë©”ì„¸ì§€ í‘œì‹œ
-                JOptionPane.showMessageDialog(rootPane, "ë²ˆí˜¸ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                // ¾Æ¹« ¹øÈ£µµ ÀÔ·ÂÇÏÁö ¾Ê°í(³Î½ºÆ®¸µ°ª Àü´Ş) È®ÀÎ ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¸Ş¼¼Áö Ç¥½Ã
+                JOptionPane.showMessageDialog(rootPane, "¹øÈ£ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
 
-                // ë‹¤ì‹œ ì…ë ¥ë°›ê¸°
-                idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  ê´€ë¦¬ì ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+                // ´Ù½Ã ÀÔ·Â¹Ş±â
+                idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ °ü¸®ÀÚ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
             }
 
-            // ì‚­ì œí•  ë²ˆí˜¸ë¥¼ ì…ë ¥í•  ê²½ìš°
-            // => ì •ê·œí‘œí˜„ì‹ì„ ì‚¬ìš©í•˜ì—¬ ë²ˆí˜¸ë§Œ ì…ë ¥ë°›ë„ë¡ ì²˜ë¦¬í•  ìˆ˜ ìˆë‹¤!
-            // => \\d : ìˆ«ì, {1,} : ê·œì¹™ì´ 1ë²ˆ ì´ìƒ ë°˜ë³µ => \\d{1,} : ìˆ«ì 1ìë¦¬ ì´ìƒ
+            // »èÁ¦ÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇÒ °æ¿ì
+            // => Á¤±ÔÇ¥Çö½ÄÀ» »ç¿ëÇÏ¿© ¹øÈ£¸¸ ÀÔ·Â¹Şµµ·Ï Ã³¸®ÇÒ ¼ö ÀÖ´Ù!
+            // => \\d : ¼ıÀÚ, {1,} : ±ÔÄ¢ÀÌ 1¹ø ÀÌ»ó ¹İº¹ => \\d{1,} : ¼ıÀÚ 1ÀÚ¸® ÀÌ»ó
             if (!Pattern.matches("\\d{1,}", idx)) {
-                JOptionPane.showMessageDialog(rootPane, "ìˆ«ì ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "¼ıÀÚ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             AdminDAO dao = AdminDAO.getInstance();
 
             int result = dao.delete(Integer.parseInt(idx));
-            // ê´€ë¦¬ì ì‚­ì œ ì—¬ë¶€ íŒë³„
-            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "ê´€ë¦¬ìë¥¼ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+            // °ü¸®ÀÚ »èÁ¦ ¿©ºÎ ÆÇº°
+            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "°ü¸®ÀÚ¸¦ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "ê´€ë¦¬ìë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+            } else { // ¼º°øÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "°ü¸®ÀÚ¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }
 
         public void showAdminInfo() {
-            // í´ë¦­í•œ í–‰ì— ëŒ€í•œ ëª¨ë“  ì •ë³´ ê°€ì ¸ì™€ì„œ ì¢Œì¸¡ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+            // Å¬¸¯ÇÑ Çà¿¡ ´ëÇÑ ¸ğµç Á¤º¸ °¡Á®¿Í¼­ ÁÂÃø WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
             int row = table.getSelectedRow();
 
-            tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-            tfName.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-            tfId.setText((String) table.getValueAt(row, 2)); // Object(String) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-            tfPassword.setText((String) table.getValueAt(row, 3)); // Object(String) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
+            tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+            tfName.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+            tfId.setText((String) table.getValueAt(row, 2)); // Object(String) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+            tfPassword.setText((String) table.getValueAt(row, 3)); // Object(String) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
         }
     }
 
     ///
-    /// ë§¤ì¶œê´€ë¦¬ í™”ë©´
+    /// ¸ÅÃâ°ü¸® È­¸é
     ///
 
     public class TotalGUI extends JPanel {
@@ -616,15 +616,15 @@ public class AdminGUI extends JFrame {
         public void showFrame() {
             setLayout(new BorderLayout());
 
-            // ================= í•˜ë‹¨ ë²„íŠ¼ íŒ¨ë„ ==================
+            // ================= ÇÏ´Ü ¹öÆ° ÆĞ³Î ==================
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
-            btnInsert = new JButton("ë§¤ì¶œ ì •ì‚°");
-            btnUpdate = new JButton("ë§¤ì¶œ ìˆ˜ì •");
-            btnDelete = new JButton("ë§¤ì¶œ ì‚­ì œ");
-            btnSelect = new JButton("ë§¤ì¶œ ëª©ë¡");
-            btnBack = new JButton("ë’¤ë¡œ ê°€ê¸°");
+            btnInsert = new JButton("¸ÅÃâ Á¤»ê");
+            btnUpdate = new JButton("¸ÅÃâ ¼öÁ¤");
+            btnDelete = new JButton("¸ÅÃâ »èÁ¦");
+            btnSelect = new JButton("¸ÅÃâ ¸ñ·Ï");
+            btnBack = new JButton("µÚ·Î °¡±â");
 
             pSouth.add(btnInsert);
             pSouth.add(btnUpdate);
@@ -658,81 +658,81 @@ public class AdminGUI extends JFrame {
                 }
             });
 
-            // ================= ì¢Œì¸¡ ë§¤ì¶œ ì •ë³´ ì…ë ¥ íŒ¨ë„ ==================
+            // ================= ÁÂÃø ¸ÅÃâ Á¤º¸ ÀÔ·Â ÆĞ³Î ==================
             pWest = new JPanel();
             add(pWest, BorderLayout.LINE_START);
-            // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+            // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
             pWest.setLayout(new GridLayout(5, 1));
 
-            // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+            // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
             JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pIdx);
 
-            pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+            pIdx.add(new JLabel("¹ø   È£"));
             tfIdx = new JTextField(10);
-            tfIdx.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+            tfIdx.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
             pIdx.add(tfIdx);
 
             JPanel pDate = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pDate);
-            pDate.add(new JLabel("ë‚    ì§œ"));
+            pDate.add(new JLabel("³¯   Â¥"));
             tfDate = new JTextField(10);
             pDate.add(tfDate);
 
             JPanel pSum = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pSum);
-            pSum.add(new JLabel("ë§¤   ì¶œ"));
+            pSum.add(new JLabel("¸Å   Ãâ"));
             tfSum = new JTextField(10);
             pSum.add(tfSum);
 
-            // ================= ì¤‘ì•™ ë§¤ì¶œ ì •ë³´ ì¶œë ¥ íŒ¨ë„ ==================
-            // ìŠ¤í¬ë¡¤ë°” ê¸°ëŠ¥ì„ ìœ„í•´ JScrollPane ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ Center ì˜ì—­ì— ë¶€ì°©
+            // ================= Áß¾Ó ¸ÅÃâ Á¤º¸ Ãâ·Â ÆĞ³Î ==================
+            // ½ºÅ©·Ñ¹Ù ±â´ÉÀ» À§ÇØ JScrollPane °´Ã¼¸¦ »ı¼ºÇÏ¿© Center ¿µ¿ª¿¡ ºÎÂø
             JScrollPane scrollPane = new JScrollPane();
             add(scrollPane, BorderLayout.CENTER);
 
-            // JTable ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ JScrollPane ì˜ ViewPort ì˜ì—­ì— ë¶€ì°©
+            // JTable °´Ã¼¸¦ »ı¼ºÇÏ¿© JScrollPane ÀÇ ViewPort ¿µ¿ª¿¡ ºÎÂø
             table = new JTable();
-            table.getTableHeader().setReorderingAllowed(false); // ì…€ ì´ë™ ë¶ˆê°€ ì„¤ì •
+            table.getTableHeader().setReorderingAllowed(false); // ¼¿ ÀÌµ¿ ºÒ°¡ ¼³Á¤
             scrollPane.setViewportView(table);
 
-            // í…Œì´ë¸” ì»¬ëŸ¼ëª… í‘œì‹œë¥¼ ìœ„í•´ Vector ê°ì²´ì— ì»¬ëŸ¼ëª…ì„ ì €ì¥í•œ í›„ DefaultTableModel ê°ì²´ì— ì¶”ê°€
+            // Å×ÀÌºí ÄÃ·³¸í Ç¥½Ã¸¦ À§ÇØ Vector °´Ã¼¿¡ ÄÃ·³¸íÀ» ÀúÀåÇÑ ÈÄ DefaultTableModel °´Ã¼¿¡ Ãß°¡
             Vector<String> columnNames = new Vector<String>();
-            columnNames.add("ë²ˆí˜¸");
-            columnNames.add("ë‚ ì§œ");
-            columnNames.add("ë§¤ì¶œ");
+            columnNames.add("¹øÈ£");
+            columnNames.add("³¯Â¥");
+            columnNames.add("¸ÅÃâ");
 
 //			DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    return false; // ì…€ í¸ì§‘ ë¶ˆê°€ëŠ¥í•˜ë„ë¡ ì„¤ì •
+                    return false; // ¼¿ ÆíÁı ºÒ°¡´ÉÇÏµµ·Ï ¼³Á¤
                 }
 
             };
 
-            // JTable ì— DefaultTableModel ê°ì²´ ì¶”ê°€
+            // JTable ¿¡ DefaultTableModel °´Ã¼ Ãß°¡
             table.setModel(dtm);
 
-            // í…Œì´ë¸” ë‚´ì˜ ë ˆì½”ë“œ ë˜ëŠ” ì»¬ëŸ¼ í´ë¦­ ì‹œ ì´ë²¤íŠ¸ ì²˜ë¦¬
+            // Å×ÀÌºí ³»ÀÇ ·¹ÄÚµå ¶Ç´Â ÄÃ·³ Å¬¸¯ ½Ã ÀÌº¥Æ® Ã³¸®
             table.addMouseListener(new MouseAdapter() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    // í…Œì´ë¸”ì„ ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•  ê²½ìš° í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
-                    // ì„ íƒëœ ì»¬ëŸ¼ì˜ í–‰, ì—´ ë²ˆí˜¸ ì¶œë ¥
+                    // Å×ÀÌºíÀ» ¸¶¿ì½º·Î Å¬¸¯ÇÒ °æ¿ì È£ÃâµÇ´Â ¸Ş¼­µå
+                    // ¼±ÅÃµÈ ÄÃ·³ÀÇ Çà, ¿­ ¹øÈ£ Ãâ·Â
 //					System.out.println(table.getSelectedRow() + ", " + table.getSelectedColumn());
 
-                    // ì„ íƒëœ ì»¬ëŸ¼ì˜ ë°ì´í„° ì¶œë ¥
+                    // ¼±ÅÃµÈ ÄÃ·³ÀÇ µ¥ÀÌÅÍ Ãâ·Â
 //					System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
 
-                    showTotalInfo(); // ì„ íƒëœ í–‰ì˜ ëª¨ë“  ì»¬ëŸ¼ ë°ì´í„°ë¥¼ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+                    showTotalInfo(); // ¼±ÅÃµÈ ÇàÀÇ ¸ğµç ÄÃ·³ µ¥ÀÌÅÍ¸¦ WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
                 }
             });
             setVisible(true);
         }
 
-        // ë§¤ì¶œ ì •ì‚°
+        // ¸ÅÃâ Á¤»ê
         public void insert() {
 
             String date = null;
@@ -740,103 +740,103 @@ public class AdminGUI extends JFrame {
             Date time = new Date();
             date = format1.format(time);
 
-            // ì…ë ¥ í•­ëª© ì²´í¬
+            // ÀÔ·Â Ç×¸ñ Ã¼Å©
             if (date == null) {
-                JOptionPane.showMessageDialog(rootPane, "ë‚ ì§œ ì…ë ¥ ì˜¤ë¥˜!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "³¯Â¥ ÀÔ·Â ¿À·ù!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 //            TotalDTO dto = new TotalDTO(date, Static.total);
 //
 //            TotalDAO dao = TotalDAO.getInstance();
-//            int result = dao.insert(dto); // ë§¤ì¶œì •ì‚° í›„ ê²°ê³¼ê°’ ë¦¬í„´
+//            int result = dao.insert(dto); // ¸ÅÃâÁ¤»ê ÈÄ °á°ú°ª ¸®ÅÏ
 //
-//            // ë§¤ì¶œ ì¶”ê°€ ì—¬ë¶€ íŒë³„
-//            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ë§¤ì¶œë¥¼ ì •ì‚°í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+//            // ¸ÅÃâ Ãß°¡ ¿©ºÎ ÆÇº°
+//            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "¸ÅÃâ¸¦ Á¤»êÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
 //                return;
-//            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ë§¤ì¶œë¥¼ ì •ì‚°í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+//            } else { // ¼º°øÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "¸ÅÃâ¸¦ Á¤»êÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
 //                dto = new TotalDTO(0, date, 0);
 //            }
         }
 
-        // ë§¤ì¶œ ìˆ˜ì •
+        // ¸ÅÃâ ¼öÁ¤
         public void update() {
-            if (table.getSelectedRow() == -1) { // í…Œì´ë¸” ì…€ ì„ íƒ ì•ˆëì„ ê²½ìš° -1 ë¦¬í„´ë¨
+            if (table.getSelectedRow() == -1) { // Å×ÀÌºí ¼¿ ¼±ÅÃ ¾ÈµÆÀ» °æ¿ì -1 ¸®ÅÏµÊ
                 return;
             }
 
-            // í…Œì´ë¸” ì…€ ì„ íƒí–ˆì„ ê²½ìš° ì°½ ìƒˆ í”„ë ˆì„ ìƒì„±í•˜ì—¬ ì„ íƒëœ íšŒì› ì •ë³´ í‘œì‹œ
-            JFrame editFrame = new JFrame("Update"); // ìƒˆ í”„ë ˆì„ ìƒì„±
-            // ìœ„ì¹˜ ì„¤ì • ì‹œ ê¸°ì¡´ ë¶€ëª¨ í”„ë ˆì„ì˜ ìœ„ì¹˜ ì¢Œí‘œ ê°’ì„ ë°›ì•„ì„œ ì‚¬ìš©(doubleíƒ€ì…ì´ë¯€ë¡œ intí˜• í˜•ë³€í™˜)
+            // Å×ÀÌºí ¼¿ ¼±ÅÃÇßÀ» °æ¿ì Ã¢ »õ ÇÁ·¹ÀÓ »ı¼ºÇÏ¿© ¼±ÅÃµÈ È¸¿ø Á¤º¸ Ç¥½Ã
+            JFrame editFrame = new JFrame("Update"); // »õ ÇÁ·¹ÀÓ »ı¼º
+            // À§Ä¡ ¼³Á¤ ½Ã ±âÁ¸ ºÎ¸ğ ÇÁ·¹ÀÓÀÇ À§Ä¡ ÁÂÇ¥ °ªÀ» ¹Ş¾Æ¼­ »ç¿ë(doubleÅ¸ÀÔÀÌ¹Ç·Î intÇü Çüº¯È¯)
             editFrame.setBounds(800, 200, 250, 300);
-            editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // í˜„ì¬ í”„ë ˆì„ë§Œ ì¢…ë£Œ
+            editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ÇöÀç ÇÁ·¹ÀÓ¸¸ Á¾·á
 
             JPanel pWest2 = new JPanel();
             editFrame.add(pWest2, BorderLayout.CENTER);
-            // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+            // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
             pWest2.setLayout(new GridLayout(5, 1));
 
-            // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+            // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
             JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pIdx);
 
-            pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+            pIdx.add(new JLabel("¹ø   È£"));
             JTextField tfIdx2 = new JTextField(10);
             tfIdx2.setText(tfIdx.getText());
             tfIdx2.setHorizontalAlignment(tfIdx2.CENTER);
-            tfIdx2.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+            tfIdx2.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
             pIdx.add(tfIdx2);
 
             JPanel pDate = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pDate);
 
-            pDate.add(new JLabel("ë‚    ì§œ"));
+            pDate.add(new JLabel("³¯   Â¥"));
             JTextField tfName2 = new JTextField(10);
             pDate.add(tfName2);
 
             JPanel pId2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pId2);
 
-            pId2.add(new JLabel("ë§¤   ì¶œ"));
+            pId2.add(new JLabel("¸Å   Ãâ"));
             JTextField tfSum = new JTextField(10);
             pId2.add(tfSum);
 
             JPanel pSouth2 = new JPanel();
             editFrame.add(pSouth2, BorderLayout.SOUTH);
 
-            JButton btnUpdate2 = new JButton("ìˆ˜ì •");
-            JButton btnCancel2 = new JButton("ì·¨ì†Œ");
+            JButton btnUpdate2 = new JButton("¼öÁ¤");
+            JButton btnCancel2 = new JButton("Ãë¼Ò");
 
             pSouth2.add(btnUpdate2);
             pSouth2.add(btnCancel2);
 
-            // ë²„íŠ¼ ë‘ ê°œ êµ¬ë³„í•˜ëŠ” ë¦¬ìŠ¤ë„ˆ
+            // ¹öÆ° µÎ °³ ±¸º°ÇÏ´Â ¸®½º³Ê
             ActionListener btnListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == btnUpdate2) {
-                        // ì…ë ¥ í•­ëª© ì²´í¬
+                        // ÀÔ·Â Ç×¸ñ Ã¼Å©
                         if (tfName2.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(rootPane, "ë‚ ì§œ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "³¯Â¥ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                             tfName2.requestFocus();
                             return;
                         } else if (tfSum.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(rootPane, "ë§¤ì¶œ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "¸ÅÃâ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                             tfSum.requestFocus();
                             return;
                         }
 //                        TotalDTO dto = new TotalDTO(Integer.parseInt(tfIdx.getText()), tfName2.getText(),
 //                                Integer.parseInt(tfSum.getText()));
 //                        TotalDAO dao = TotalDAO.getInstance();
-//                        int result = dao.update(dto); // ë§¤ì¶œ ìˆ˜ì • í›„ ê²°ê³¼ê°’ ë¦¬í„´
+//                        int result = dao.update(dto); // ¸ÅÃâ ¼öÁ¤ ÈÄ °á°ú°ª ¸®ÅÏ
 
-                        // ë§¤ì¶œ ìˆ˜ì • ì—¬ë¶€ íŒë³„
-//                        if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-//                            JOptionPane.showMessageDialog(rootPane, "ë§¤ì¶œì„ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+                        // ¸ÅÃâ ¼öÁ¤ ¿©ºÎ ÆÇº°
+//                        if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+//                            JOptionPane.showMessageDialog(rootPane, "¸ÅÃâÀ» ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
 //                            return;
-//                        } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-//                            JOptionPane.showMessageDialog(rootPane, "ë§¤ì¶œì„ ìˆ˜ì •í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ",
+//                        } else { // ¼º°øÇßÀ» °æ¿ì
+//                            JOptionPane.showMessageDialog(rootPane, "¸ÅÃâÀ» ¼öÁ¤ÇÏ¿´½À´Ï´Ù.", "¼º°ø",
 //                                    JOptionPane.INFORMATION_MESSAGE);
 //                            editFrame.setVisible(false);
 //                        }
@@ -845,86 +845,86 @@ public class AdminGUI extends JFrame {
                     }
                 }
             };
-            // ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ë™ì‹œ ì—°ê²°
+            // ¹öÆ° ¸®½º³Ê µ¿½Ã ¿¬°á
             btnUpdate2.addActionListener(btnListener);
             btnCancel2.addActionListener(btnListener);
 
             editFrame.setVisible(true);
         }
 
-        // ë§¤ì¶œ ëª©ë¡ ì¡°íšŒ
+        // ¸ÅÃâ ¸ñ·Ï Á¶È¸
         public void select() {
 //            TotalDAO dao = TotalDAO.getInstance();
-//            // ë§¤ì¶œ ëª©ë¡ ì¡°íšŒ í›„ ì „ì²´ ë ˆì½”ë“œë¥¼ Vector íƒ€ì…ìœ¼ë¡œ ì €ì¥í•˜ì—¬ ë¦¬í„´
+//            // ¸ÅÃâ ¸ñ·Ï Á¶È¸ ÈÄ ÀüÃ¼ ·¹ÄÚµå¸¦ Vector Å¸ÀÔÀ¸·Î ÀúÀåÇÏ¿© ¸®ÅÏ
 //            Vector<Vector> data = dao.select();
 
-            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ë‹¤ìš´ìºìŠ¤íŒ…
-//			 TableModel tm = table.getModel() í˜•íƒœë¡œë„ ì‚¬ìš© ê°€ëŠ¥(ë‹¤ìš´ìºìŠ¤íŒ… í•˜ì§€ ì•Šì„ ê²½ìš°)
-            // => ë‹¨, addRow() ë“±ì˜ ë©”ì„œë“œê°€ ì—†ìŒ
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ´Ù¿îÄ³½ºÆÃ
+//			 TableModel tm = table.getModel() ÇüÅÂ·Îµµ »ç¿ë °¡´É(´Ù¿îÄ³½ºÆÃ ÇÏÁö ¾ÊÀ» °æ¿ì)
+            // => ´Ü, addRow() µîÀÇ ¸Ş¼­µå°¡ ¾øÀ½
 
-            dtm.setRowCount(0); // ì²«ë²ˆì§¸ í–‰ë¶€í„° ë ˆì½”ë“œë¥¼ ì¶”ê°€í•´ì•¼í•˜ë¯€ë¡œ ì»¤ì„œë¥¼ 0ë²ˆ í–‰ìœ¼ë¡œ ì˜®ê¹€
+            dtm.setRowCount(0); // Ã¹¹øÂ° ÇàºÎÅÍ ·¹ÄÚµå¸¦ Ãß°¡ÇØ¾ßÇÏ¹Ç·Î Ä¿¼­¸¦ 0¹ø ÇàÀ¸·Î ¿Å±è
 
-            // Vector ê°ì²´ì— ì €ì¥ëœ ë ˆì½”ë“œ ìˆ˜ ë§Œí¼ ë°˜ë³µí•˜ë©´ì„œ ë ˆì½”ë“œ ë°ì´í„°ë¥¼ ëª¨ë¸ ê°ì²´ì— ì¶”ê°€(addRow())
+            // Vector °´Ã¼¿¡ ÀúÀåµÈ ·¹ÄÚµå ¼ö ¸¸Å­ ¹İº¹ÇÏ¸é¼­ ·¹ÄÚµå µ¥ÀÌÅÍ¸¦ ¸ğµ¨ °´Ã¼¿¡ Ãß°¡(addRow())
 //            for (Vector rowData : data) {
 //                dtm.addRow(rowData);
 //            }
-            invalidate(); // í”„ë ˆì„ ê°±ì‹ (ìƒˆë¡œ ê·¸ë¦¬ê¸°)
+            invalidate(); // ÇÁ·¹ÀÓ °»½Å(»õ·Î ±×¸®±â)
         }
 
-        // ë§¤ì¶œ ê¸°ë¡ ì‚­ì œ
+        // ¸ÅÃâ ±â·Ï »èÁ¦
         public void delete() {
 
-            // InputDialog ì‚¬ìš©í•˜ì—¬ ì‚­ì œí•  ë§¤ì¶œ ë²ˆí˜¸ ì…ë ¥ë°›ê¸°
-            String idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  ë§¤ì¶œ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+            // InputDialog »ç¿ëÇÏ¿© »èÁ¦ÇÒ ¸ÅÃâ ¹øÈ£ ÀÔ·Â¹Ş±â
+            String idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ ¸ÅÃâ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 //			System.out.println(idx);
 
             while (idx == null || idx.length() == 0) {
-                // ì·¨ì†Œ(null) í´ë¦­ ë˜ëŠ” ì•„ë¬´ê²ƒë„ ì…ë ¥í•˜ì§€ ì•Šê³  í™•ì¸ í´ë¦­ ì‹œ
-                if (idx == null) { // ì·¨ì†Œ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ì•„ë¬´ ë™ì‘ X
-                    return; // í˜„ì¬ ë©”ì„œë“œ ì¢…ë£Œ
+                // Ãë¼Ò(null) Å¬¸¯ ¶Ç´Â ¾Æ¹«°Íµµ ÀÔ·ÂÇÏÁö ¾Ê°í È®ÀÎ Å¬¸¯ ½Ã
+                if (idx == null) { // Ãë¼Ò ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¾Æ¹« µ¿ÀÛ X
+                    return; // ÇöÀç ¸Ş¼­µå Á¾·á
                 }
 
-                // ì•„ë¬´ ë²ˆí˜¸ë„ ì…ë ¥í•˜ì§€ ì•Šê³ (ë„ìŠ¤íŠ¸ë§ê°’ ì „ë‹¬) í™•ì¸ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ë©”ì„¸ì§€ í‘œì‹œ
-                JOptionPane.showMessageDialog(rootPane, "ë²ˆí˜¸ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                // ¾Æ¹« ¹øÈ£µµ ÀÔ·ÂÇÏÁö ¾Ê°í(³Î½ºÆ®¸µ°ª Àü´Ş) È®ÀÎ ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¸Ş¼¼Áö Ç¥½Ã
+                JOptionPane.showMessageDialog(rootPane, "¹øÈ£ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
 
-                // ë‹¤ì‹œ ì…ë ¥ë°›ê¸°
-                idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  ë§¤ì¶œ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+                // ´Ù½Ã ÀÔ·Â¹Ş±â
+                idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ ¸ÅÃâ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
             }
 
-            // ì‚­ì œí•  ë²ˆí˜¸ë¥¼ ì…ë ¥í•  ê²½ìš°
-            // => ì •ê·œí‘œí˜„ì‹ì„ ì‚¬ìš©í•˜ì—¬ ë²ˆí˜¸ë§Œ ì…ë ¥ë°›ë„ë¡ ì²˜ë¦¬í•  ìˆ˜ ìˆë‹¤!
-            // => \\d : ìˆ«ì, {1,} : ê·œì¹™ì´ 1ë²ˆ ì´ìƒ ë°˜ë³µ => \\d{1,} : ìˆ«ì 1ìë¦¬ ì´ìƒ
+            // »èÁ¦ÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇÒ °æ¿ì
+            // => Á¤±ÔÇ¥Çö½ÄÀ» »ç¿ëÇÏ¿© ¹øÈ£¸¸ ÀÔ·Â¹Şµµ·Ï Ã³¸®ÇÒ ¼ö ÀÖ´Ù!
+            // => \\d : ¼ıÀÚ, {1,} : ±ÔÄ¢ÀÌ 1¹ø ÀÌ»ó ¹İº¹ => \\d{1,} : ¼ıÀÚ 1ÀÚ¸® ÀÌ»ó
             if (!Pattern.matches("\\d{1,}", idx)) {
-                JOptionPane.showMessageDialog(rootPane, "ìˆ«ì ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "¼ıÀÚ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 //
 //            TotalDAO dao = TotalDAO.getInstance();
 //
 //            int result = dao.delete(Integer.parseInt(idx));
-//            // ë§¤ì¶œ ì‚­ì œ ì—¬ë¶€ íŒë³„
-//            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ë§¤ì¶œë¥¼ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+//            // ¸ÅÃâ »èÁ¦ ¿©ºÎ ÆÇº°
+//            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "¸ÅÃâ¸¦ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
 //                return;
-//            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ë§¤ì¶œë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+//            } else { // ¼º°øÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "¸ÅÃâ¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
 //            }
 
         }
 
         public void showTotalInfo() {
-            // í´ë¦­í•œ í–‰ì— ëŒ€í•œ ëª¨ë“  ì •ë³´ ê°€ì ¸ì™€ì„œ ì¢Œì¸¡ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+            // Å¬¸¯ÇÑ Çà¿¡ ´ëÇÑ ¸ğµç Á¤º¸ °¡Á®¿Í¼­ ÁÂÃø WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
             int row = table.getSelectedRow();
 
-            tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-            tfDate.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-            tfSum.setText((String) table.getValueAt(row, 2)); // Object(double) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
+            tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+            tfDate.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+            tfSum.setText((String) table.getValueAt(row, 2)); // Object(double) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
         }
 
     }
 
     ///
-    /// íšŒì›ê´€ë¦¬ í™”ë©´
+    /// È¸¿ø°ü¸® È­¸é
     ///
 
     public class UserGUI extends JPanel {
@@ -945,15 +945,15 @@ public class AdminGUI extends JFrame {
         public void showFrame() {
             setLayout(new BorderLayout());
 
-            // ================= í•˜ë‹¨ ë²„íŠ¼ íŒ¨ë„ ==================
+            // ================= ÇÏ´Ü ¹öÆ° ÆĞ³Î ==================
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
-            btnInsert = new JButton("íšŒì› ì¶”ê°€");
-            btnUpdate = new JButton("íšŒì› ìˆ˜ì •");
-            btnDelete = new JButton("íšŒì› ì‚­ì œ");
-            btnSelect = new JButton("íšŒì› ëª©ë¡");
-            btnBack = new JButton("ë’¤ë¡œê°€ê¸°");
+            btnInsert = new JButton("È¸¿ø Ãß°¡");
+            btnUpdate = new JButton("È¸¿ø ¼öÁ¤");
+            btnDelete = new JButton("È¸¿ø »èÁ¦");
+            btnSelect = new JButton("È¸¿ø ¸ñ·Ï");
+            btnBack = new JButton("µÚ·Î°¡±â");
 
             pSouth.add(btnInsert);
             pSouth.add(btnUpdate);
@@ -986,181 +986,181 @@ public class AdminGUI extends JFrame {
                     ChangePanel("Admin");
                 }
             });
-            // ================= ì¢Œì¸¡ íšŒì› ì •ë³´ ì…ë ¥ íŒ¨ë„ ==================
+            // ================= ÁÂÃø È¸¿ø Á¤º¸ ÀÔ·Â ÆĞ³Î ==================
             pWest = new JPanel();
             add(pWest, BorderLayout.LINE_START);
-            // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+            // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
             pWest.setLayout(new GridLayout(5, 1));
 
-            // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+            // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
             JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pIdx);
 
-            pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+            pIdx.add(new JLabel("¹ø   È£"));
             tfIdx = new JTextField(10);
-            tfIdx.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+            tfIdx.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
             pIdx.add(tfIdx);
 
             JPanel ppNum = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(ppNum);
-            ppNum.add(new JLabel("í° ë²ˆí˜¸"));
+            ppNum.add(new JLabel("Æù ¹øÈ£"));
             tfpNum = new JTextField(10);
             ppNum.add(tfpNum);
 
             JPanel pPoint = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pPoint);
-            pPoint.add(new JLabel("í¬ ì¸ íŠ¸"));
+            pPoint.add(new JLabel("Æ÷ ÀÎ Æ®"));
             tfPoint = new JTextField(10);
             pPoint.add(tfPoint);
 
-            // ================= ì¤‘ì•™ íšŒì› ì •ë³´ ì¶œë ¥ íŒ¨ë„ ==================
-            // ìŠ¤í¬ë¡¤ë°” ê¸°ëŠ¥ì„ ìœ„í•´ JScrollPane ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ Center ì˜ì—­ì— ë¶€ì°©
+            // ================= Áß¾Ó È¸¿ø Á¤º¸ Ãâ·Â ÆĞ³Î ==================
+            // ½ºÅ©·Ñ¹Ù ±â´ÉÀ» À§ÇØ JScrollPane °´Ã¼¸¦ »ı¼ºÇÏ¿© Center ¿µ¿ª¿¡ ºÎÂø
             JScrollPane scrollPane = new JScrollPane();
             add(scrollPane, BorderLayout.CENTER);
 
-            // JTable ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ JScrollPane ì˜ ViewPort ì˜ì—­ì— ë¶€ì°©
+            // JTable °´Ã¼¸¦ »ı¼ºÇÏ¿© JScrollPane ÀÇ ViewPort ¿µ¿ª¿¡ ºÎÂø
             table = new JTable();
-            table.getTableHeader().setReorderingAllowed(false); // ì…€ ì´ë™ ë¶ˆê°€ ì„¤ì •
+            table.getTableHeader().setReorderingAllowed(false); // ¼¿ ÀÌµ¿ ºÒ°¡ ¼³Á¤
             scrollPane.setViewportView(table);
 
-            // í…Œì´ë¸” ì»¬ëŸ¼ëª… í‘œì‹œë¥¼ ìœ„í•´ Vector ê°ì²´ì— ì»¬ëŸ¼ëª…ì„ ì €ì¥í•œ í›„ DefaultTableModel ê°ì²´ì— ì¶”ê°€
+            // Å×ÀÌºí ÄÃ·³¸í Ç¥½Ã¸¦ À§ÇØ Vector °´Ã¼¿¡ ÄÃ·³¸íÀ» ÀúÀåÇÑ ÈÄ DefaultTableModel °´Ã¼¿¡ Ãß°¡
             Vector<String> columnNames = new Vector<String>();
-            columnNames.add("ë²ˆí˜¸");
-            columnNames.add("í° ë²ˆí˜¸");
-            columnNames.add("í¬ì¸íŠ¸");
+            columnNames.add("¹øÈ£");
+            columnNames.add("Æù ¹øÈ£");
+            columnNames.add("Æ÷ÀÎÆ®");
 
 //			DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    return false; // ì…€ í¸ì§‘ ë¶ˆê°€ëŠ¥í•˜ë„ë¡ ì„¤ì •
+                    return false; // ¼¿ ÆíÁı ºÒ°¡´ÉÇÏµµ·Ï ¼³Á¤
                 }
 
             };
 
-            // JTable ì— DefaultTableModel ê°ì²´ ì¶”ê°€
+            // JTable ¿¡ DefaultTableModel °´Ã¼ Ãß°¡
             table.setModel(dtm);
 
-            // í…Œì´ë¸” ë‚´ì˜ ë ˆì½”ë“œ ë˜ëŠ” ì»¬ëŸ¼ í´ë¦­ ì‹œ ì´ë²¤íŠ¸ ì²˜ë¦¬
+            // Å×ÀÌºí ³»ÀÇ ·¹ÄÚµå ¶Ç´Â ÄÃ·³ Å¬¸¯ ½Ã ÀÌº¥Æ® Ã³¸®
             table.addMouseListener(new MouseAdapter() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    // í…Œì´ë¸”ì„ ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•  ê²½ìš° í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
-                    // ì„ íƒëœ ì»¬ëŸ¼ì˜ í–‰, ì—´ ë²ˆí˜¸ ì¶œë ¥
+                    // Å×ÀÌºíÀ» ¸¶¿ì½º·Î Å¬¸¯ÇÒ °æ¿ì È£ÃâµÇ´Â ¸Ş¼­µå
+                    // ¼±ÅÃµÈ ÄÃ·³ÀÇ Çà, ¿­ ¹øÈ£ Ãâ·Â
 //					System.out.println(table.getSelectedRow() + ", " + table.getSelectedColumn());
 
-                    // ì„ íƒëœ ì»¬ëŸ¼ì˜ ë°ì´í„° ì¶œë ¥
+                    // ¼±ÅÃµÈ ÄÃ·³ÀÇ µ¥ÀÌÅÍ Ãâ·Â
 //					System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
 
-                    showUserInfo(); // ì„ íƒëœ í–‰ì˜ ëª¨ë“  ì»¬ëŸ¼ ë°ì´í„°ë¥¼ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+                    showUserInfo(); // ¼±ÅÃµÈ ÇàÀÇ ¸ğµç ÄÃ·³ µ¥ÀÌÅÍ¸¦ WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
                 }
             });
             setVisible(true);
         }
 
-        // íšŒì› ë° í¬ì¸íŠ¸ ì¶”ê°€
+        // È¸¿ø ¹× Æ÷ÀÎÆ® Ãß°¡
         public void insert() {
 
-            // ì…ë ¥ í•­ëª© ì²´í¬
+            // ÀÔ·Â Ç×¸ñ Ã¼Å©
             if (tfpNum.getText() == null) {
-                JOptionPane.showMessageDialog(rootPane, "ë²ˆí˜¸ ì˜¤ë¥˜!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "¹øÈ£ ¿À·ù!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             UserDTO dto = new UserDTO(tfpNum.getText());
             UserDAO dao = UserDAO.getInstance();
 
-            int result = dao.insert(dto); // íšŒì›ì¶”ê°€ í›„ ê²°ê³¼ê°’ ë¦¬í„´
+            int result = dao.insert(dto); // È¸¿øÃß°¡ ÈÄ °á°ú°ª ¸®ÅÏ
 
-            // íšŒì› ì¶”ê°€ ì—¬ë¶€ íŒë³„
-            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "íšŒì›ì„ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+            // È¸¿ø Ãß°¡ ¿©ºÎ ÆÇº°
+            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "È¸¿øÀ» Ãß°¡ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "íšŒì›ì„ ì¶”ê°€í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+            } else { // ¼º°øÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "È¸¿øÀ» Ãß°¡ÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
                 Static.pNum = null;
             }
         }
 
-        // íšŒì› ìˆ˜ì •
+        // È¸¿ø ¼öÁ¤
         public void update() {
-            if (table.getSelectedRow() == -1) { // í…Œì´ë¸” ì…€ ì„ íƒ ì•ˆëì„ ê²½ìš° -1 ë¦¬í„´ë¨
+            if (table.getSelectedRow() == -1) { // Å×ÀÌºí ¼¿ ¼±ÅÃ ¾ÈµÆÀ» °æ¿ì -1 ¸®ÅÏµÊ
                 return;
             }
 
-            // í…Œì´ë¸” ì…€ ì„ íƒí–ˆì„ ê²½ìš° ì°½ ìƒˆ í”„ë ˆì„ ìƒì„±í•˜ì—¬ ì„ íƒëœ íšŒì› ì •ë³´ í‘œì‹œ
-            JFrame editFrame = new JFrame("Update"); // ìƒˆ í”„ë ˆì„ ìƒì„±
-            // ìœ„ì¹˜ ì„¤ì • ì‹œ ê¸°ì¡´ ë¶€ëª¨ í”„ë ˆì„ì˜ ìœ„ì¹˜ ì¢Œí‘œ ê°’ì„ ë°›ì•„ì„œ ì‚¬ìš©(doubleíƒ€ì…ì´ë¯€ë¡œ intí˜• í˜•ë³€í™˜)
+            // Å×ÀÌºí ¼¿ ¼±ÅÃÇßÀ» °æ¿ì Ã¢ »õ ÇÁ·¹ÀÓ »ı¼ºÇÏ¿© ¼±ÅÃµÈ È¸¿ø Á¤º¸ Ç¥½Ã
+            JFrame editFrame = new JFrame("Update"); // »õ ÇÁ·¹ÀÓ »ı¼º
+            // À§Ä¡ ¼³Á¤ ½Ã ±âÁ¸ ºÎ¸ğ ÇÁ·¹ÀÓÀÇ À§Ä¡ ÁÂÇ¥ °ªÀ» ¹Ş¾Æ¼­ »ç¿ë(doubleÅ¸ÀÔÀÌ¹Ç·Î intÇü Çüº¯È¯)
             editFrame.setBounds(800, 200, 250, 300);
-            editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // í˜„ì¬ í”„ë ˆì„ë§Œ ì¢…ë£Œ
+            editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ÇöÀç ÇÁ·¹ÀÓ¸¸ Á¾·á
 
             JPanel pWest2 = new JPanel();
             editFrame.add(pWest2, BorderLayout.CENTER);
-            // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+            // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
             pWest2.setLayout(new GridLayout(5, 1));
 
-            // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+            // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
             JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pIdx);
 
-            pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+            pIdx.add(new JLabel("¹ø   È£"));
             JTextField tfIdx2 = new JTextField(10);
             tfIdx2.setText(tfIdx.getText());
             tfIdx2.setHorizontalAlignment(tfIdx2.CENTER);
-            tfIdx2.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+            tfIdx2.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
             pIdx.add(tfIdx2);
 
             JPanel pDate = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pDate);
 
-            pDate.add(new JLabel("íœ´ëŒ€í° ë²ˆí˜¸"));
+            pDate.add(new JLabel("ÈŞ´ëÆù ¹øÈ£"));
             JTextField tfName2 = new JTextField(10);
             pDate.add(tfName2);
 
             JPanel pId2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pId2);
 
-            pId2.add(new JLabel("í¬ ì¸ íŠ¸"));
+            pId2.add(new JLabel("Æ÷ ÀÎ Æ®"));
             JTextField tfSum = new JTextField(10);
             pId2.add(tfSum);
 
             JPanel pSouth2 = new JPanel();
             editFrame.add(pSouth2, BorderLayout.SOUTH);
 
-            JButton btnUpdate2 = new JButton("ìˆ˜ì •");
-            JButton btnCancel2 = new JButton("ì·¨ì†Œ");
+            JButton btnUpdate2 = new JButton("¼öÁ¤");
+            JButton btnCancel2 = new JButton("Ãë¼Ò");
 
             pSouth2.add(btnUpdate2);
             pSouth2.add(btnCancel2);
 
-            // ë²„íŠ¼ ë‘ ê°œ êµ¬ë³„í•˜ëŠ” ë¦¬ìŠ¤ë„ˆ
+            // ¹öÆ° µÎ °³ ±¸º°ÇÏ´Â ¸®½º³Ê
             ActionListener btnListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == btnUpdate2) {
-                        // ì…ë ¥ í•­ëª© ì²´í¬
+                        // ÀÔ·Â Ç×¸ñ Ã¼Å©
                         if (tfName2.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(rootPane, "íœ´ëŒ€í° ë²ˆí˜¸ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "ÈŞ´ëÆù ¹øÈ£ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                             tfName2.requestFocus();
                             return;
                         } else if (tfSum.getText().length() == 0) {
-                            JOptionPane.showMessageDialog(rootPane, "í¬ì¸íŠ¸ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "Æ÷ÀÎÆ® ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                             tfSum.requestFocus();
                             return;
                         }
                         UserDTO dto = new UserDTO(Integer.parseInt(tfIdx.getText()), tfName2.getText(),
                                 Integer.parseInt(tfSum.getText()));
                         UserDAO dao = UserDAO.getInstance();
-                        int result = dao.update(dto); // íšŒì› ìˆ˜ì • í›„ ê²°ê³¼ê°’ ë¦¬í„´
+                        int result = dao.update(dto); // È¸¿ø ¼öÁ¤ ÈÄ °á°ú°ª ¸®ÅÏ
 
-                        // íšŒì› ìˆ˜ì • ì—¬ë¶€ íŒë³„
-                        if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-                            JOptionPane.showMessageDialog(rootPane, "íšŒì›ì„ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+                        // È¸¿ø ¼öÁ¤ ¿©ºÎ ÆÇº°
+                        if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+                            JOptionPane.showMessageDialog(rootPane, "È¸¿øÀ» ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
                             return;
-                        } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-                            JOptionPane.showMessageDialog(rootPane, "íšŒì›ì„ ìˆ˜ì •í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ",
+                        } else { // ¼º°øÇßÀ» °æ¿ì
+                            JOptionPane.showMessageDialog(rootPane, "È¸¿øÀ» ¼öÁ¤ÇÏ¿´½À´Ï´Ù.", "¼º°ø",
                                     JOptionPane.INFORMATION_MESSAGE);
                             editFrame.setVisible(false);
                         }
@@ -1169,86 +1169,86 @@ public class AdminGUI extends JFrame {
                     }
                 }
             };
-            // ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ë™ì‹œ ì—°ê²°
+            // ¹öÆ° ¸®½º³Ê µ¿½Ã ¿¬°á
             btnUpdate2.addActionListener(btnListener);
             btnCancel2.addActionListener(btnListener);
 
             editFrame.setVisible(true);
         }
 
-        // íšŒì› ëª©ë¡ ì¡°íšŒ
+        // È¸¿ø ¸ñ·Ï Á¶È¸
         public void select() {
             UserDAO dao = UserDAO.getInstance();
 
-            // íšŒì› ëª©ë¡ ì¡°íšŒ í›„ ì „ì²´ ë ˆì½”ë“œë¥¼ Vector íƒ€ì…ìœ¼ë¡œ ì €ì¥í•˜ì—¬ ë¦¬í„´
+            // È¸¿ø ¸ñ·Ï Á¶È¸ ÈÄ ÀüÃ¼ ·¹ÄÚµå¸¦ Vector Å¸ÀÔÀ¸·Î ÀúÀåÇÏ¿© ¸®ÅÏ
             Vector<Vector> data = dao.select();
 
-            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ë‹¤ìš´ìºìŠ¤íŒ…
-//			 TableModel tm = table.getModel() í˜•íƒœë¡œë„ ì‚¬ìš© ê°€ëŠ¥(ë‹¤ìš´ìºìŠ¤íŒ… í•˜ì§€ ì•Šì„ ê²½ìš°)
-            // => ë‹¨, addRow() ë“±ì˜ ë©”ì„œë“œê°€ ì—†ìŒ
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ´Ù¿îÄ³½ºÆÃ
+//			 TableModel tm = table.getModel() ÇüÅÂ·Îµµ »ç¿ë °¡´É(´Ù¿îÄ³½ºÆÃ ÇÏÁö ¾ÊÀ» °æ¿ì)
+            // => ´Ü, addRow() µîÀÇ ¸Ş¼­µå°¡ ¾øÀ½
 
-            dtm.setRowCount(0); // ì²«ë²ˆì§¸ í–‰ë¶€í„° ë ˆì½”ë“œë¥¼ ì¶”ê°€í•´ì•¼í•˜ë¯€ë¡œ ì»¤ì„œë¥¼ 0ë²ˆ í–‰ìœ¼ë¡œ ì˜®ê¹€
+            dtm.setRowCount(0); // Ã¹¹øÂ° ÇàºÎÅÍ ·¹ÄÚµå¸¦ Ãß°¡ÇØ¾ßÇÏ¹Ç·Î Ä¿¼­¸¦ 0¹ø ÇàÀ¸·Î ¿Å±è
 
-            // Vector ê°ì²´ì— ì €ì¥ëœ ë ˆì½”ë“œ ìˆ˜ ë§Œí¼ ë°˜ë³µí•˜ë©´ì„œ ë ˆì½”ë“œ ë°ì´í„°ë¥¼ ëª¨ë¸ ê°ì²´ì— ì¶”ê°€(addRow())
+            // Vector °´Ã¼¿¡ ÀúÀåµÈ ·¹ÄÚµå ¼ö ¸¸Å­ ¹İº¹ÇÏ¸é¼­ ·¹ÄÚµå µ¥ÀÌÅÍ¸¦ ¸ğµ¨ °´Ã¼¿¡ Ãß°¡(addRow())
             for (Vector rowData : data) {
                 dtm.addRow(rowData);
             }
-            invalidate(); // í”„ë ˆì„ ê°±ì‹ (ìƒˆë¡œ ê·¸ë¦¬ê¸°)
+            invalidate(); // ÇÁ·¹ÀÓ °»½Å(»õ·Î ±×¸®±â)
         }
 
-        // íšŒì› ê¸°ë¡ ì‚­ì œ
+        // È¸¿ø ±â·Ï »èÁ¦
         public void delete() {
 
-            // InputDialog ì‚¬ìš©í•˜ì—¬ ì‚­ì œí•  íšŒì› ë²ˆí˜¸ ì…ë ¥ë°›ê¸°
-            String idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  íšŒì› ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+            // InputDialog »ç¿ëÇÏ¿© »èÁ¦ÇÒ È¸¿ø ¹øÈ£ ÀÔ·Â¹Ş±â
+            String idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ È¸¿ø ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 //			System.out.println(idx);
 
             while (idx == null || idx.length() == 0) {
-                // ì·¨ì†Œ(null) í´ë¦­ ë˜ëŠ” ì•„ë¬´ê²ƒë„ ì…ë ¥í•˜ì§€ ì•Šê³  í™•ì¸ í´ë¦­ ì‹œ
-                if (idx == null) { // ì·¨ì†Œ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ì•„ë¬´ ë™ì‘ X
-                    return; // í˜„ì¬ ë©”ì„œë“œ ì¢…ë£Œ
+                // Ãë¼Ò(null) Å¬¸¯ ¶Ç´Â ¾Æ¹«°Íµµ ÀÔ·ÂÇÏÁö ¾Ê°í È®ÀÎ Å¬¸¯ ½Ã
+                if (idx == null) { // Ãë¼Ò ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¾Æ¹« µ¿ÀÛ X
+                    return; // ÇöÀç ¸Ş¼­µå Á¾·á
                 }
 
-                // ì•„ë¬´ ë²ˆí˜¸ë„ ì…ë ¥í•˜ì§€ ì•Šê³ (ë„ìŠ¤íŠ¸ë§ê°’ ì „ë‹¬) í™•ì¸ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ë©”ì„¸ì§€ í‘œì‹œ
-                JOptionPane.showMessageDialog(rootPane, "ë²ˆí˜¸ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                // ¾Æ¹« ¹øÈ£µµ ÀÔ·ÂÇÏÁö ¾Ê°í(³Î½ºÆ®¸µ°ª Àü´Ş) È®ÀÎ ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¸Ş¼¼Áö Ç¥½Ã
+                JOptionPane.showMessageDialog(rootPane, "¹øÈ£ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
 
-                // ë‹¤ì‹œ ì…ë ¥ë°›ê¸°
-                idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  íšŒì› ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+                // ´Ù½Ã ÀÔ·Â¹Ş±â
+                idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ È¸¿ø ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
             }
 
-            // ì‚­ì œí•  ë²ˆí˜¸ë¥¼ ì…ë ¥í•  ê²½ìš°
-            // => ì •ê·œí‘œí˜„ì‹ì„ ì‚¬ìš©í•˜ì—¬ ë²ˆí˜¸ë§Œ ì…ë ¥ë°›ë„ë¡ ì²˜ë¦¬í•  ìˆ˜ ìˆë‹¤!
-            // => \\d : ìˆ«ì, {1,} : ê·œì¹™ì´ 1ë²ˆ ì´ìƒ ë°˜ë³µ => \\d{1,} : ìˆ«ì 1ìë¦¬ ì´ìƒ
+            // »èÁ¦ÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇÒ °æ¿ì
+            // => Á¤±ÔÇ¥Çö½ÄÀ» »ç¿ëÇÏ¿© ¹øÈ£¸¸ ÀÔ·Â¹Şµµ·Ï Ã³¸®ÇÒ ¼ö ÀÖ´Ù!
+            // => \\d : ¼ıÀÚ, {1,} : ±ÔÄ¢ÀÌ 1¹ø ÀÌ»ó ¹İº¹ => \\d{1,} : ¼ıÀÚ 1ÀÚ¸® ÀÌ»ó
             if (!Pattern.matches("\\d{1,}", idx)) {
-                JOptionPane.showMessageDialog(rootPane, "ìˆ«ì ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "¼ıÀÚ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             UserDAO dao = UserDAO.getInstance();
 
             int result = dao.delete(Integer.parseInt(idx));
-            // íšŒì› ì‚­ì œ ì—¬ë¶€ íŒë³„
-            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "íšŒì›ë¥¼ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+            // È¸¿ø »èÁ¦ ¿©ºÎ ÆÇº°
+            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "È¸¿ø¸¦ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-                JOptionPane.showMessageDialog(rootPane, "íšŒì›ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+            } else { // ¼º°øÇßÀ» °æ¿ì
+                JOptionPane.showMessageDialog(rootPane, "È¸¿ø¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }
 
         public void showUserInfo() {
-            // í´ë¦­í•œ í–‰ì— ëŒ€í•œ ëª¨ë“  ì •ë³´ ê°€ì ¸ì™€ì„œ ì¢Œì¸¡ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+            // Å¬¸¯ÇÑ Çà¿¡ ´ëÇÑ ¸ğµç Á¤º¸ °¡Á®¿Í¼­ ÁÂÃø WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
             int row = table.getSelectedRow();
 
-            tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-            tfpNum.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-            tfPoint.setText((String) table.getValueAt(row, 2)); // Object(double) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
+            tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+            tfpNum.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+            tfPoint.setText((String) table.getValueAt(row, 2)); // Object(double) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
         }
     }
 
     ///
-    /// ë…¸ë˜ ê´€ë¦¬ í™”ë©´
+    /// ³ë·¡ °ü¸® È­¸é
     ///
 
     public class SongGUI extends JPanel {
@@ -1268,14 +1268,14 @@ public class AdminGUI extends JFrame {
         public void showFrame() {
             setLayout(new BorderLayout());
 
-            // ================= í•˜ë‹¨ ë²„íŠ¼ íŒ¨ë„ ==================
+            // ================= ÇÏ´Ü ¹öÆ° ÆĞ³Î ==================
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
-            btnSelect = new JButton("ë…¸ë˜ ëª©ë¡");
-            btnUp = new JButton("â†‘");
-            btnDown = new JButton("â†“");
-            btnBack = new JButton("ë’¤ë¡œ ê°€ê¸°");
+            btnSelect = new JButton("³ë·¡ ¸ñ·Ï");
+            btnUp = new JButton("¡è");
+            btnDown = new JButton("¡é");
+            btnBack = new JButton("µÚ·Î °¡±â");
 
             pSouth.add(btnSelect);
             pSouth.add(btnUp);
@@ -1289,12 +1289,12 @@ public class AdminGUI extends JFrame {
             });
             btnUp.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    up();
+//                    up();
                 }
             });
             btnDown.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    down();
+//                    down();
                 }
             });
             btnBack.addMouseListener(new MouseAdapter() {
@@ -1303,113 +1303,113 @@ public class AdminGUI extends JFrame {
                 }
             });
 
-            // ================= ì¢Œì¸¡ ë§¤ì¶œ ì •ë³´ ì…ë ¥ íŒ¨ë„ ==================
+            // ================= ÁÂÃø ¸ÅÃâ Á¤º¸ ÀÔ·Â ÆĞ³Î ==================
 //			pWest = new JPanel();
 //			add(pWest, BorderLayout.LINE_START);
-//			// íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+//			// ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
 //			pWest.setLayout(new GridLayout(5, 1));
 //
-//			// ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+//			// °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
 //			JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 //			pWest.add(pIdx);
 //
-//			pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+//			pIdx.add(new JLabel("¹ø   È£"));
 //			tfIdx = new JTextField(10);
-//			tfIdx.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+//			tfIdx.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
 //			pIdx.add(tfIdx);
 //
 //			JPanel pDate = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 //			pWest.add(pDate);
-//			pDate.add(new JLabel("ë‚    ì§œ"));
+//			pDate.add(new JLabel("³¯   Â¥"));
 //			tfDate = new JTextField(10);
 //			pDate.add(tfDate);
 //
 //			JPanel pSum = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 //			pWest.add(pSum);
-//			pSum.add(new JLabel("ë§¤   ì¶œ"));
+//			pSum.add(new JLabel("¸Å   Ãâ"));
 //			tfSum = new JTextField(10);
 //			pSum.add(tfSum);
 
-            // ================= ì¤‘ì•™ ë§¤ì¶œ ì •ë³´ ì¶œë ¥ íŒ¨ë„ ==================
-            // ìŠ¤í¬ë¡¤ë°” ê¸°ëŠ¥ì„ ìœ„í•´ JScrollPane ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ Center ì˜ì—­ì— ë¶€ì°©
+            // ================= Áß¾Ó ¸ÅÃâ Á¤º¸ Ãâ·Â ÆĞ³Î ==================
+            // ½ºÅ©·Ñ¹Ù ±â´ÉÀ» À§ÇØ JScrollPane °´Ã¼¸¦ »ı¼ºÇÏ¿© Center ¿µ¿ª¿¡ ºÎÂø
             JScrollPane scrollPane = new JScrollPane();
             add(scrollPane, BorderLayout.CENTER);
 
-            // JTable ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ JScrollPane ì˜ ViewPort ì˜ì—­ì— ë¶€ì°©
+            // JTable °´Ã¼¸¦ »ı¼ºÇÏ¿© JScrollPane ÀÇ ViewPort ¿µ¿ª¿¡ ºÎÂø
             table = new JTable();
-            table.getTableHeader().setReorderingAllowed(false); // ì…€ ì´ë™ ë¶ˆê°€ ì„¤ì •
+            table.getTableHeader().setReorderingAllowed(false); // ¼¿ ÀÌµ¿ ºÒ°¡ ¼³Á¤
             scrollPane.setViewportView(table);
 
-            // í…Œì´ë¸” ì»¬ëŸ¼ëª… í‘œì‹œë¥¼ ìœ„í•´ Vector ê°ì²´ì— ì»¬ëŸ¼ëª…ì„ ì €ì¥í•œ í›„ DefaultTableModel ê°ì²´ì— ì¶”ê°€
-            String[] columnNames = { "ìˆœì„œ", "ê°€ìˆ˜", "ë…¸ë˜" };
+            // Å×ÀÌºí ÄÃ·³¸í Ç¥½Ã¸¦ À§ÇØ Vector °´Ã¼¿¡ ÄÃ·³¸íÀ» ÀúÀåÇÑ ÈÄ DefaultTableModel °´Ã¼¿¡ Ãß°¡
+            String[] columnNames = { "¼ø¼­", "°¡¼ö", "³ë·¡" };
 
 //			DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
                 @Override
                 public boolean isCellEditable(int row, int column) {
-                    return false; // ì…€ í¸ì§‘ ë¶ˆê°€ëŠ¥í•˜ë„ë¡ ì„¤ì •
+                    return false; // ¼¿ ÆíÁı ºÒ°¡´ÉÇÏµµ·Ï ¼³Á¤
                 }
 
             };
 
-            // JTable ì— DefaultTableModel ê°ì²´ ì¶”ê°€
+            // JTable ¿¡ DefaultTableModel °´Ã¼ Ãß°¡
             table.setModel(dtm);
 
             setVisible(true);
         }
 
-        // ë§¤ì¶œ ëª©ë¡ ì¡°íšŒ
+        // ¸ÅÃâ ¸ñ·Ï Á¶È¸
         public void select() {
 
-            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ë‹¤ìš´ìºìŠ¤íŒ…
-//			 TableModel tm = table.getModel() í˜•íƒœë¡œë„ ì‚¬ìš© ê°€ëŠ¥(ë‹¤ìš´ìºìŠ¤íŒ… í•˜ì§€ ì•Šì„ ê²½ìš°)
-            // => ë‹¨, addRow() ë“±ì˜ ë©”ì„œë“œê°€ ì—†ìŒ
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ´Ù¿îÄ³½ºÆÃ
+//			 TableModel tm = table.getModel() ÇüÅÂ·Îµµ »ç¿ë °¡´É(´Ù¿îÄ³½ºÆÃ ÇÏÁö ¾ÊÀ» °æ¿ì)
+            // => ´Ü, addRow() µîÀÇ ¸Ş¼­µå°¡ ¾øÀ½
 
-            dtm.setRowCount(0); // ì²«ë²ˆì§¸ í–‰ë¶€í„° ë ˆì½”ë“œë¥¼ ì¶”ê°€í•´ì•¼í•˜ë¯€ë¡œ ì»¤ì„œë¥¼ 0ë²ˆ í–‰ìœ¼ë¡œ ì˜®ê¹€
+            dtm.setRowCount(0); // Ã¹¹øÂ° ÇàºÎÅÍ ·¹ÄÚµå¸¦ Ãß°¡ÇØ¾ßÇÏ¹Ç·Î Ä¿¼­¸¦ 0¹ø ÇàÀ¸·Î ¿Å±è
 
-            // Vector ê°ì²´ì— ì €ì¥ëœ ë ˆì½”ë“œ ìˆ˜ ë§Œí¼ ë°˜ë³µí•˜ë©´ì„œ ë ˆì½”ë“œ ë°ì´í„°ë¥¼ ëª¨ë¸ ê°ì²´ì— ì¶”ê°€(addRow())
-            for (int i = 0; i < Static.trackList.size(); i++) {
-                StringTokenizer st = new StringTokenizer(Static.trackList.get(i).getListMusic(), "-");
-                String num = "" + (i + 1);
-                String Singer = st.nextToken().trim();
-                String Song = st.nextToken().trim();
-                dtm.addRow(new String[] { num, Singer, Song });
-            }
-            invalidate(); // í”„ë ˆì„ ê°±ì‹ (ìƒˆë¡œ ê·¸ë¦¬ê¸°)
+//            // Vector °´Ã¼¿¡ ÀúÀåµÈ ·¹ÄÚµå ¼ö ¸¸Å­ ¹İº¹ÇÏ¸é¼­ ·¹ÄÚµå µ¥ÀÌÅÍ¸¦ ¸ğµ¨ °´Ã¼¿¡ Ãß°¡(addRow())
+//            for (int i = 0; i < Static.trackList.size(); i++) {
+//                StringTokenizer st = new StringTokenizer(Static.trackList.get(i).getListMusic(), "-");
+//                String num = "" + (i + 1);
+//                String Singer = st.nextToken().trim();
+//                String Song = st.nextToken().trim();
+//                dtm.addRow(new String[] { num, Singer, Song });
+//            }
+            invalidate(); // ÇÁ·¹ÀÓ °»½Å(»õ·Î ±×¸®±â)
         }
 
-        public void up() {
-            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-            int row = table.getSelectedRow();
-            String temp = new String();
-            if (row < Static.trackList.size() && row > 0) {
-                for (int i = 1; i < 3; i++) {
-                    temp = (String) table.getValueAt(row, i);
-                    table.setValueAt(table.getValueAt(row - 1, i), row, i);
-                    table.setValueAt(temp, row - 1, i);
-                }
-                table.setRowSelectionInterval(row - 1, row - 1);
-                Collections.swap(Static.trackList, row - 1, row);
-            }
-            invalidate(); // í”„ë ˆì„ ê°±ì‹ (ìƒˆë¡œ ê·¸ë¦¬ê¸°)
-        }
+//        public void up() {
+//            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+//            int row = table.getSelectedRow();
+//            String temp = new String();
+//            if (row < Static.trackList.size() && row > 0) {
+//                for (int i = 1; i < 3; i++) {
+//                    temp = (String) table.getValueAt(row, i);
+//                    table.setValueAt(table.getValueAt(row - 1, i), row, i);
+//                    table.setValueAt(temp, row - 1, i);
+//                }
+//                table.setRowSelectionInterval(row - 1, row - 1);
+//                Collections.swap(Static.trackList, row - 1, row);
+//            }
+//            invalidate(); // ÇÁ·¹ÀÓ °»½Å(»õ·Î ±×¸®±â)
+//        }
 
-        public void down() {
-            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
-            int row = table.getSelectedRow();
-            String temp = new String();
-            if (row < Static.trackList.size() - 1 && row >= 0) {
-                for (int i = 1; i < 3; i++) {
-                    temp = (String) table.getValueAt(row, i);
-                    table.setValueAt(table.getValueAt(row + 1, i), row, i);
-                    table.setValueAt(temp, row + 1, i);
-                }
-                table.setRowSelectionInterval(row + 1, row + 1);
-                Collections.swap(Static.trackList, row + 1, row);
-            }
-            invalidate(); // í”„ë ˆì„ ê°±ì‹ (ìƒˆë¡œ ê·¸ë¦¬ê¸°)
-        }
+//        public void down() {
+//            DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+//            int row = table.getSelectedRow();
+//            String temp = new String();
+//            if (row < Static.trackList.size() - 1 && row >= 0) {
+//                for (int i = 1; i < 3; i++) {
+//                    temp = (String) table.getValueAt(row, i);
+//                    table.setValueAt(table.getValueAt(row + 1, i), row, i);
+//                    table.setValueAt(temp, row + 1, i);
+//                }
+//                table.setRowSelectionInterval(row + 1, row + 1);
+//                Collections.swap(Static.trackList, row + 1, row);
+//            }
+//            invalidate(); // ÇÁ·¹ÀÓ °»½Å(»õ·Î ±×¸®±â)
+//        }
 
     }
 
@@ -1421,7 +1421,7 @@ class Static {
     static int total = 0;
     static String playingMusic;
     static String pNum;
-    static int n; // ë…¸ë˜ ì¸ë±ìŠ¤
-    static ArrayList<Track> trackListAll;
-    static ArrayList<Track> trackList;
+    static int n; // ³ë·¡ ÀÎµ¦½º
+//    static ArrayList<Track> trackListAll;
+//    static ArrayList<Track> trackList;
 }
