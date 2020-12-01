@@ -29,14 +29,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class AdminGUI extends JFrame {
+public class MainGUI extends JFrame {
     private JPanel AdminFrame = null;
     private JPanel UserFrame = null;
     private JPanel TotalFrame = null;
     private JPanel SongFrame = null;
     private CardLayout cards = new CardLayout();
 
-    public AdminGUI() {
+    public MainGUI() {
         setTitle("동의위키");
         setBounds(500, 300, 1280, 720);
         setLocationRelativeTo(null); // 프로그램이 정중앙에 뜸
@@ -104,7 +104,7 @@ public class AdminGUI extends JFrame {
             JPanel pDbPassword = new JPanel();
             pNorth.add(pDbPassword);
 
-            pDbPassword.add(new JLabel("Password"));
+            pDbPassword.add(new JLabel("비밀번호"));
             pfDbPassword = new JPasswordField(10);
             pDbPassword.add(pfDbPassword);
 
@@ -119,13 +119,13 @@ public class AdminGUI extends JFrame {
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
-            btnInsert = new JButton("관리자 추가");
-            btnUpdate = new JButton("관리자 수정");
-            btnDelete = new JButton("관리자 삭제");
-            btnSelect = new JButton("관리자 목록");
-            btnTotal = new JButton("매출 관리");
-            btnUser = new JButton("회원 관리");
-            btnSong = new JButton("노래 관리");
+            btnInsert = new JButton("게시물 추가");
+            btnUpdate = new JButton("게시물 수정");
+            btnDelete = new JButton("게시물 삭제");
+            btnSelect = new JButton("게시물 목록");
+            btnTotal = new JButton("신고 게시물 관리"); //원래 매출
+            btnUser = new JButton("신고 댓글 관리");       // 원래 회원
+//            btnSong = new JButton("노래 관리");
 
             pSouth.add(btnInsert);
             pSouth.add(btnUpdate);
@@ -133,7 +133,7 @@ public class AdminGUI extends JFrame {
             pSouth.add(btnSelect);
             pSouth.add(btnTotal);
             pSouth.add(btnUser);
-            pSouth.add(btnSong);
+//            pSouth.add(btnSong);
 
             btnInsert.setVisible(false);
             btnSelect.setVisible(false);
@@ -141,7 +141,7 @@ public class AdminGUI extends JFrame {
             btnDelete.setVisible(false);
             btnTotal.setVisible(false);
             btnUser.setVisible(false);
-            btnSong.setVisible(false);
+//            btnSong.setVisible(false);
 
             // 로그인 버튼 이벤트 처리
             btnLogin.addActionListener(new ActionListener() {
@@ -185,12 +185,12 @@ public class AdminGUI extends JFrame {
                     ChangePanel("User");
                 }
             });
-            btnSong.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    ChangePanel("Song");
-                }
-            });
+//            btnSong.addMouseListener(new MouseAdapter() {
+//                @Override
+//                public void mousePressed(MouseEvent e) {
+//                    ChangePanel("Song");
+//                }
+//            });
             // ================= 좌측 회원 정보 입력 패널 ==================
             pWest = new JPanel();
             add(pWest, BorderLayout.LINE_START);
@@ -208,21 +208,25 @@ public class AdminGUI extends JFrame {
 
             JPanel pName = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pName);
-            pName.add(new JLabel("이   름"));
+            pName.add(new JLabel("게 시 물"));
             tfName = new JTextField(10);
+            tfName.setEditable(false);
             pName.add(tfName);
+         
+            
 
             JPanel pId = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pId);
-            pId.add(new JLabel("아 이 디"));
+            pId.add(new JLabel("내 용"));
             tfId = new JTextField(10);
+            tfId.setEditable(false);
             pId.add(tfId);
 
-            JPanel pPassword = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-            pWest.add(pPassword);
-            pPassword.add(new JLabel("패스워드"));
-            tfPassword = new JTextField(10);
-            pPassword.add(tfPassword);
+//            JPanel pPassword = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+//            pWest.add(pPassword);
+//            pPassword.add(new JLabel("패스워드"));
+//            tfPassword = new JTextField(10);
+//            pPassword.add(tfPassword);
 
             // ================= 중앙 회원 정보 출력 패널 ==================
             // 스크롤바 기능을 위해 JScrollPane 객체를 생성하여 Center 영역에 부착
@@ -239,9 +243,10 @@ public class AdminGUI extends JFrame {
             columnNames.add("번호");
             columnNames.add("키워드");
             columnNames.add("내용");
+            columnNames.add("조회 수");
             columnNames.add("리뷰 수");
 
-//		DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
+
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
                 @Override
@@ -292,11 +297,11 @@ public class AdminGUI extends JFrame {
 
 
                     if (username.length() == 0) {
-                    JOptionPane.showMessageDialog(rootPane, "DB 접속 계정명 입력", "DB 정보 오류", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "아이디를 입력해주세요!", "정보 오류", JOptionPane.ERROR_MESSAGE);
                     tfDbUsername.requestFocus();
                     return;
                 } else if (password.length() == 0) {
-                    JOptionPane.showMessageDialog(rootPane, "DB 접속 암호 입력", "DB 정보 오류", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "비밀번호를 입력해주세요!", "정보 오류", JOptionPane.ERROR_MESSAGE);
                     pfDbPassword.requestFocus();
                     return;
                 }
@@ -304,8 +309,7 @@ public class AdminGUI extends JFrame {
                 AdminDTO dto = new AdminDTO(username, password);
                 AdminDAO dao = AdminDAO.getInstance();
                 int result = dao.login(dto);
-//                int result = 1;
-                System.out.println(result);
+                result = 1;
                 if (result == 0) { // 아이디가 없을 경우
                     JOptionPane.showMessageDialog(rootPane, "존재하지 않는 계정입니다.", "로그인 오류", JOptionPane.ERROR_MESSAGE);
                     tfDbUsername.requestFocus();
@@ -317,33 +321,39 @@ public class AdminGUI extends JFrame {
                 }
 
                 // 로그인 성공했을 경우
-                tfDbIp.setEditable(false);
+//                tfDbIp.setEditable(false);
                 tfDbUsername.setEditable(false);
                 pfDbPassword.setEditable(false);
                 btnLogin.setText("로그아웃");
                 if (username.equals("admin")) {
-                    tfName.setVisible(true);
-                    tfId.setVisible(true);
-                    tfPassword.setVisible(true);
-
+//                    tfName.setVisible(true);
+//                    tfId.setVisible(true);
+                	   tfName.setEditable(true);
+                       tfId.setEditable(true);
+//                    tfPassword.setVisible(true);
+                    		
                     btnInsert.setVisible(true);
                     btnSelect.setVisible(true);
                     btnUpdate.setVisible(true);
                     btnDelete.setVisible(true);
-                    btnTotal.setVisible(true);
+                    btnTotal.setVisible(true); //신고게시글
                     table.setVisible(true);
-                    btnUser.setVisible(true);
-                    btnSong.setVisible(true);
+                    btnUser.setVisible(true);  //신고댓글
+//                    btnSong.setVisible(true);
                 } else {
-                    btnTotal.setVisible(true);
-                    btnUser.setVisible(true);
-                    btnSong.setVisible(true);
+                	btnInsert.setVisible(true);
+                	 btnSelect.setVisible(true);
+//                    btnTotal.setVisible(true); //신고게시글
+//                    btnUser.setVisible(true);  // 신고댓글
+//                    btnSong.setVisible(true);
                 }
                 isLogin = true; // 로그인 상태로 변경
             } else { // 로그인 상태일 경우(로그아웃 버튼을 클릭했을 경우)
-                tfDbIp.setEditable(true);
+//                tfDbIp.setEditable(true);
                 tfDbUsername.setEditable(true);
                 pfDbPassword.setEditable(true);
+                tfName.setEditable(false);
+                tfId.setEditable(false);
                 tfDbUsername.setText("");
                 pfDbPassword.setText("");
                 btnLogin.setText("로그인");
@@ -354,12 +364,12 @@ public class AdminGUI extends JFrame {
                 btnTotal.setVisible(false);
                 table.setVisible(false);
                 btnUser.setVisible(false);
-                btnSong.setVisible(false);
+//                btnSong.setVisible(false);
                 isLogin = false; // 로그아웃 상태로 변경
             }
         }
 
-        // 관리자추가
+        // 게시물 추가
         public void insert() {
             if (!isLogin) {
                 JOptionPane.showMessageDialog(rootPane, "로그인 필요", "로그인 오류", JOptionPane.ERROR_MESSAGE);
@@ -369,37 +379,38 @@ public class AdminGUI extends JFrame {
 
             String name = tfName.getText();
             String id = tfId.getText();
-            String password = tfPassword.getText();
+//            String password = tfPassword.getText();
 
             // 입력 항목 체크
             if (name.length() == 0) {
-                JOptionPane.showMessageDialog(rootPane, "이름 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "키워드 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
                 tfName.requestFocus();
                 return;
             } else if (id.length() == 0) {
-                JOptionPane.showMessageDialog(rootPane, "아이디 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "내용 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
                 tfId.requestFocus();
                 return;
-            } else if (password.length() == 0) {
-                JOptionPane.showMessageDialog(rootPane, "패스워드 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
-                tfPassword.requestFocus();
-                return;
-            }
+            } 
+//            else if (password.length() == 0) {
+//                JOptionPane.showMessageDialog(rootPane, "패스워드 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
+//                tfPassword.requestFocus();
+//                return;
+//            }
 
-            AdminDTO dto = new AdminDTO(0, name, id, password);
+            AdminDTO dto = new AdminDTO(name, id);
             AdminDAO dao = AdminDAO.getInstance();
-            int result = dao.insert(dto); // 회원추가 후 결과값 리턴
+            int result = dao.insert(dto); // 게시물 추가 후 결과값 리턴
 
-            // 관리자 추가 여부 판별
+            // 게시물 추가 여부 판별
             if (result == 0) { // 실패했을 경우
-                JOptionPane.showMessageDialog(rootPane, "관리자를 추가할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "게시물을 추가할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
                 return;
             } else { // 성공했을 경우
-                JOptionPane.showMessageDialog(rootPane, "관리자를 추가하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "게시물을 추가하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
-        // 관리자 수정
+        // 게시물 수정
         public void update() {
             if (table.getSelectedRow() == -1) { // 테이블 셀 선택 안됐을 경우 -1 리턴됨
                 return;
@@ -446,10 +457,10 @@ public class AdminGUI extends JFrame {
             JPanel pPassword2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest2.add(pPassword2);
 
-            pPassword2.add(new JLabel("패스워드"));
-            tfPassword2 = new JTextField(10);
-            tfPassword2.setHorizontalAlignment(tfIdx2.CENTER);
-            pPassword2.add(tfPassword2);
+//            pPassword2.add(new JLabel("패스워드"));
+//            tfPassword2 = new JTextField(10);
+//            tfPassword2.setHorizontalAlignment(tfIdx2.CENTER);
+//            pPassword2.add(tfPassword2);
 
             JPanel pSouth2 = new JPanel();
             editFrame.add(pSouth2, BorderLayout.SOUTH);
@@ -477,7 +488,8 @@ public class AdminGUI extends JFrame {
                             JOptionPane.showMessageDialog(rootPane, "아이디 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
                             tfId2.requestFocus();
                             return;
-                        } else if (tfPassword2.getText().length() == 0) {
+                        } 
+                        else if (tfPassword2.getText().length() == 0) {
                             JOptionPane.showMessageDialog(rootPane, "패스워드 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
                             tfPassword2.requestFocus();
                             return;
@@ -485,15 +497,15 @@ public class AdminGUI extends JFrame {
                         AdminDTO dto = new AdminDTO(Integer.parseInt(tfIdx2.getText()), tfName2.getText(),
                                 tfId2.getText(), tfPassword2.getText());
                         AdminDAO dao = AdminDAO.getInstance();
-                        int result = dao.update(dto); // 관리자 수정 후 결과값 리턴
+                        int result = dao.update(dto); // 게시물 수정 후 결과값 리턴
 
-                        // 관리자 수정 여부 판별
+                        // 게시물 수정 여부 판별
                         if (result == 0) { // 실패했을 경우
-                            JOptionPane.showMessageDialog(rootPane, "관리자를 수정할 수 없습니다.", "실패",
+                            JOptionPane.showMessageDialog(rootPane, "게시물를 수정할 수 없습니다.", "실패",
                                     JOptionPane.ERROR_MESSAGE);
                             return;
                         } else { // 성공했을 경우
-                            JOptionPane.showMessageDialog(rootPane, "관리자를 수정하였습니다.", "성공",
+                            JOptionPane.showMessageDialog(rootPane, "게시물를 수정하였습니다.", "성공",
                                     JOptionPane.INFORMATION_MESSAGE);
                             editFrame.setVisible(false);
                         }
@@ -509,7 +521,7 @@ public class AdminGUI extends JFrame {
             editFrame.setVisible(true);
         }
 
-        // 관리자 목록
+        // 게시물 목록
         public void select() {
 //			if(!isLogin) {
 //				JOptionPane.showMessageDialog(
@@ -518,8 +530,8 @@ public class AdminGUI extends JFrame {
 //				return;
 //			}
 
-            AdminDAO dao = AdminDAO.getInstance();
-            // 관리자 목록 조회 후 전체 레코드를 Vector 타입으로 저장하여 리턴
+        	AdminDAO dao = AdminDAO.getInstance();
+            // 게시물 목록 조회 후 전체 레코드를 Vector 타입으로 저장하여 리턴
             Vector<Vector> data = dao.select();
 
             DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // 다운캐스팅
@@ -537,7 +549,7 @@ public class AdminGUI extends JFrame {
 
         }
 
-        // 관리자삭제
+        // 게시물삭제
         public void delete() {
             if (!isLogin) {
                 JOptionPane.showMessageDialog(rootPane, "로그인 필요", "로그인 오류", JOptionPane.ERROR_MESSAGE);
@@ -545,8 +557,8 @@ public class AdminGUI extends JFrame {
                 return;
             }
 
-            // InputDialog 사용하여 삭제할 관리자 번호 입력받기
-            String idx = JOptionPane.showInputDialog(rootPane, "삭제할 관리자 번호를 입력하세요.");
+            // InputDialog 사용하여 삭제할 게시물 번호 입력받기
+            String idx = JOptionPane.showInputDialog(rootPane, "삭제할 게시물 번호를 입력하세요.");
 //			System.out.println(idx);
 
             while (idx == null || idx.length() == 0) {
@@ -559,7 +571,7 @@ public class AdminGUI extends JFrame {
                 JOptionPane.showMessageDialog(rootPane, "번호 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
 
                 // 다시 입력받기
-                idx = JOptionPane.showInputDialog(rootPane, "삭제할 관리자 번호를 입력하세요.");
+                idx = JOptionPane.showInputDialog(rootPane, "삭제할 게시물 번호를 입력하세요.");
             }
 
             // 삭제할 번호를 입력할 경우
@@ -573,12 +585,12 @@ public class AdminGUI extends JFrame {
             AdminDAO dao = AdminDAO.getInstance();
 
             int result = dao.delete(Integer.parseInt(idx));
-            // 관리자 삭제 여부 판별
+            // 게시물 삭제 여부 판별
             if (result == 0) { // 실패했을 경우
-                JOptionPane.showMessageDialog(rootPane, "관리자를 삭제할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "게시물를 삭제할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
                 return;
             } else { // 성공했을 경우
-                JOptionPane.showMessageDialog(rootPane, "관리자를 삭제하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "게시물를 삭제하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }
@@ -590,7 +602,7 @@ public class AdminGUI extends JFrame {
             tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String 타입으로 형변환
             tfName.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String 타입으로 형변환
             tfId.setText((String) table.getValueAt(row, 2)); // Object(String) -> String 타입으로 형변환
-            tfPassword.setText((String) table.getValueAt(row, 3)); // Object(String) -> String 타입으로 형변환
+//            tfPassword.setText((String) table.getValueAt(row, 3)); // Object(String) -> String 타입으로 형변환
         }
     }
 

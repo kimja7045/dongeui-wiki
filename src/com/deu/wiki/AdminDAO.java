@@ -65,6 +65,7 @@ public class AdminDAO {
             rs = pstmt.executeQuery();
 
             if(rs.next()) { // 아이디가 있을 경우
+            	System.out.println('a');
                 // 2. 아이디, 패스워드 동시 검색
                 sql = "SELECT * FROM users WHERE id=? AND password=?";
                 pstmt = con.prepareStatement(sql);
@@ -101,7 +102,7 @@ public class AdminDAO {
             String sql = "INSERT INTO users VALUES (null,?,?,?)";
 
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, dto.getName());
+            pstmt.setString(1, dto.getNickname());
             pstmt.setString(2, dto.getId());
             pstmt.setString(3, dto.getPassword());
 
@@ -124,9 +125,9 @@ public class AdminDAO {
 
         try {
             // 레코드 수정
-            String sql = "update users set " + "nickname=?, " + "id=?," + "password=? " + " where idx=?";
+            String sql = "update users set " + "nickname=?, " + "id=?," + "password=?";
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, dto.getName());
+            pstmt.setString(1, dto.getNickname());
             pstmt.setString(2, dto.getId());
             pstmt.setString(3, dto.getPassword());
             pstmt.setInt(4, dto.getIdx());
@@ -167,25 +168,28 @@ public class AdminDAO {
     }
 
 
-    // 관리자목록 조회
+    // 게시물 목록 조회
     public Vector<Vector> select() {
         connectDb();
 
         try {
-            String sql = "SELECT * FROM users";
-
+            String sql = "select * from posts where is_stop='0'";
+        
             pstmt = con.prepareStatement(sql);
             rs = pstmt.executeQuery();
-
+       
+         
             Vector<Vector> data = new Vector<>(); // 전체 레코드를 저장할 Vector 객체
-
+         
             while(rs.next()) {
                 Vector rowData = new Vector<>(); // 1개 레코드를 저장할 Vector 객체
-
-                rowData.add(rs.getInt("idx"));
-                rowData.add(rs.getString("nickname"));
-                rowData.add(rs.getString("id"));
-                rowData.add(rs.getString("password"));
+            
+         
+                rowData.add(rs.getString("keyword"));
+////                rowData.add(rs.getString("user_id"));
+//                rowData.add(rs.getInt("view_count"));
+//                rowData.add(rs.getString("content"));
+//             
 
                 data.add(rowData);
             }

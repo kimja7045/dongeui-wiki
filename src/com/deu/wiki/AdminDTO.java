@@ -4,7 +4,7 @@ package com.deu.wiki;
 public class AdminDTO {
     // Getter/Setter
     private int idx;
-    private String name;
+    private String nickname;
     private String id;
     private String password;
 
@@ -14,9 +14,9 @@ public class AdminDTO {
         this.id = id;
         this.password = password;
     }
-    public AdminDTO(int idx, String name, String id, String password) {
+    public AdminDTO(int idx, String nickname, String id, String password) {
         this.idx = idx;
-        this.name = name;
+        this.nickname = nickname;
         this.id = id;
         this.password = password;
     }
@@ -29,15 +29,15 @@ public class AdminDTO {
         this.idx = idx;
     }
 
-    public String getName() {
-        if(name == "") {
-            name = null;
+    public String getNickname() {
+        if(nickname == "") {
+            nickname = null;
         }
-        return name;
+        return nickname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setnickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getId() {
