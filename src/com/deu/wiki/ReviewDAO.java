@@ -7,15 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class UserDAO {
+public class ReviewDAO {
 	// --------------------------------------------------------
 	// 싱글톤 디자인 패턴을 적용한 인스턴스 리턴
-	private static UserDAO instance = new UserDAO();
+	private static ReviewDAO instance = new ReviewDAO();
 
-	public UserDAO() {
+	public ReviewDAO() {
 	}
 
-	public static UserDAO getInstance() {
+	public static ReviewDAO getInstance() {
 		return instance;
 	}
 	// --------------------------------------------------------
@@ -62,7 +62,7 @@ public class UserDAO {
 	}
 
 	// 회원 추가
-	public int insert(UserDTO dto) {
+	public int insert(ReviewDTO dto) {
 		connectDb();
 
 		int result = 0; // 회원 추가 성공 여부(0 : 실패, 1 : 리턴)
@@ -87,7 +87,7 @@ public class UserDAO {
 	}
 
 	// 회원 수정
-	public int update(UserDTO dto) {
+	public int update(ReviewDTO dto) {
 		connectDb();
 
 		int result = 0; // 회원 수정 성공 여부(0 : 실패, 1 : 리턴)
@@ -139,7 +139,7 @@ public class UserDAO {
 	public int selectOne(String pNum, int tempSum, int op) { // op가 0이면 포인트 적립x,사용 x 그냥 결제만, 1이면 포인트 사용, 2이면 포인트 적립
 		connectDb();
 		String sql = "SELECT * FROM user";
-		UserDTO user = new UserDTO();
+		ReviewDTO user = new ReviewDTO();
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -155,7 +155,7 @@ public class UserDAO {
 						if (temp < 0)
 							return 1; //포인트 부족으로 인한 결제 취소
 						user.setPoint(temp);
-						UserDAO dao = UserDAO.getInstance();
+						ReviewDAO dao = ReviewDAO.getInstance();
 						dao.update(user);
 						return 2; //포인트 사용 완료
 					}
@@ -164,7 +164,7 @@ public class UserDAO {
 						int temp = user.getPoint();
 						temp += (tempSum / 100); //포인트 적립은 계산가격의 50% 적립
 						user.setPoint(temp);
-						UserDAO dao = UserDAO.getInstance();
+						ReviewDAO dao = ReviewDAO.getInstance();
 						dao.update(user);
 						return 3; //포인트 적립 완료
 					}
@@ -177,7 +177,7 @@ public class UserDAO {
 				user.setIdx(0);
 				user.setpNum(pNum);
 				user.setPoint((tempSum /100));
-				UserDAO dao = UserDAO.getInstance();
+				ReviewDAO dao = ReviewDAO.getInstance();
 				dao.insert(user);
 				return 5;   // 회원 등록과 동시에 포인트 적립
 			}

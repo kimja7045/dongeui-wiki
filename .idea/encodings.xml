@@ -5,8 +5,8 @@
     <file url="file://$PROJECT_DIR$/src/com/deu/wiki/DB_Conn_Query.java" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/src/com/deu/wiki/JTableDriver.java" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/src/com/deu/wiki/MainGUI.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/ReviewDTO.java" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/src/com/deu/wiki/TotalDAO.java" charset="x-windows-949" />
-    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/UserDTO.java" charset="x-windows-949" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

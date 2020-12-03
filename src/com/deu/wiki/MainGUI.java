@@ -3,18 +3,13 @@ package com.deu.wiki;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.regex.Pattern;
 
@@ -34,6 +29,7 @@ public class MainGUI extends JFrame {
     private JPanel UserFrame = null;
     private JPanel TotalFrame = null;
     private JPanel SongFrame = null;
+    private JPanel PostDetailFrame = null;
     private CardLayout cards = new CardLayout();
 
     public MainGUI() {
@@ -46,9 +42,11 @@ public class MainGUI extends JFrame {
         TotalFrame = new TotalGUI();
         UserFrame = new UserGUI();
         SongFrame = new SongGUI();
+        PostDetailFrame = new PostDetailGUI(cards, this.getContentPane());
         add("Admin", AdminFrame);
         add("Total", TotalFrame);
         add("User", UserFrame);
+        add("PostDetail", PostDetailFrame);
         add("Song", SongFrame);
         setVisible(true);
     }
@@ -68,7 +66,9 @@ public class MainGUI extends JFrame {
         JButton btnDelete;
         JButton btnTotal;
         JButton btnUser;
+        JButton btnReport;
         JButton btnSong;
+        JButton btnPostDetail;
 
         JButton btnUpdate2;
         JButton btnCancel2;
@@ -120,13 +120,18 @@ public class MainGUI extends JFrame {
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
+
             btnSearch = new JButton("게시물 검색");
             btnInsert = new JButton("게시물 추가");
             btnUpdate = new JButton("게시물 수정");
             btnDelete = new JButton("게시물 삭제");
             btnSelect = new JButton("게시물 목록");
+            btnReport = new JButton("게시물 신고");
+
+            btnPostDetail = new JButton("게시글 상세 화면");
             btnTotal = new JButton("신고 게시물 관리");     // 원래 매출
-            btnUser = new JButton("신고 댓글 관리");       // 원래 회원
+            btnUser = new JButton("신고 댓글 관리");
+
 //            btnSong = new JButton("노래 관리");
 
             pSouth.add(btnSearch);
@@ -134,15 +139,19 @@ public class MainGUI extends JFrame {
             pSouth.add(btnUpdate);
             pSouth.add(btnDelete);
             pSouth.add(btnSelect);
+            pSouth.add(btnReport);
+            pSouth.add(btnPostDetail);
             pSouth.add(btnTotal);
             pSouth.add(btnUser);
+
 //            pSouth.add(btnSong);
 
+            btnReport.setVisible(false);
             btnInsert.setVisible(false);
-            btnSelect.setVisible(false);
             btnUpdate.setVisible(false);
             btnDelete.setVisible(false);
             btnTotal.setVisible(false);
+            btnPostDetail.setVisible(false);
             btnUser.setVisible(false);
 //            btnSong.setVisible(false);
 
@@ -152,7 +161,7 @@ public class MainGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     dbLogin();
 
-                    // 버튼 4개 구별하는 리스너
+                    // 버튼 구별하는 리스너
                     ActionListener btnListener = new ActionListener() {
 
                         @Override
@@ -167,11 +176,13 @@ public class MainGUI extends JFrame {
                                 update();
                             } else if (e.getSource() == btnSearch) {
                                 search();
+                            } else if (e.getSource() == btnReport){
+                                report();
                             }
                         }
                     };
 
-                    // 4개 버튼 리스너 동시 연결
+                    // 버튼 리스너 동시 연결
                     btnInsert.addActionListener(btnListener);
                     btnSelect.addActionListener(btnListener);
                     btnDelete.addActionListener(btnListener);
@@ -182,6 +193,12 @@ public class MainGUI extends JFrame {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     ChangePanel("Total");
+                }
+            });
+            btnPostDetail.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    ChangePanel("PostDetail");
                 }
             });
             btnUser.addMouseListener(new MouseAdapter() {
@@ -196,7 +213,7 @@ public class MainGUI extends JFrame {
 //                    ChangePanel("Song");
 //                }
 //            });
-            // ================= 좌측 회원 정보 입력 패널 ==================
+            // ================= 좌측 댓글 정보 입력 패널 ==================
             pWest = new JPanel();
             add(pWest, BorderLayout.LINE_START);
             // 패널 5개 행 생성 위해 GridLayout(5, 1) 설정
@@ -217,8 +234,7 @@ public class MainGUI extends JFrame {
             tfName = new JTextField(10);
             tfName.setEditable(false);
             pName.add(tfName);
-         
-            
+
 
             JPanel pId = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pId);
@@ -233,7 +249,7 @@ public class MainGUI extends JFrame {
 //            tfPassword = new JTextField(10);
 //            pPassword.add(tfPassword);
 
-            // ================= 중앙 회원 정보 출력 패널 ==================
+            // ================= 중앙 댓글 정보 출력 패널 ==================
             // 스크롤바 기능을 위해 JScrollPane 객체를 생성하여 Center 영역에 부착
             JScrollPane scrollPane = new JScrollPane();
             add(scrollPane, BorderLayout.CENTER);
@@ -249,7 +265,7 @@ public class MainGUI extends JFrame {
             columnNames.add("키워드");
             columnNames.add("내용");
             columnNames.add("조회 수");
-            columnNames.add("리뷰 수");
+            columnNames.add("댓글 수");
 
 
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
@@ -336,24 +352,26 @@ public class MainGUI extends JFrame {
                 	   tfName.setEditable(true);
                        tfId.setEditable(true);
 //                    tfPassword.setVisible(true);
-                    		
+
+                    btnReport.setVisible(true);
                     btnInsert.setVisible(true);
-                    btnSelect.setVisible(true);
-                    btnUpdate.setVisible(true);
-                    btnDelete.setVisible(true);
+//                    btnUpdate.setVisible(true);
+//                    btnDelete.setVisible(true);
                     btnTotal.setVisible(true); //신고게시글
+                    btnPostDetail.setVisible(true);
                     table.setVisible(true);
                     btnUser.setVisible(true);  //신고댓글
 //                    btnSong.setVisible(true);
                 } else {
+                    btnPostDetail.setVisible(true);
+                    btnReport.setVisible(true);
                 	btnInsert.setVisible(true);
-                	 btnSelect.setVisible(true);
 //                    btnTotal.setVisible(true); //신고게시글
 //                    btnUser.setVisible(true);  // 신고댓글
 //                    btnSong.setVisible(true);
                 }
                 isLogin = true; // 로그인 상태로 변경
-            } else { // 로그인 상태일 경우(로그아웃 버튼을 클릭했을 경우)
+            } else { // 로그인 상태에서 로그아웃 버튼을 클릭했을 경우
 //                tfDbIp.setEditable(true);
                 tfDbUsername.setEditable(true);
                 pfDbPassword.setEditable(true);
@@ -361,9 +379,10 @@ public class MainGUI extends JFrame {
                 tfId.setEditable(false);
                 tfDbUsername.setText("");
                 pfDbPassword.setText("");
+                btnReport.setVisible(false);
+                btnPostDetail.setVisible(false);
                 btnLogin.setText("로그인");
                 btnInsert.setVisible(false);
-                btnSelect.setVisible(false);
                 btnUpdate.setVisible(false);
                 btnDelete.setVisible(false);
                 btnTotal.setVisible(false);
@@ -421,7 +440,7 @@ public class MainGUI extends JFrame {
                 return;
             }
 
-            // 테이블 셀 선택했을 경우 창 새 프레임 생성하여 선택된 회원 정보 표시
+            // 테이블 셀 선택했을 경우 창 새 프레임 생성하여 선택된 댓글 정보 표시
             JFrame editFrame = new JFrame("Update"); // 새 프레임 생성
             // 위치 설정 시 기존 부모 프레임의 위치 좌표 값을 받아서 사용(double타입이므로 int형 형변환)
             editFrame.setBounds(800, 200, 250, 300);
@@ -531,6 +550,9 @@ public class MainGUI extends JFrame {
 
         }
 
+        public void report(){
+
+        }
         // 게시물 목록
         public void select() {
 //			if(!isLogin) {
@@ -786,7 +808,7 @@ public class MainGUI extends JFrame {
                 return;
             }
 
-            // 테이블 셀 선택했을 경우 창 새 프레임 생성하여 선택된 회원 정보 표시
+            // 테이블 셀 선택했을 경우 창 새 프레임 생성하여 선택된 댓글 정보 표시
             JFrame editFrame = new JFrame("Update"); // 새 프레임 생성
             // 위치 설정 시 기존 부모 프레임의 위치 좌표 값을 받아서 사용(double타입이므로 int형 형변환)
             editFrame.setBounds(800, 200, 250, 300);
@@ -944,7 +966,7 @@ public class MainGUI extends JFrame {
     }
 
     ///
-    /// 회원관리 화면
+    /// 댓글관리 화면
     ///
 
     public class UserGUI extends JPanel {
@@ -1006,7 +1028,7 @@ public class MainGUI extends JFrame {
                     ChangePanel("Admin");
                 }
             });
-            // ================= 좌측 회원 정보 입력 패널 ==================
+            // ================= 좌측 댓글 정보 입력 패널 ==================
             pWest = new JPanel();
             add(pWest, BorderLayout.LINE_START);
             // 패널 5개 행 생성 위해 GridLayout(5, 1) 설정
@@ -1033,7 +1055,7 @@ public class MainGUI extends JFrame {
             tfPoint = new JTextField(10);
             pPoint.add(tfPoint);
 
-            // ================= 중앙 회원 정보 출력 패널 ==================
+            // ================= 중앙 댓글 정보 출력 패널 ==================
             // 스크롤바 기능을 위해 JScrollPane 객체를 생성하여 Center 영역에 부착
             JScrollPane scrollPane = new JScrollPane();
             add(scrollPane, BorderLayout.CENTER);
@@ -1080,7 +1102,7 @@ public class MainGUI extends JFrame {
             setVisible(true);
         }
 
-        // 회원 및 포인트 추가
+        // 댓글 및 포인트 추가
         public void insert() {
 
             // 입력 항목 체크
@@ -1089,28 +1111,28 @@ public class MainGUI extends JFrame {
                 return;
             }
 
-            UserDTO dto = new UserDTO(tfpNum.getText());
-            UserDAO dao = UserDAO.getInstance();
+            ReviewDTO dto = new ReviewDTO(tfpNum.getText());
+            ReviewDAO dao = ReviewDAO.getInstance();
 
-            int result = dao.insert(dto); // 회원추가 후 결과값 리턴
+            int result = dao.insert(dto); // 댓글추가 후 결과값 리턴
 
-            // 회원 추가 여부 판별
+            // 댓글 추가 여부 판별
             if (result == 0) { // 실패했을 경우
-                JOptionPane.showMessageDialog(rootPane, "회원을 추가할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "댓글을 추가할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
                 return;
             } else { // 성공했을 경우
-                JOptionPane.showMessageDialog(rootPane, "회원을 추가하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "댓글을 추가하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
                 Static.pNum = null;
             }
         }
 
-        // 회원 수정
+        // 댓글 수정
         public void update() {
             if (table.getSelectedRow() == -1) { // 테이블 셀 선택 안됐을 경우 -1 리턴됨
                 return;
             }
 
-            // 테이블 셀 선택했을 경우 창 새 프레임 생성하여 선택된 회원 정보 표시
+            // 테이블 셀 선택했을 경우 창 새 프레임 생성하여 선택된 댓글 정보 표시
             JFrame editFrame = new JFrame("Update"); // 새 프레임 생성
             // 위치 설정 시 기존 부모 프레임의 위치 좌표 값을 받아서 사용(double타입이므로 int형 형변환)
             editFrame.setBounds(800, 200, 250, 300);
@@ -1170,17 +1192,17 @@ public class MainGUI extends JFrame {
                             tfSum.requestFocus();
                             return;
                         }
-                        UserDTO dto = new UserDTO(Integer.parseInt(tfIdx.getText()), tfName2.getText(),
+                        ReviewDTO dto = new ReviewDTO(Integer.parseInt(tfIdx.getText()), tfName2.getText(),
                                 Integer.parseInt(tfSum.getText()));
-                        UserDAO dao = UserDAO.getInstance();
-                        int result = dao.update(dto); // 회원 수정 후 결과값 리턴
+                        ReviewDAO dao = ReviewDAO.getInstance();
+                        int result = dao.update(dto); // 댓글 수정 후 결과값 리턴
 
-                        // 회원 수정 여부 판별
+                        // 댓글 수정 여부 판별
                         if (result == 0) { // 실패했을 경우
-                            JOptionPane.showMessageDialog(rootPane, "회원을 수정할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, "댓글을 수정할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
                             return;
                         } else { // 성공했을 경우
-                            JOptionPane.showMessageDialog(rootPane, "회원을 수정하였습니다.", "성공",
+                            JOptionPane.showMessageDialog(rootPane, "댓글을 수정하였습니다.", "성공",
                                     JOptionPane.INFORMATION_MESSAGE);
                             editFrame.setVisible(false);
                         }
@@ -1196,11 +1218,11 @@ public class MainGUI extends JFrame {
             editFrame.setVisible(true);
         }
 
-        // 회원 목록 조회
+        // 신고 댓글 목록 조회
         public void select() {
-            UserDAO dao = UserDAO.getInstance();
+            ReviewDAO dao = ReviewDAO.getInstance();
 
-            // 회원 목록 조회 후 전체 레코드를 Vector 타입으로 저장하여 리턴
+            // 신고 댓글 목록 조회 후 전체 레코드를 Vector 타입으로 저장하여 리턴
             Vector<Vector> data = dao.select();
 
             DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // 다운캐스팅
@@ -1216,10 +1238,10 @@ public class MainGUI extends JFrame {
             invalidate(); // 프레임 갱신(새로 그리기)
         }
 
-        // 회원 기록 삭제
+        // 신고 댓글 삭제
         public void delete() {
 
-            // InputDialog 사용하여 삭제할 회원 번호 입력받기
+            // InputDialog 사용하여 삭제할 댓글 번호 입력받기
             String idx = JOptionPane.showInputDialog(rootPane, "삭제할 댓글 번호를 입력하세요.");
 //			System.out.println(idx);
 
@@ -1244,15 +1266,15 @@ public class MainGUI extends JFrame {
                 return;
             }
 
-            UserDAO dao = UserDAO.getInstance();
+            ReviewDAO dao = ReviewDAO.getInstance();
 
             int result = dao.delete(Integer.parseInt(idx));
-            // 회원 삭제 여부 판별
+            // 댓글 삭제 여부 판별
             if (result == 0) { // 실패했을 경우
-                JOptionPane.showMessageDialog(rootPane, "회원를 삭제할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "댓글를 삭제할 수 없습니다.", "실패", JOptionPane.ERROR_MESSAGE);
                 return;
             } else { // 성공했을 경우
-                JOptionPane.showMessageDialog(rootPane, "회원를 삭제하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "댓글를 삭제하였습니다.", "성공", JOptionPane.INFORMATION_MESSAGE);
             }
 
         }
