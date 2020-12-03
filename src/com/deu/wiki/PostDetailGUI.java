@@ -39,15 +39,15 @@ public class PostDetailGUI extends JPanel {
     public void showFrame() {
         setLayout(new BorderLayout());
 
-        // ================= í•˜ë‹¨ ë²„íŠ¼ íŒ¨ë„ ==================
+        // ================= ÇÏ´Ü ¹öÆ° ÆĞ³Î ==================
         pSouth = new JPanel();
         add(pSouth, BorderLayout.PAGE_END);
 
-        btnInsert = new JButton("ëŒ“ê¸€ ê²€ìƒ‰");
-//            btnUpdate = new JButton("ì‹ ê³  ê²Œì‹œê¸€ ìˆ˜ì •");
-        btnDelete = new JButton("ì‹ ê³  ê²Œì‹œê¸€ ì‚­ì œ");
-        btnSelect = new JButton("ì‹ ê³  ê²Œì‹œê¸€ ëª©ë¡");
-        btnBack = new JButton("ë’¤ë¡œ ê°€ê¸°");
+        btnInsert = new JButton("´ñ±Û °Ë»ö");
+//            btnUpdate = new JButton("½Å°í °Ô½Ã±Û ¼öÁ¤");
+        btnDelete = new JButton("½Å°í °Ô½Ã±Û »èÁ¦");
+        btnSelect = new JButton("½Å°í °Ô½Ã±Û ¸ñ·Ï");
+        btnBack = new JButton("µÚ·Î °¡±â");
 
         pSouth.add(btnInsert);
 //            pSouth.add(btnUpdate);
@@ -82,81 +82,81 @@ public class PostDetailGUI extends JPanel {
             }
         });
 
-        // ================= ì¢Œì¸¡ ëŒ“ê¸€ ì •ë³´ ì…ë ¥ íŒ¨ë„ ==================
+        // ================= ÁÂÃø ´ñ±Û Á¤º¸ ÀÔ·Â ÆĞ³Î ==================
         pWest = new JPanel();
         add(pWest, BorderLayout.LINE_START);
-        // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+        // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
         pWest.setLayout(new GridLayout(5, 1));
 
-        // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+        // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
         JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pWest.add(pIdx);
 
-        pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+        pIdx.add(new JLabel("¹ø   È£"));
         tfIdx = new JTextField(10);
-        tfIdx.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+        tfIdx.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
         pIdx.add(tfIdx);
 
         JPanel pDate = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pWest.add(pDate);
-        pDate.add(new JLabel("í‚¤ ì›Œ ë“œ"));
+        pDate.add(new JLabel("Å° ¿ö µå"));
         tfDate = new JTextField(10);
         pDate.add(tfDate);
 
         JPanel pSum = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pWest.add(pSum);
-        pSum.add(new JLabel("ë‚´   ìš©"));
+        pSum.add(new JLabel("³»   ¿ë"));
         tfSum = new JTextField(10);
         pSum.add(tfSum);
 
-        // ================= ì¤‘ì•™ ëŒ“ê¸€ ì •ë³´ ì¶œë ¥ íŒ¨ë„ ==================
-        // ìŠ¤í¬ë¡¤ë°” ê¸°ëŠ¥ì„ ìœ„í•´ JScrollPane ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ Center ì˜ì—­ì— ë¶€ì°©
+        // ================= Áß¾Ó ´ñ±Û Á¤º¸ Ãâ·Â ÆĞ³Î ==================
+        // ½ºÅ©·Ñ¹Ù ±â´ÉÀ» À§ÇØ JScrollPane °´Ã¼¸¦ »ı¼ºÇÏ¿© Center ¿µ¿ª¿¡ ºÎÂø
         JScrollPane scrollPane = new JScrollPane();
         add(scrollPane, BorderLayout.CENTER);
 
-        // JTable ê°ì²´ë¥¼ ìƒì„±í•˜ì—¬ JScrollPane ì˜ ViewPort ì˜ì—­ì— ë¶€ì°©
+        // JTable °´Ã¼¸¦ »ı¼ºÇÏ¿© JScrollPane ÀÇ ViewPort ¿µ¿ª¿¡ ºÎÂø
         table = new JTable();
-        table.getTableHeader().setReorderingAllowed(false); // ì…€ ì´ë™ ë¶ˆê°€ ì„¤ì •
+        table.getTableHeader().setReorderingAllowed(false); // ¼¿ ÀÌµ¿ ºÒ°¡ ¼³Á¤
         scrollPane.setViewportView(table);
 
-        // í…Œì´ë¸” ì»¬ëŸ¼ëª… í‘œì‹œë¥¼ ìœ„í•´ Vector ê°ì²´ì— ì»¬ëŸ¼ëª…ì„ ì €ì¥í•œ í›„ DefaultTableModel ê°ì²´ì— ì¶”ê°€
+        // Å×ÀÌºí ÄÃ·³¸í Ç¥½Ã¸¦ À§ÇØ Vector °´Ã¼¿¡ ÄÃ·³¸íÀ» ÀúÀåÇÑ ÈÄ DefaultTableModel °´Ã¼¿¡ Ãß°¡
         Vector<String> columnNames = new Vector<String>();
-        columnNames.add("ë²ˆí˜¸");
-        columnNames.add("í‚¤ì›Œë“œ");
-        columnNames.add("ë‚´ìš©");
+        columnNames.add("¹øÈ£");
+        columnNames.add("Å°¿öµå");
+        columnNames.add("³»¿ë");
 
 //			DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
         DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // ì…€ í¸ì§‘ ë¶ˆê°€ëŠ¥í•˜ë„ë¡ ì„¤ì •
+                return false; // ¼¿ ÆíÁı ºÒ°¡´ÉÇÏµµ·Ï ¼³Á¤
             }
 
         };
 
-        // JTable ì— DefaultTableModel ê°ì²´ ì¶”ê°€
+        // JTable ¿¡ DefaultTableModel °´Ã¼ Ãß°¡
         table.setModel(dtm);
 
-        // í…Œì´ë¸” ë‚´ì˜ ë ˆì½”ë“œ ë˜ëŠ” ì»¬ëŸ¼ í´ë¦­ ì‹œ ì´ë²¤íŠ¸ ì²˜ë¦¬
+        // Å×ÀÌºí ³»ÀÇ ·¹ÄÚµå ¶Ç´Â ÄÃ·³ Å¬¸¯ ½Ã ÀÌº¥Æ® Ã³¸®
         table.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                // í…Œì´ë¸”ì„ ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•  ê²½ìš° í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
-                // ì„ íƒëœ ì»¬ëŸ¼ì˜ í–‰, ì—´ ë²ˆí˜¸ ì¶œë ¥
+                // Å×ÀÌºíÀ» ¸¶¿ì½º·Î Å¬¸¯ÇÒ °æ¿ì È£ÃâµÇ´Â ¸Ş¼­µå
+                // ¼±ÅÃµÈ ÄÃ·³ÀÇ Çà, ¿­ ¹øÈ£ Ãâ·Â
 //					System.out.println(table.getSelectedRow() + ", " + table.getSelectedColumn());
 
-                // ì„ íƒëœ ì»¬ëŸ¼ì˜ ë°ì´í„° ì¶œë ¥
+                // ¼±ÅÃµÈ ÄÃ·³ÀÇ µ¥ÀÌÅÍ Ãâ·Â
 //					System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
 
-                showTotalInfo(); // ì„ íƒëœ í–‰ì˜ ëª¨ë“  ì»¬ëŸ¼ ë°ì´í„°ë¥¼ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+                showTotalInfo(); // ¼±ÅÃµÈ ÇàÀÇ ¸ğµç ÄÃ·³ µ¥ÀÌÅÍ¸¦ WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
             }
         });
         setVisible(true);
     }
 
-    // ëŒ“ê¸€ ì •ì‚°
+    // ´ñ±Û Á¤»ê
     public void insert() {
 
         String date = null;
@@ -164,103 +164,103 @@ public class PostDetailGUI extends JPanel {
         Date time = new Date();
         date = format1.format(time);
 
-        // ì…ë ¥ í•­ëª© ì²´í¬
+        // ÀÔ·Â Ç×¸ñ Ã¼Å©
         if (date == null) {
-            JOptionPane.showMessageDialog(rootPane, "ë‚ ì§œ ì…ë ¥ ì˜¤ë¥˜!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "³¯Â¥ ÀÔ·Â ¿À·ù!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 //            TotalDTO dto = new TotalDTO(date, Static.total);
 //
 //            TotalDAO dao = TotalDAO.getInstance();
-//            int result = dao.insert(dto); // ëŒ“ê¸€ì •ì‚° í›„ ê²°ê³¼ê°’ ë¦¬í„´
+//            int result = dao.insert(dto); // ´ñ±ÛÁ¤»ê ÈÄ °á°ú°ª ¸®ÅÏ
 //
-//            // ëŒ“ê¸€ ì¶”ê°€ ì—¬ë¶€ íŒë³„
-//            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ëŒ“ê¸€ë¥¼ ì •ì‚°í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+//            // ´ñ±Û Ãß°¡ ¿©ºÎ ÆÇº°
+//            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "´ñ±Û¸¦ Á¤»êÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
 //                return;
-//            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ëŒ“ê¸€ë¥¼ ì •ì‚°í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+//            } else { // ¼º°øÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "´ñ±Û¸¦ Á¤»êÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
 //                dto = new TotalDTO(0, date, 0);
 //            }
     }
 
-    // ëŒ“ê¸€ ìˆ˜ì •
+    // ´ñ±Û ¼öÁ¤
     public void update() {
-        if (table.getSelectedRow() == -1) { // í…Œì´ë¸” ì…€ ì„ íƒ ì•ˆëì„ ê²½ìš° -1 ë¦¬í„´ë¨
+        if (table.getSelectedRow() == -1) { // Å×ÀÌºí ¼¿ ¼±ÅÃ ¾ÈµÆÀ» °æ¿ì -1 ¸®ÅÏµÊ
             return;
         }
 
-        // í…Œì´ë¸” ì…€ ì„ íƒí–ˆì„ ê²½ìš° ì°½ ìƒˆ í”„ë ˆì„ ìƒì„±í•˜ì—¬ ì„ íƒëœ íšŒì› ì •ë³´ í‘œì‹œ
-        JFrame editFrame = new JFrame("Update"); // ìƒˆ í”„ë ˆì„ ìƒì„±
-        // ìœ„ì¹˜ ì„¤ì • ì‹œ ê¸°ì¡´ ë¶€ëª¨ í”„ë ˆì„ì˜ ìœ„ì¹˜ ì¢Œí‘œ ê°’ì„ ë°›ì•„ì„œ ì‚¬ìš©(doubleíƒ€ì…ì´ë¯€ë¡œ intí˜• í˜•ë³€í™˜)
+        // Å×ÀÌºí ¼¿ ¼±ÅÃÇßÀ» °æ¿ì Ã¢ »õ ÇÁ·¹ÀÓ »ı¼ºÇÏ¿© ¼±ÅÃµÈ È¸¿ø Á¤º¸ Ç¥½Ã
+        JFrame editFrame = new JFrame("Update"); // »õ ÇÁ·¹ÀÓ »ı¼º
+        // À§Ä¡ ¼³Á¤ ½Ã ±âÁ¸ ºÎ¸ğ ÇÁ·¹ÀÓÀÇ À§Ä¡ ÁÂÇ¥ °ªÀ» ¹Ş¾Æ¼­ »ç¿ë(doubleÅ¸ÀÔÀÌ¹Ç·Î intÇü Çüº¯È¯)
         editFrame.setBounds(800, 200, 250, 300);
-        editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // í˜„ì¬ í”„ë ˆì„ë§Œ ì¢…ë£Œ
+        editFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // ÇöÀç ÇÁ·¹ÀÓ¸¸ Á¾·á
 
         JPanel pWest2 = new JPanel();
         editFrame.add(pWest2, BorderLayout.CENTER);
-        // íŒ¨ë„ 5ê°œ í–‰ ìƒì„± ìœ„í•´ GridLayout(5, 1) ì„¤ì •
+        // ÆĞ³Î 5°³ Çà »ı¼º À§ÇØ GridLayout(5, 1) ¼³Á¤
         pWest2.setLayout(new GridLayout(5, 1));
 
-        // ê° í–‰ë³„ë¡œ ì…ë ¥ í•­ëª©ì— ëŒ€í•œ JLabel + JTextField ë¡œ íŒ¨ë„ êµ¬ì„±
+        // °¢ Çàº°·Î ÀÔ·Â Ç×¸ñ¿¡ ´ëÇÑ JLabel + JTextField ·Î ÆĞ³Î ±¸¼º
         JPanel pIdx = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pWest2.add(pIdx);
 
-        pIdx.add(new JLabel("ë²ˆ   í˜¸"));
+        pIdx.add(new JLabel("¹ø   È£"));
         JTextField tfIdx2 = new JTextField(10);
         tfIdx2.setText(tfIdx.getText());
         tfIdx2.setHorizontalAlignment(tfIdx2.CENTER);
-        tfIdx2.setEditable(false); // í…ìŠ¤íŠ¸í•„ë“œ í¸ì§‘ ë¶ˆê°€ ì„¤ì •
+        tfIdx2.setEditable(false); // ÅØ½ºÆ®ÇÊµå ÆíÁı ºÒ°¡ ¼³Á¤
         pIdx.add(tfIdx2);
 
         JPanel pDate = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pWest2.add(pDate);
 
-        pDate.add(new JLabel("ë‚    ì§œ"));
+        pDate.add(new JLabel("³¯   Â¥"));
         JTextField tfName2 = new JTextField(10);
         pDate.add(tfName2);
 
         JPanel pId2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         pWest2.add(pId2);
 
-        pId2.add(new JLabel("ë§¤   ì¶œ"));
+        pId2.add(new JLabel("¸Å   Ãâ"));
         JTextField tfSum = new JTextField(10);
         pId2.add(tfSum);
 
         JPanel pSouth2 = new JPanel();
         editFrame.add(pSouth2, BorderLayout.SOUTH);
 
-        JButton btnUpdate2 = new JButton("ìˆ˜ì •");
-        JButton btnCancel2 = new JButton("ì·¨ì†Œ");
+        JButton btnUpdate2 = new JButton("¼öÁ¤");
+        JButton btnCancel2 = new JButton("Ãë¼Ò");
 
         pSouth2.add(btnUpdate2);
         pSouth2.add(btnCancel2);
 
-        // ë²„íŠ¼ ë‘ ê°œ êµ¬ë³„í•˜ëŠ” ë¦¬ìŠ¤ë„ˆ
+        // ¹öÆ° µÎ °³ ±¸º°ÇÏ´Â ¸®½º³Ê
         ActionListener btnListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == btnUpdate2) {
-                    // ì…ë ¥ í•­ëª© ì²´í¬
+                    // ÀÔ·Â Ç×¸ñ Ã¼Å©
                     if (tfName2.getText().length() == 0) {
-                        JOptionPane.showMessageDialog(rootPane, "ë‚ ì§œ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, "³¯Â¥ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                         tfName2.requestFocus();
                         return;
                     } else if (tfSum.getText().length() == 0) {
-                        JOptionPane.showMessageDialog(rootPane, "ëŒ“ê¸€ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, "´ñ±Û ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
                         tfSum.requestFocus();
                         return;
                     }
 //                        TotalDTO dto = new TotalDTO(Integer.parseInt(tfIdx.getText()), tfName2.getText(),
 //                                Integer.parseInt(tfSum.getText()));
 //                        TotalDAO dao = TotalDAO.getInstance();
-//                        int result = dao.update(dto); // ëŒ“ê¸€ ìˆ˜ì • í›„ ê²°ê³¼ê°’ ë¦¬í„´
+//                        int result = dao.update(dto); // ´ñ±Û ¼öÁ¤ ÈÄ °á°ú°ª ¸®ÅÏ
 
-                    // ëŒ“ê¸€ ìˆ˜ì • ì—¬ë¶€ íŒë³„
-//                        if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-//                            JOptionPane.showMessageDialog(rootPane, "ëŒ“ê¸€ì„ ìˆ˜ì •í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+                    // ´ñ±Û ¼öÁ¤ ¿©ºÎ ÆÇº°
+//                        if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+//                            JOptionPane.showMessageDialog(rootPane, "´ñ±ÛÀ» ¼öÁ¤ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
 //                            return;
-//                        } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-//                            JOptionPane.showMessageDialog(rootPane, "ëŒ“ê¸€ì„ ìˆ˜ì •í•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ",
+//                        } else { // ¼º°øÇßÀ» °æ¿ì
+//                            JOptionPane.showMessageDialog(rootPane, "´ñ±ÛÀ» ¼öÁ¤ÇÏ¿´½À´Ï´Ù.", "¼º°ø",
 //                                    JOptionPane.INFORMATION_MESSAGE);
 //                            editFrame.setVisible(false);
 //                        }
@@ -269,80 +269,80 @@ public class PostDetailGUI extends JPanel {
                 }
             }
         };
-        // ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ë™ì‹œ ì—°ê²°
+        // ¹öÆ° ¸®½º³Ê µ¿½Ã ¿¬°á
         btnUpdate2.addActionListener(btnListener);
         btnCancel2.addActionListener(btnListener);
 
         editFrame.setVisible(true);
     }
 
-    // ë¦¬ë·° ëª©ë¡ ì¡°íšŒ
+    // ¸®ºä ¸ñ·Ï Á¶È¸
     public void select() {
 //            TotalDAO dao = TotalDAO.getInstance();
-//            // ëŒ“ê¸€ ëª©ë¡ ì¡°íšŒ í›„ ì „ì²´ ë ˆì½”ë“œë¥¼ Vector íƒ€ì…ìœ¼ë¡œ ì €ì¥í•˜ì—¬ ë¦¬í„´
+//            // ´ñ±Û ¸ñ·Ï Á¶È¸ ÈÄ ÀüÃ¼ ·¹ÄÚµå¸¦ Vector Å¸ÀÔÀ¸·Î ÀúÀåÇÏ¿© ¸®ÅÏ
 //            Vector<Vector> data = dao.select();
 
-        DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ë‹¤ìš´ìºìŠ¤íŒ…
-//			 TableModel tm = table.getModel() í˜•íƒœë¡œë„ ì‚¬ìš© ê°€ëŠ¥(ë‹¤ìš´ìºìŠ¤íŒ… í•˜ì§€ ì•Šì„ ê²½ìš°)
-        // => ë‹¨, addRow() ë“±ì˜ ë©”ì„œë“œê°€ ì—†ìŒ
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // ´Ù¿îÄ³½ºÆÃ
+//			 TableModel tm = table.getModel() ÇüÅÂ·Îµµ »ç¿ë °¡´É(´Ù¿îÄ³½ºÆÃ ÇÏÁö ¾ÊÀ» °æ¿ì)
+        // => ´Ü, addRow() µîÀÇ ¸Ş¼­µå°¡ ¾øÀ½
 
-        dtm.setRowCount(0); // ì²«ë²ˆì§¸ í–‰ë¶€í„° ë ˆì½”ë“œë¥¼ ì¶”ê°€í•´ì•¼í•˜ë¯€ë¡œ ì»¤ì„œë¥¼ 0ë²ˆ í–‰ìœ¼ë¡œ ì˜®ê¹€
+        dtm.setRowCount(0); // Ã¹¹øÂ° ÇàºÎÅÍ ·¹ÄÚµå¸¦ Ãß°¡ÇØ¾ßÇÏ¹Ç·Î Ä¿¼­¸¦ 0¹ø ÇàÀ¸·Î ¿Å±è
 
-        // Vector ê°ì²´ì— ì €ì¥ëœ ë ˆì½”ë“œ ìˆ˜ ë§Œí¼ ë°˜ë³µí•˜ë©´ì„œ ë ˆì½”ë“œ ë°ì´í„°ë¥¼ ëª¨ë¸ ê°ì²´ì— ì¶”ê°€(addRow())
+        // Vector °´Ã¼¿¡ ÀúÀåµÈ ·¹ÄÚµå ¼ö ¸¸Å­ ¹İº¹ÇÏ¸é¼­ ·¹ÄÚµå µ¥ÀÌÅÍ¸¦ ¸ğµ¨ °´Ã¼¿¡ Ãß°¡(addRow())
 //            for (Vector rowData : data) {
 //                dtm.addRow(rowData);
 //            }
-        invalidate(); // í”„ë ˆì„ ê°±ì‹ (ìƒˆë¡œ ê·¸ë¦¬ê¸°)
+        invalidate(); // ÇÁ·¹ÀÓ °»½Å(»õ·Î ±×¸®±â)
     }
 
-    // ë¦¬ë·° ì‚­ì œ
+    // ¸®ºä »èÁ¦
     public void delete() {
 
-        // InputDialog ì‚¬ìš©í•˜ì—¬ ì‚­ì œí•  ëŒ“ê¸€ ë²ˆí˜¸ ì…ë ¥ë°›ê¸°
-        String idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  ëŒ“ê¸€ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+        // InputDialog »ç¿ëÇÏ¿© »èÁ¦ÇÒ ´ñ±Û ¹øÈ£ ÀÔ·Â¹Ş±â
+        String idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ ´ñ±Û ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 //			System.out.println(idx);
 
         while (idx == null || idx.length() == 0) {
-            // ì·¨ì†Œ(null) í´ë¦­ ë˜ëŠ” ì•„ë¬´ê²ƒë„ ì…ë ¥í•˜ì§€ ì•Šê³  í™•ì¸ í´ë¦­ ì‹œ
-            if (idx == null) { // ì·¨ì†Œ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ì•„ë¬´ ë™ì‘ X
-                return; // í˜„ì¬ ë©”ì„œë“œ ì¢…ë£Œ
+            // Ãë¼Ò(null) Å¬¸¯ ¶Ç´Â ¾Æ¹«°Íµµ ÀÔ·ÂÇÏÁö ¾Ê°í È®ÀÎ Å¬¸¯ ½Ã
+            if (idx == null) { // Ãë¼Ò ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¾Æ¹« µ¿ÀÛ X
+                return; // ÇöÀç ¸Ş¼­µå Á¾·á
             }
 
-            // ì•„ë¬´ ë²ˆí˜¸ë„ ì…ë ¥í•˜ì§€ ì•Šê³ (ë„ìŠ¤íŠ¸ë§ê°’ ì „ë‹¬) í™•ì¸ ë²„íŠ¼ í´ë¦­í–ˆì„ ê²½ìš° ë©”ì„¸ì§€ í‘œì‹œ
-            JOptionPane.showMessageDialog(rootPane, "ë²ˆí˜¸ ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+            // ¾Æ¹« ¹øÈ£µµ ÀÔ·ÂÇÏÁö ¾Ê°í(³Î½ºÆ®¸µ°ª Àü´Ş) È®ÀÎ ¹öÆ° Å¬¸¯ÇßÀ» °æ¿ì ¸Ş¼¼Áö Ç¥½Ã
+            JOptionPane.showMessageDialog(rootPane, "¹øÈ£ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
 
-            // ë‹¤ì‹œ ì…ë ¥ë°›ê¸°
-            idx = JOptionPane.showInputDialog(rootPane, "ì‚­ì œí•  ëŒ“ê¸€ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+            // ´Ù½Ã ÀÔ·Â¹Ş±â
+            idx = JOptionPane.showInputDialog(rootPane, "»èÁ¦ÇÒ ´ñ±Û ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
         }
 
-        // ì‚­ì œí•  ë²ˆí˜¸ë¥¼ ì…ë ¥í•  ê²½ìš°
-        // => ì •ê·œí‘œí˜„ì‹ì„ ì‚¬ìš©í•˜ì—¬ ë²ˆí˜¸ë§Œ ì…ë ¥ë°›ë„ë¡ ì²˜ë¦¬í•  ìˆ˜ ìˆë‹¤!
-        // => \\d : ìˆ«ì, {1,} : ê·œì¹™ì´ 1ë²ˆ ì´ìƒ ë°˜ë³µ => \\d{1,} : ìˆ«ì 1ìë¦¬ ì´ìƒ
+        // »èÁ¦ÇÒ ¹øÈ£¸¦ ÀÔ·ÂÇÒ °æ¿ì
+        // => Á¤±ÔÇ¥Çö½ÄÀ» »ç¿ëÇÏ¿© ¹øÈ£¸¸ ÀÔ·Â¹Şµµ·Ï Ã³¸®ÇÒ ¼ö ÀÖ´Ù!
+        // => \\d : ¼ıÀÚ, {1,} : ±ÔÄ¢ÀÌ 1¹ø ÀÌ»ó ¹İº¹ => \\d{1,} : ¼ıÀÚ 1ÀÚ¸® ÀÌ»ó
         if (!Pattern.matches("\\d{1,}", idx)) {
-            JOptionPane.showMessageDialog(rootPane, "ìˆ«ì ì…ë ¥ í•„ìˆ˜!", "ì…ë ¥ ì˜¤ë¥˜", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "¼ıÀÚ ÀÔ·Â ÇÊ¼ö!", "ÀÔ·Â ¿À·ù", JOptionPane.ERROR_MESSAGE);
             return;
         }
 //
 //            TotalDAO dao = TotalDAO.getInstance();
 //
 //            int result = dao.delete(Integer.parseInt(idx));
-//            // ëŒ“ê¸€ ì‚­ì œ ì—¬ë¶€ íŒë³„
-//            if (result == 0) { // ì‹¤íŒ¨í–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ëŒ“ê¸€ë¥¼ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", "ì‹¤íŒ¨", JOptionPane.ERROR_MESSAGE);
+//            // ´ñ±Û »èÁ¦ ¿©ºÎ ÆÇº°
+//            if (result == 0) { // ½ÇÆĞÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "´ñ±Û¸¦ »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.", "½ÇÆĞ", JOptionPane.ERROR_MESSAGE);
 //                return;
-//            } else { // ì„±ê³µí–ˆì„ ê²½ìš°
-//                JOptionPane.showMessageDialog(rootPane, "ëŒ“ê¸€ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.", "ì„±ê³µ", JOptionPane.INFORMATION_MESSAGE);
+//            } else { // ¼º°øÇßÀ» °æ¿ì
+//                JOptionPane.showMessageDialog(rootPane, "´ñ±Û¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.", "¼º°ø", JOptionPane.INFORMATION_MESSAGE);
 //            }
 
     }
 
     public void showTotalInfo() {
-        // í´ë¦­í•œ í–‰ì— ëŒ€í•œ ëª¨ë“  ì •ë³´ ê°€ì ¸ì™€ì„œ ì¢Œì¸¡ WEST ì˜ì—­ í…ìŠ¤íŠ¸í•„ë“œì— í‘œì‹œ
+        // Å¬¸¯ÇÑ Çà¿¡ ´ëÇÑ ¸ğµç Á¤º¸ °¡Á®¿Í¼­ ÁÂÃø WEST ¿µ¿ª ÅØ½ºÆ®ÇÊµå¿¡ Ç¥½Ã
         int row = table.getSelectedRow();
 
-        tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-        tfDate.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
-        tfSum.setText((String) table.getValueAt(row, 2)); // Object(double) -> String íƒ€ì…ìœ¼ë¡œ í˜•ë³€í™˜
+        tfIdx.setText(table.getValueAt(row, 0) + ""); // Object(int) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+        tfDate.setText(table.getValueAt(row, 1).toString()); // Object(String) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
+        tfSum.setText((String) table.getValueAt(row, 2)); // Object(double) -> String Å¸ÀÔÀ¸·Î Çüº¯È¯
     }
 
 }
