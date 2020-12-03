@@ -58,7 +58,7 @@ public class AdminDAO {
 
         try {
             // 1. 아이디 검색
-            String sql = "SELECT * FROM users WHERE id=?";
+            String sql = "SELECT * FROM posts WHERE id=?";
             pstmt = con.prepareStatement(sql);
             System.out.println(dto.getId());
             pstmt.setString(1, dto.getId());
@@ -67,7 +67,7 @@ public class AdminDAO {
             if(rs.next()) { // 아이디가 있을 경우
             	System.out.println('a');
                 // 2. 아이디, 패스워드 동시 검색
-                sql = "SELECT * FROM users WHERE id=? AND password=?";
+                sql = "SELECT * FROM posts WHERE id=? AND password=?";
                 pstmt = con.prepareStatement(sql);
                 pstmt.setString(1, dto.getId());
                 pstmt.setString(2, dto.getPassword());
@@ -91,15 +91,15 @@ public class AdminDAO {
         return result; // 로그인 결과 리턴
     }
 
-    // 관리자 추가
+    // 게시물 추가
     public int insert(AdminDTO dto) {
         connectDb();
 
-        int result = 0; // 관리자 추가 성공 여부(0 : 실패, 1 : 리턴)
+        int result = 0; // 게시물 추가 성공 여부(0 : 실패, 1 : 리턴)
 
         try {
             // DTO 객체에 저장된 데이터를 DB 에 INSERT
-            String sql = "INSERT INTO users VALUES (null,?,?,?)";
+            String sql = "INSERT INTO posts VALUES (?,?,?)";
 
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, dto.getNickname());
@@ -117,19 +117,19 @@ public class AdminDAO {
         return result;
     }
 
-    // 관리자 수정
+    // 게시물 수정
     public int update(AdminDTO dto) {
         connectDb();
 
-        int result = 0; // 관리자 수정 성공 여부(0 : 실패, 1 : 리턴)
+        int result = 0; // 게시물 수정 성공 여부(0 : 실패, 1 : 리턴)
 
         try {
             // 레코드 수정
-            String sql = "update users set " + "nickname=?, " + "id=?," + "password=?";
+            String sql = "update posts set " + "keyword=?, " + "content=?";
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, dto.getNickname());
             pstmt.setString(2, dto.getId());
-            pstmt.setString(3, dto.getPassword());
+//            pstmt.setString(3, dto.getPassword());
             pstmt.setInt(4, dto.getIdx());
             pstmt.executeUpdate();
             result = pstmt.executeUpdate();
@@ -143,15 +143,15 @@ public class AdminDAO {
         return result;
     }
 
-    // 관리자 삭제
+    // 게시물 삭제
     public int delete(int idx) {
         connectDb();
 
-        int result = 0; // 관리자 삭제 성공 여부(0 : 실패, 1 : 리턴)
+        int result = 0; // 게시물 삭제 성공 여부(0 : 실패, 1 : 리턴)
 
         try {
             // 전달받은 번호(idx)를 사용하여 레코드 삭제
-            String sql = "DELETE FROM users WHERE idx=?";
+            String sql = "DELETE FROM posts WHERE idx=?";
 
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, idx);

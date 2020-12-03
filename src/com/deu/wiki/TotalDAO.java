@@ -25,10 +25,10 @@ public class TotalDAO {
 	private ResultSet rs;
 
 	private void connectDb() {
-		String driver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://mydb.cihjn38frpag.ap-northeast-2.rds.amazonaws.com:3305/team4";
-		String user = "mydb";
-		String password = "dkagh1212";
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String url = "jdbc:oracle:thin:@localhost:1521:XE";
+		String user = "deu_wiki";
+		String password = "1234";
 		
 		try {
 			Class.forName(driver);
@@ -99,19 +99,20 @@ public class TotalDAO {
 		return result;
 	}
 	
-	// 매출 삭제
+	// 신고 게시글 삭제
 	public int delete(int idx) {
 		connectDb();
 		
-		int result = 0; // 매출 삭제 성공 여부(0 : 실패, 1 : 리턴)
+		int result = 0; // 신고 게시글 삭제 성공 여부(0 : 실패, 1 : 리턴)
 		
 		try {
 			// 전달받은 번호(idx)를 사용하여 레코드 삭제
-			String sql = "DELETE FROM total WHERE idx=?";
-			
+//			String sql = "DELETE FROM total WHERE idx=?";
+
+			String sql = "update posts set " + "is_stop=?, " + " where idx=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, idx);
-			
+			pstmt.setString(1, "0");
+			pstmt.executeUpdate();
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -119,17 +120,15 @@ public class TotalDAO {
 		} finally {
 			closeDb();
 		}
-		
 		return result;
 	}
-
 	
-	// 매출목록 조회
+	// 신고 게시글목록 조회
 	public Vector<Vector> select() {
 		connectDb();
 		
 		try {
-			String sql = "SELECT * FROM total";
+			String sql = "SELECT * FROM posts where is_stop='1'";
 			
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -139,9 +138,9 @@ public class TotalDAO {
 			while(rs.next()) {
 				Vector rowData = new Vector<>(); // 1개 레코드를 저장할 Vector 객체
 				
-				rowData.add(rs.getInt("idx"));
-				rowData.add(rs.getString("date"));
-				rowData.add(rs.getString("sum"));
+				rowData.add(rs.getInt("keyword"));
+//				rowData.add(rs.getString("date"));
+//				rowData.add(rs.getString("sum"));
 				
 				data.add(rowData);
 			}
@@ -153,7 +152,6 @@ public class TotalDAO {
 		} finally {
 			closeDb();
 		}
-		
 		return null;
 	}
 }

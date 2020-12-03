@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/AdminDAO.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/DB_Conn_Query.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/JTableDriver.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/MainGUI.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/TotalDAO.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/com/deu/wiki/UserDTO.java" charset="x-windows-949" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

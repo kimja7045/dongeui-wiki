@@ -61,6 +61,7 @@ public class MainGUI extends JFrame {
         private JButton btnLogin;
         private JPanel pSouth;
         private JPanel pWest;
+        JButton btnSearch;
         JButton btnInsert;
         JButton btnSelect;
         JButton btnUpdate;
@@ -119,14 +120,16 @@ public class MainGUI extends JFrame {
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
+            btnSearch = new JButton("게시물 검색");
             btnInsert = new JButton("게시물 추가");
             btnUpdate = new JButton("게시물 수정");
             btnDelete = new JButton("게시물 삭제");
             btnSelect = new JButton("게시물 목록");
-            btnTotal = new JButton("신고 게시물 관리"); //원래 매출
+            btnTotal = new JButton("신고 게시물 관리");     // 원래 매출
             btnUser = new JButton("신고 댓글 관리");       // 원래 회원
 //            btnSong = new JButton("노래 관리");
 
+            pSouth.add(btnSearch);
             pSouth.add(btnInsert);
             pSouth.add(btnUpdate);
             pSouth.add(btnDelete);
@@ -162,11 +165,13 @@ public class MainGUI extends JFrame {
                                 delete();
                             } else if (e.getSource() == btnUpdate) {
                                 update();
+                            } else if (e.getSource() == btnSearch) {
+                                search();
                             }
                         }
                     };
 
-                    // 다섯 개 버튼 리스너 동시 연결
+                    // 4개 버튼 리스너 동시 연결
                     btnInsert.addActionListener(btnListener);
                     btnSelect.addActionListener(btnListener);
                     btnDelete.addActionListener(btnListener);
@@ -208,7 +213,7 @@ public class MainGUI extends JFrame {
 
             JPanel pName = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pName);
-            pName.add(new JLabel("게 시 물"));
+            pName.add(new JLabel("키 워 드"));
             tfName = new JTextField(10);
             tfName.setEditable(false);
             pName.add(tfName);
@@ -306,10 +311,10 @@ public class MainGUI extends JFrame {
                     return;
                 }
 
-                AdminDTO dto = new AdminDTO(username, password);
-                AdminDAO dao = AdminDAO.getInstance();
-                int result = dao.login(dto);
-                result = 1;
+//                AdminDTO dto = new AdminDTO(username, password);
+//                AdminDAO dao = AdminDAO.getInstance();
+//                int result = dao.login(dto);
+                int result = 1;
                 if (result == 0) { // 아이디가 없을 경우
                     JOptionPane.showMessageDialog(rootPane, "존재하지 않는 계정입니다.", "로그인 오류", JOptionPane.ERROR_MESSAGE);
                     tfDbUsername.requestFocus();
@@ -377,16 +382,16 @@ public class MainGUI extends JFrame {
                 return;
             }
 
-            String name = tfName.getText();
-            String id = tfId.getText();
+            String title = tfName.getText();
+            String content = tfId.getText();
 //            String password = tfPassword.getText();
 
             // 입력 항목 체크
-            if (name.length() == 0) {
+            if (title.length() == 0) {
                 JOptionPane.showMessageDialog(rootPane, "키워드 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
                 tfName.requestFocus();
                 return;
-            } else if (id.length() == 0) {
+            } else if (content.length() == 0) {
                 JOptionPane.showMessageDialog(rootPane, "내용 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
                 tfId.requestFocus();
                 return;
@@ -397,7 +402,7 @@ public class MainGUI extends JFrame {
 //                return;
 //            }
 
-            AdminDTO dto = new AdminDTO(name, id);
+            AdminDTO dto = new AdminDTO(title, content);
             AdminDAO dao = AdminDAO.getInstance();
             int result = dao.insert(dto); // 게시물 추가 후 결과값 리턴
 
@@ -521,6 +526,11 @@ public class MainGUI extends JFrame {
             editFrame.setVisible(true);
         }
 
+        // 게시물 검색
+        public void search() {
+
+        }
+
         // 게시물 목록
         public void select() {
 //			if(!isLogin) {
@@ -544,9 +554,7 @@ public class MainGUI extends JFrame {
             for (Vector rowData : data) {
                 dtm.addRow(rowData);
             }
-
             invalidate(); // 프레임 갱신(새로 그리기)
-
         }
 
         // 게시물삭제
@@ -633,13 +641,13 @@ public class MainGUI extends JFrame {
             add(pSouth, BorderLayout.PAGE_END);
 
             btnInsert = new JButton("매출 정산");
-            btnUpdate = new JButton("매출 수정");
-            btnDelete = new JButton("매출 삭제");
-            btnSelect = new JButton("매출 목록");
+//            btnUpdate = new JButton("신고 게시글 수정");
+            btnDelete = new JButton("신고 게시글 삭제");
+            btnSelect = new JButton("신고 게시글 목록");
             btnBack = new JButton("뒤로 가기");
 
             pSouth.add(btnInsert);
-            pSouth.add(btnUpdate);
+//            pSouth.add(btnUpdate);
             pSouth.add(btnDelete);
             pSouth.add(btnSelect);
             pSouth.add(btnBack);
@@ -649,11 +657,11 @@ public class MainGUI extends JFrame {
                     insert();
                 }
             });
-            btnUpdate.addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    update();
-                }
-            });
+//            btnUpdate.addMouseListener(new MouseAdapter() {
+//                public void mousePressed(MouseEvent e) {
+//                    update();
+//                }
+//            });
             btnDelete.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     delete();
@@ -687,13 +695,13 @@ public class MainGUI extends JFrame {
 
             JPanel pDate = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pDate);
-            pDate.add(new JLabel("날   짜"));
+            pDate.add(new JLabel("키 워 드"));
             tfDate = new JTextField(10);
             pDate.add(tfDate);
 
             JPanel pSum = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pSum);
-            pSum.add(new JLabel("매   출"));
+            pSum.add(new JLabel("내   용"));
             tfSum = new JTextField(10);
             pSum.add(tfSum);
 
@@ -710,8 +718,8 @@ public class MainGUI extends JFrame {
             // 테이블 컬럼명 표시를 위해 Vector 객체에 컬럼명을 저장한 후 DefaultTableModel 객체에 추가
             Vector<String> columnNames = new Vector<String>();
             columnNames.add("번호");
-            columnNames.add("날짜");
-            columnNames.add("매출");
+            columnNames.add("키워드");
+            columnNames.add("내용");
 
 //			DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
@@ -887,7 +895,7 @@ public class MainGUI extends JFrame {
         public void delete() {
 
             // InputDialog 사용하여 삭제할 매출 번호 입력받기
-            String idx = JOptionPane.showInputDialog(rootPane, "삭제할 매출 번호를 입력하세요.");
+            String idx = JOptionPane.showInputDialog(rootPane, "삭제할 게시물 번호를 입력하세요.");
 //			System.out.println(idx);
 
             while (idx == null || idx.length() == 0) {
@@ -900,7 +908,7 @@ public class MainGUI extends JFrame {
                 JOptionPane.showMessageDialog(rootPane, "번호 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
 
                 // 다시 입력받기
-                idx = JOptionPane.showInputDialog(rootPane, "삭제할 매출 번호를 입력하세요.");
+                idx = JOptionPane.showInputDialog(rootPane, "삭제할 게시물 번호를 입력하세요.");
             }
 
             // 삭제할 번호를 입력할 경우
@@ -961,14 +969,14 @@ public class MainGUI extends JFrame {
             pSouth = new JPanel();
             add(pSouth, BorderLayout.PAGE_END);
 
-            btnInsert = new JButton("회원 추가");
-            btnUpdate = new JButton("회원 수정");
-            btnDelete = new JButton("회원 삭제");
-            btnSelect = new JButton("회원 목록");
+            btnInsert = new JButton("신고 댓글 추가");
+//            btnUpdate = new JButton("신고 댓글 수정");
+            btnDelete = new JButton("신고 댓글 삭제");
+            btnSelect = new JButton("신고 댓글 목록");
             btnBack = new JButton("뒤로가기");
 
             pSouth.add(btnInsert);
-            pSouth.add(btnUpdate);
+//            pSouth.add(btnUpdate);
             pSouth.add(btnDelete);
             pSouth.add(btnSelect);
             pSouth.add(btnBack);
@@ -978,11 +986,11 @@ public class MainGUI extends JFrame {
                     insert();
                 }
             });
-            btnUpdate.addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    update();
-                }
-            });
+//            btnUpdate.addMouseListener(new MouseAdapter() {
+//                public void mousePressed(MouseEvent e) {
+//                    update();
+//                }
+//            });
             btnDelete.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     delete();
@@ -1015,13 +1023,13 @@ public class MainGUI extends JFrame {
 
             JPanel ppNum = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(ppNum);
-            ppNum.add(new JLabel("폰 번호"));
+            ppNum.add(new JLabel("키 워 드"));
             tfpNum = new JTextField(10);
             ppNum.add(tfpNum);
 
             JPanel pPoint = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             pWest.add(pPoint);
-            pPoint.add(new JLabel("포 인 트"));
+            pPoint.add(new JLabel("내 용"));
             tfPoint = new JTextField(10);
             pPoint.add(tfPoint);
 
@@ -1038,9 +1046,9 @@ public class MainGUI extends JFrame {
             // 테이블 컬럼명 표시를 위해 Vector 객체에 컬럼명을 저장한 후 DefaultTableModel 객체에 추가
             Vector<String> columnNames = new Vector<String>();
             columnNames.add("번호");
-            columnNames.add("폰 번호");
-            columnNames.add("포인트");
-
+            columnNames.add("키워드");
+            columnNames.add("작성자");
+            columnNames.add("내용");
 //			DefaultTableModel dtm = new DefaultTableModel(columnNames, 0);
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
@@ -1212,7 +1220,7 @@ public class MainGUI extends JFrame {
         public void delete() {
 
             // InputDialog 사용하여 삭제할 회원 번호 입력받기
-            String idx = JOptionPane.showInputDialog(rootPane, "삭제할 회원 번호를 입력하세요.");
+            String idx = JOptionPane.showInputDialog(rootPane, "삭제할 댓글 번호를 입력하세요.");
 //			System.out.println(idx);
 
             while (idx == null || idx.length() == 0) {
@@ -1225,7 +1233,7 @@ public class MainGUI extends JFrame {
                 JOptionPane.showMessageDialog(rootPane, "번호 입력 필수!", "입력 오류", JOptionPane.ERROR_MESSAGE);
 
                 // 다시 입력받기
-                idx = JOptionPane.showInputDialog(rootPane, "삭제할 회원 번호를 입력하세요.");
+                idx = JOptionPane.showInputDialog(rootPane, "삭제할 댓글 번호를 입력하세요.");
             }
 
             // 삭제할 번호를 입력할 경우
