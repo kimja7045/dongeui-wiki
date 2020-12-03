@@ -1,10 +1,14 @@
 package com.deu.wiki;
 
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.util.Vector;
 
 public class AdminDAO {
@@ -49,37 +53,66 @@ public class AdminDAO {
         if(con != null) try { con.close(); } catch(Exception e) {}
     }
 
+    public int input_nick(AdminDTO dto) {
+    	connectDb();
 
-    public int login(AdminDTO dto) {
+        int result = 0; // 게시물 추가 성공 여부(0 : 실패, 1 : 리턴)
+
+        try {
+            String sql = "Update users set nickname=? where id=? and password=?";
+
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, dto.getNickname());
+            pstmt.setString(2, dto.getId());
+            pstmt.setString(3, dto.getPassword());
+
+            result = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("SQL 구문 오류! - " + e.getMessage());
+        } finally {
+            closeDb();
+        }
+
+        return result;
+    }
+    public String login(AdminDTO dto) {
         // 아이디, 패스워드 일치 여부에 따라 다른 정수값 리턴
         connectDb();
 
-        int result = 0; // 기본값. 아이디가 없을 경우 기본값 리턴됨
+        String result = ""; // 기본값. 아이디가 없을 경우 기본값 리턴됨
 
         try {
             // 1. 아이디 검색
-            String sql = "SELECT * FROM posts WHERE id=?";
-            pstmt = con.prepareStatement(sql);
-            System.out.println(dto.getId());
-            pstmt.setString(1, dto.getId());
-            rs = pstmt.executeQuery();
-
-            if(rs.next()) { // 아이디가 있을 경우
-            	System.out.println('a');
-                // 2. 아이디, 패스워드 동시 검색
-                sql = "SELECT * FROM posts WHERE id=? AND password=?";
-                pstmt = con.prepareStatement(sql);
-                pstmt.setString(1, dto.getId());
-                pstmt.setString(2, dto.getPassword());
-                rs = pstmt.executeQuery();
-
-                if(rs.next()) { // 아이디가 있고, 패스워드가 일치할 경우
-                    result = 1;
-                } else { // 아이디가 있고, 패스워드가 일치하지 않을 경우
-                    result = -1;
-                }
-            }
-
+//            String sql = "SELECT * FROM posts WHERE id=?";
+//            pstmt = con.prepareStatement(sql);
+//            System.out.println(dto.getId());
+//            pstmt.setString(1, dto.getId());
+//            rs = pstmt.executeQuery();
+//
+//            if(rs.next()) { // 아이디가 있을 경우
+//            	System.out.println('a');
+//                // 2. 아이디, 패스워드 동시 검색
+//                sql = "SELECT * FROM posts WHERE id=? AND password=?";
+//                pstmt = con.prepareStatement(sql);
+//                pstmt.setString(1, dto.getId());
+//                pstmt.setString(2, dto.getPassword());
+//                rs = pstmt.executeQuery();
+//
+//                if(rs.next()) { // 아이디가 있고, 패스워드가 일치할 경우
+//                    result = 1;
+//                } else { // 아이디가 있고, 패스워드가 일치하지 않을 경우
+//                    result = -1;
+//                }
+//            }
+        	CallableStatement cstmt = con.prepareCall( "{call return_login(?,?,?,?)}" );
+        	cstmt.setString(1, dto.getId());
+        	cstmt.setString(2, dto.getPassword());
+        	cstmt.registerOutParameter(3, Types.VARCHAR);
+        	cstmt.registerOutParameter(4, Types.VARCHAR);
+        	cstmt.execute();
+        	result=cstmt.getString(3);
+        	dto.setType(cstmt.getString(4));
             // 아이디가 없을 경우 result 변수값은 기본값 0 그대로 사용
 //			System.out.println(result);
         } catch (SQLException e) {
@@ -130,7 +163,7 @@ public class AdminDAO {
             pstmt.setString(1, dto.getNickname());
             pstmt.setString(2, dto.getId());
 //            pstmt.setString(3, dto.getPassword());
-            pstmt.setInt(4, dto.getIdx());
+//            pstmt.setInt(4, dto.getIdx());
             pstmt.executeUpdate();
             result = pstmt.executeUpdate();
 
@@ -167,29 +200,76 @@ public class AdminDAO {
         return result;
     }
 
+    public Vector<Vector> selectOne(String keyword) {
+		connectDb();
+		String sql = "SELECT * FROM posts where keyword like '%"+keyword+"%'";
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();       
+            int count = 1;
+            Vector<Vector> data = new Vector<>(); // 전체 레코드를 저장할 Vector 객체
+			while(rs.next()) {
+                Vector rowData = new Vector<>(); // 1개 레코드를 저장할 Vector 객체
+            
+                rowData.add(count);
+                rowData.add(rs.getString("keyword"));
+                String sql2 = "select nickname from users where id = " + rs.getString("user_id");
+                Statement stmt2 = con.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(sql2);
+                if(rs2.next()) {
+                	rowData.add(rs2.getString("nickname"));
+                }
+                else {
+                	rowData.add("확인불가");
+                }
+                rowData.add(rs.getInt("view_count"));
+                rowData.add(rs.getFloat("AVG_SCORE"));
+                rowData.add(rs.getInt("review_count"));
+                rowData.add(rs.getString("created_at"));
+                count+=1;
 
+                data.add(rowData);
+            }
+            return data;
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류! - " + e.getMessage());
+		} finally {
+			closeDb();
+		}
+		return null;
+	}
+    
     // 게시물 목록 조회
-    public Vector<Vector> select() {
+    public Vector<Vector> select(String name) {
         connectDb();
 
         try {
-            String sql = "select * from posts where is_stop='0'";
-        
-            pstmt = con.prepareStatement(sql);
-            rs = pstmt.executeQuery();
+            String sql = "select * from posts where is_stop='0' Order by "+ name +" desc";
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
        
-         
+            int count = 1;
             Vector<Vector> data = new Vector<>(); // 전체 레코드를 저장할 Vector 객체
          
             while(rs.next()) {
                 Vector rowData = new Vector<>(); // 1개 레코드를 저장할 Vector 객체
             
-         
+                rowData.add(count);
                 rowData.add(rs.getString("keyword"));
-////                rowData.add(rs.getString("user_id"));
-//                rowData.add(rs.getInt("view_count"));
-//                rowData.add(rs.getString("content"));
-//             
+                String sql2 = "select nickname from users where id = " + rs.getString("user_id");
+                Statement stmt2 = con.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(sql2);
+                if(rs2.next()) {
+                	rowData.add(rs2.getString("nickname"));
+                }
+                else {
+                	rowData.add("확인불가");
+                }
+                rowData.add(rs.getInt("view_count"));
+                rowData.add(rs.getFloat("AVG_SCORE"));
+                rowData.add(rs.getInt("review_count"));
+                rowData.add(rs.getString("created_at"));
+                count+=1;
 
                 data.add(rowData);
             }

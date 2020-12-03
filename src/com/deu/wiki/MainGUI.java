@@ -176,6 +176,7 @@ public class MainGUI extends JFrame {
                     btnSelect.addActionListener(btnListener);
                     btnDelete.addActionListener(btnListener);
                     btnUpdate.addActionListener(btnListener);
+                    btnSearch.addActionListener(btnListener);
                 }
             });
             btnTotal.addMouseListener(new MouseAdapter() {
@@ -215,7 +216,7 @@ public class MainGUI extends JFrame {
             pWest.add(pName);
             pName.add(new JLabel("키 워 드"));
             tfName = new JTextField(10);
-            tfName.setEditable(false);
+//            tfName.setEditable(false);
             pName.add(tfName);
          
             
@@ -224,7 +225,7 @@ public class MainGUI extends JFrame {
             pWest.add(pId);
             pId.add(new JLabel("내 용"));
             tfId = new JTextField(10);
-            tfId.setEditable(false);
+//            tfId.setEditable(false);
             pId.add(tfId);
 
 //            JPanel pPassword = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -247,10 +248,11 @@ public class MainGUI extends JFrame {
             Vector<String> columnNames = new Vector<String>();
             columnNames.add("번호");
             columnNames.add("키워드");
-            columnNames.add("내용");
-            columnNames.add("조회 수");
-            columnNames.add("리뷰 수");
-
+            columnNames.add("작성자");
+            columnNames.add("조회수");
+            columnNames.add("평점");
+            columnNames.add("리뷰수");
+            columnNames.add("작성일");
 
             DefaultTableModel dtm = new DefaultTableModel(columnNames, 0) {
 
@@ -277,6 +279,29 @@ public class MainGUI extends JFrame {
 //				System.out.println(table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
 
                     showAdminInfo(); // 선택된 행의 모든 컬럼 데이터를 WEST 영역 텍스트필드에 표시
+                    
+                    
+//                    if (table.getSelectedRow() == 0 && table.getSelectedColumn() == 4) {
+//                    	
+//                    	System.out.println("ddd");
+//                    	AdminDAO dao = AdminDAO.getInstance();
+//                        // 게시물 목록 조회 후 전체 레코드를 Vector 타입으로 저장하여 리턴
+//                        Vector<Vector> data = dao.select("AVG_SCORE");
+//
+//                        DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // 다운캐스팅
+////            			 TableModel tm = table.getModel() 형태로도 사용 가능(다운캐스팅 하지 않을 경우)
+//                        // => 단, addRow() 등의 메서드가 없음
+//
+//                        dtm.setRowCount(0); // 첫번째 행부터 레코드를 추가해야하므로 커서를 0번 행으로 옮김
+//
+//                        // Vector 객체에 저장된 레코드 수 만큼 반복하면서 레코드 데이터를 모델 객체에 추가(addRow())
+//                        for (Vector rowData : data) {
+//                            dtm.addRow(rowData);
+//                        }
+//                        invalidate(); // 프레임 갱신(새로 그리기)
+//                    }
+                    
+                    
                 }
             });
         }
@@ -311,26 +336,39 @@ public class MainGUI extends JFrame {
                     return;
                 }
 
-//                AdminDTO dto = new AdminDTO(username, password);
-//                AdminDAO dao = AdminDAO.getInstance();
-//                int result = dao.login(dto);
-                int result = 1;
-                if (result == 0) { // 아이디가 없을 경우
-                    JOptionPane.showMessageDialog(rootPane, "존재하지 않는 계정입니다.", "로그인 오류", JOptionPane.ERROR_MESSAGE);
+                AdminDTO dto = new AdminDTO(username, password);
+                AdminDAO dao = AdminDAO.getInstance();
+                String result = dao.login(dto);
+                if (result.equals("none")) { // 아이디가 없을 경우
+                    JOptionPane.showMessageDialog(rootPane, "로그인 정보가 일치하지 않습니다.", "로그인 오류", JOptionPane.ERROR_MESSAGE);
                     tfDbUsername.requestFocus();
                     return;
-                } else if (result == -1) { // 패스워드가 틀렸을 경우
-                    JOptionPane.showMessageDialog(rootPane, "패스워드가 일치하지 않습니다.", "로그인 오류", JOptionPane.ERROR_MESSAGE);
-                    pfDbPassword.requestFocus();
-                    return;
+                } else if (result.equals("null")) { // 닉네임이 없을 경우
+                    String input = JOptionPane.showInputDialog(rootPane, "환영합니다 닉네임을 입력해주세요.", "닉네임 입력",  JOptionPane.INFORMATION_MESSAGE);
+                    if(input != null) {
+                    	dto.setnickname(input);
+                    	int nick_result = dao.input_nick(dto);
+                    	if(nick_result == 1) {
+                    		JOptionPane.showMessageDialog(rootPane, input + "님 환영합니다.", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
+                    	}
+                    	else {
+                    		return;
+                    	}
+                    }
+                    else {
+                    	return;
+                    }
+                }else {
+                	JOptionPane.showMessageDialog(rootPane, result.trim() + "님 환영합니다.", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
                 }
 
                 // 로그인 성공했을 경우
 //                tfDbIp.setEditable(false);
-                tfDbUsername.setEditable(false);
-                pfDbPassword.setEditable(false);
+//                tfDbUsername.setEditable(false);
+//                pfDbPassword.setEditable(false);
                 btnLogin.setText("로그아웃");
-                if (username.equals("admin")) {
+//                if (username.equals("admin")) {
+                if(dto.getType().equals("admin")) {
 //                    tfName.setVisible(true);
 //                    tfId.setVisible(true);
                 	   tfName.setEditable(true);
@@ -528,7 +566,22 @@ public class MainGUI extends JFrame {
 
         // 게시물 검색
         public void search() {
+        	AdminDAO dao = AdminDAO.getInstance();
+            // 게시물 목록 조회 후 전체 레코드를 Vector 타입으로 저장하여 리턴
+        	String keyword = tfName.getText();
+            Vector<Vector> data = dao.selectOne(keyword);
 
+            DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // 다운캐스팅
+//			 TableModel tm = table.getModel() 형태로도 사용 가능(다운캐스팅 하지 않을 경우)
+            // => 단, addRow() 등의 메서드가 없음
+
+            dtm.setRowCount(0); // 첫번째 행부터 레코드를 추가해야하므로 커서를 0번 행으로 옮김
+
+            // Vector 객체에 저장된 레코드 수 만큼 반복하면서 레코드 데이터를 모델 객체에 추가(addRow())
+            for (Vector rowData : data) {
+                dtm.addRow(rowData);
+            }
+            invalidate();
         }
 
         // 게시물 목록
@@ -542,7 +595,7 @@ public class MainGUI extends JFrame {
 
         	AdminDAO dao = AdminDAO.getInstance();
             // 게시물 목록 조회 후 전체 레코드를 Vector 타입으로 저장하여 리턴
-            Vector<Vector> data = dao.select();
+            Vector<Vector> data = dao.select("keyword");
 
             DefaultTableModel dtm = (DefaultTableModel) table.getModel(); // 다운캐스팅
 //			 TableModel tm = table.getModel() 형태로도 사용 가능(다운캐스팅 하지 않을 경우)
