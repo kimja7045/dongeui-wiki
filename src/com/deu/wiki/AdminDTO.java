@@ -7,8 +7,15 @@ public class AdminDTO {
     private String nickname;
     private String id;
     private String password;
-
-    public AdminDTO() {}
+    private String type;
+    
+    public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public AdminDTO() {}
     public AdminDTO(int idx) {this.idx=idx;}
     public AdminDTO(String id, String password) {
         this.id = id;
