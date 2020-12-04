@@ -11,14 +11,14 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.Vector;
 
-public class AdminDAO {
+public class MainDAO {
     // --------------------------------------------------------
     // 싱글톤 디자인 패턴을 적용한 인스턴스 리턴
-    private static AdminDAO instance = new AdminDAO();
+    private static MainDAO instance = new MainDAO();
 
-    private AdminDAO() {}
+    private MainDAO() {}
 
-    public static AdminDAO getInstance() {
+    public static MainDAO getInstance() {
         return instance;
     }
     // --------------------------------------------------------
@@ -53,7 +53,7 @@ public class AdminDAO {
         if(con != null) try { con.close(); } catch(Exception e) {}
     }
 
-    public int input_nick(AdminDTO dto) {
+    public int input_nick(MainDTO dto) {
     	connectDb();
 
         int result = 0; // 게시물 추가 성공 여부(0 : 실패, 1 : 리턴)
@@ -76,7 +76,7 @@ public class AdminDAO {
 
         return result;
     }
-    public String login(AdminDTO dto) {
+    public String login(MainDTO dto) {
         // 아이디, 패스워드 일치 여부에 따라 다른 정수값 리턴
         connectDb();
 
@@ -125,19 +125,18 @@ public class AdminDAO {
     }
 
     // 게시물 추가
-    public int insert(AdminDTO dto) {
+    public int insert(MainDTO dto, String ID) {
         connectDb();
 
         int result = 0; // 게시물 추가 성공 여부(0 : 실패, 1 : 리턴)
 
         try {
             // DTO 객체에 저장된 데이터를 DB 에 INSERT
-            String sql = "INSERT INTO posts VALUES (?,?,?)";
+            String sql = "INSERT INTO posts VALUES (?,?,default,default,default,default,default,default)";
 
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, dto.getNickname());
-            pstmt.setString(2, dto.getId());
-            pstmt.setString(3, dto.getPassword());
+            pstmt.setString(1, dto.getKeyword());
+            pstmt.setString(2, ID);
 
             result = pstmt.executeUpdate();
 
@@ -151,7 +150,7 @@ public class AdminDAO {
     }
 
     // 게시물 수정
-    public int update(AdminDTO dto) {
+    public int update(MainDTO dto) {
         connectDb();
 
         int result = 0; // 게시물 수정 성공 여부(0 : 실패, 1 : 리턴)
@@ -175,7 +174,7 @@ public class AdminDAO {
 
         return result;
     }
-
+    
     // 게시물 삭제
     public int delete(int idx) {
         connectDb();
@@ -200,9 +199,9 @@ public class AdminDAO {
         return result;
     }
 
-    public Vector<Vector> selectOne(String keyword) {
+    public Vector<Vector> selectOne(String keyword, String standard, String type, int search_mode) {
 		connectDb();
-		String sql = "SELECT * FROM posts where keyword like '%"+keyword+"%'";
+		String sql = "SELECT * FROM posts where keyword like '%"+keyword+"%' and Is_stop = '" + Integer.toString(search_mode) + "' Order by "+ standard + " " + type;
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();       
@@ -213,6 +212,7 @@ public class AdminDAO {
             
                 rowData.add(count);
                 rowData.add(rs.getString("keyword"));
+                //닉네임 출력 구문
                 String sql2 = "select nickname from users where id = " + rs.getString("user_id");
                 Statement stmt2 = con.createStatement();
                 ResultSet rs2 = stmt2.executeQuery(sql2);
@@ -225,9 +225,14 @@ public class AdminDAO {
                 rowData.add(rs.getInt("view_count"));
                 rowData.add(rs.getFloat("AVG_SCORE"));
                 rowData.add(rs.getInt("review_count"));
-                rowData.add(rs.getString("created_at"));
+                //생성일 출력 프로시저
+                CallableStatement cstmt = con.prepareCall( "{call post_days_between(?,?)}" );
+            	cstmt.setString(1, rs.getString("keyword"));
+            	cstmt.registerOutParameter(2, Types.VARCHAR);
+            	cstmt.execute();
+            	rowData.add(cstmt.getString(2));
+            	
                 count+=1;
-
                 data.add(rowData);
             }
             return data;
@@ -240,11 +245,11 @@ public class AdminDAO {
 	}
     
     // 게시물 목록 조회
-    public Vector<Vector> select(String name) {
+    public Vector<Vector> select(String name, int search_mode) {
         connectDb();
 
         try {
-            String sql = "select * from posts where is_stop='0' Order by "+ name +" desc";
+            String sql = "select * from posts where is_stop='"+Integer.toString(search_mode)+"' Order by "+ name +" asc";
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
        
@@ -268,7 +273,11 @@ public class AdminDAO {
                 rowData.add(rs.getInt("view_count"));
                 rowData.add(rs.getFloat("AVG_SCORE"));
                 rowData.add(rs.getInt("review_count"));
-                rowData.add(rs.getString("created_at"));
+                CallableStatement cstmt = con.prepareCall( "{call post_days_between(?,?)}" );
+            	cstmt.setString(1, rs.getString("keyword"));
+            	cstmt.registerOutParameter(2, Types.VARCHAR);
+            	cstmt.execute();
+            	rowData.add(cstmt.getString(2));
                 count+=1;
 
                 data.add(rowData);

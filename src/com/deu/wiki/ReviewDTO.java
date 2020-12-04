@@ -2,19 +2,26 @@ package com.deu.wiki;
 
 public class ReviewDTO {
 	private int idx;
-	private String pNum;  // 회원 전화번호
-	private int point=0; // 회원 포인트
+	private String pNum;  // 댓글 내용
+	private int point=0; // 댓글 점수
+	private String ID;
 	
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
 	public ReviewDTO() {
 		this.idx=0; this.pNum=null; this.point=0;
 	}
 	public ReviewDTO(String pNum) {
 		this.idx=0; this.pNum=pNum; this.point=0;
 	}
-	public ReviewDTO(int idx, String pNum, int point) {
-		this.idx=idx;
+	public ReviewDTO(String pNum, int point, String ID) {
 		this.pNum = pNum;
 		this.point = point;
+		this.ID = ID;
 	}
 	
 	public int getIdx() {

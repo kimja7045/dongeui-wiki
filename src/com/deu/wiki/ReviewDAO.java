@@ -1,15 +1,18 @@
 package com.deu.wiki;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.util.Vector;
 
 public class ReviewDAO {
 	// --------------------------------------------------------
-	// 싱글톤 디자인 패턴을 적용한 인스턴스 리턴
+	// �떛湲��넠 �뵒�옄�씤 �뙣�꽩�쓣 �쟻�슜�븳 �씤�뒪�꽩�뒪 由ы꽩
 	private static ReviewDAO instance = new ReviewDAO();
 
 	public ReviewDAO() {
@@ -32,14 +35,14 @@ public class ReviewDAO {
 
 		try {
 			Class.forName(driver);
-//			System.out.println("드라이버 로드 성공!");
+//			System.out.println("�뱶�씪�씠踰� 濡쒕뱶 �꽦怨�!");
 
 			con = DriverManager.getConnection(url, user, password);
-//			System.out.println("DB 접속 성공!");
+//			System.out.println("DB �젒�냽 �꽦怨�!");
 		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로드 실패! - " + e.getMessage());
+			System.out.println("�뱶�씪�씠踰� 濡쒕뱶 �떎�뙣! - " + e.getMessage());
 		} catch (SQLException e) {
-			System.out.println("DB 접속 실패! - " + e.getMessage());
+			System.out.println("DB �젒�냽 �떎�뙣! - " + e.getMessage());
 		}
 	}
 
@@ -60,25 +63,70 @@ public class ReviewDAO {
 			} catch (Exception e) {
 			}
 	}
-
-	// 회원 추가
-	public int insert(ReviewDTO dto) {
+	
+	public int up_count(String Post_name) {
 		connectDb();
 
-		int result = 0; // 회원 추가 성공 여부(0 : 실패, 1 : 리턴)
-
+		int result = 0; 
+		
 		try {
-			// DTO 객체에 저장된 데이터를 DB 에 INSERT
-			String sql = "INSERT INTO user VALUES (null,?,?)";
+    		String sql = "Update posts set view_count = view_count + 1 where keyword = '" + Post_name + "'";
+            Statement stmt = con.createStatement();
+            result = stmt.executeUpdate(sql);
+		} 
+		catch (SQLException e) {
+			System.out.println("SQL 구문 오류" + e.getMessage());
+		}
+		finally {
+			closeDb();
+		}
 
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dto.getpNum());
-			pstmt.setDouble(2, dto.getPoint());
+		return result;
+	}
+	
+	public int insert(ReviewDTO dto, String Post_name) {
+		connectDb();
 
-			result = pstmt.executeUpdate();
+		int result = 0; 
+		if (dto.getID().equals("")) {
+			return -2;
+		}
+		try {
+			String pk = "";
+			CallableStatement cstmt = con.prepareCall( "{call Is_write_review(?,?,?)}" );
+        	cstmt.setString(1, Post_name);
+        	cstmt.setString(2, dto.getID());
+        	cstmt.registerOutParameter(3, Types.VARCHAR);
+        	cstmt.execute();
+        	
+        	if(cstmt.getString(3).equals("False")) {
+        		String sql_pk = "select MAX(To_NUMBER(review_num)) as pk from reviews";
+                Statement stmt_pk = con.createStatement();
+                ResultSet rs_pk = stmt_pk.executeQuery(sql_pk);
+                if(rs_pk.next()) {
+                	pk = rs_pk.getString("pk");
+                	pk = Integer.toString(Integer.parseInt(pk)+1);
+                }
+                else {
+                	pk = "1";
+                }
+    			String sql = "INSERT INTO reviews VALUES (?,?,?,?,?,default,default,default)";
 
+    			pstmt = con.prepareStatement(sql);
+    			pstmt.setString(1, pk);
+    			pstmt.setString(2, Post_name);
+    			pstmt.setString(3, dto.getID());
+    			pstmt.setString(4, dto.getpNum());
+    			pstmt.setInt(5, dto.getPoint());
+    			
+    			result = pstmt.executeUpdate();
+        	}
+        	else {
+        		result = -1;
+        	}
+        	
 		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류! - " + e.getMessage());
+			System.out.println("SQL 구문 오류" + e.getMessage());
 		} finally {
 			closeDb();
 		}
@@ -86,24 +134,33 @@ public class ReviewDAO {
 		return result;
 	}
 
-	// 회원 수정
-	public int update(ReviewDTO dto) {
+	
+	public int update(ReviewDTO dto, String Post_name) {
 		connectDb();
-
-		int result = 0; // 회원 수정 성공 여부(0 : 실패, 1 : 리턴)
-
+		
+		int result = 0; 
+		if (dto.getID().equals("")) {
+			return -2;
+		}
 		try {
-			// 레코드 수정
-			String sql = "update user set " + "pNum=?, " + "point=?" + " where idx=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, dto.getpNum());
-			pstmt.setInt(2, dto.getPoint());
-			pstmt.setInt(3, dto.getIdx());
-			pstmt.executeUpdate();
-			result = pstmt.executeUpdate();
-
+			String sql2 = "select MAX(To_NUMBER(review_num)) as pk from reviews where keyword ='"+ Post_name +"' and user_id = '"+ dto.getID() +"'";
+            Statement stmt2 = con.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(sql2);
+            if(rs2.next()) {
+            	String sql = "update reviews set content=?, score=? where keyword = ? and user_id = ?";
+    			pstmt = con.prepareStatement(sql);
+    			pstmt.setString(1, dto.getpNum());
+    			pstmt.setInt(2, dto.getPoint());
+    			pstmt.setString(3, Post_name);
+    			pstmt.setString(4, dto.getID());
+    			pstmt.executeUpdate();
+    			result = pstmt.executeUpdate();
+            }
+            else {
+            	return -1;
+            }
 		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류! - " + e.getMessage());
+			System.out.println("SQL 구문 오류" + e.getMessage());
 		} finally {
 			closeDb();
 		}
@@ -111,110 +168,111 @@ public class ReviewDAO {
 		return result;
 	}
 
-	// 신고 댓글 삭제
-	public int delete(int idx) {
+	public int delete(String idx, String ID) {
 		connectDb();
 
-		int result = 0; // 신고 댓글 삭제 성공 여부(0 : 실패, 1 : 리턴)
+		int result = 0;
 
 		try {
-			// 전달받은 번호(idx)를 사용하여 레코드 삭제
-//			String sql = "DELETE FROM total WHERE idx=?";
+			String sql = "DELETE FROM reviews WHERE review_num = ? and user_id = ?";
 
-			String sql = "update reviews set " + "is_stop=?, " + " where idx=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "0");
-			pstmt.executeUpdate();
+			pstmt.setString(1, idx);
+			pstmt.setString(2, ID);
 			result = pstmt.executeUpdate();
-
 		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류! - " + e.getMessage());
+			System.out.println("SQL 구문 오류" + e.getMessage());
 		} finally {
 			closeDb();
 		}
 		return result;
 	}
 
-	// 회원 유무 검색, 포인트 사용 및 적립
-	public int selectOne(String pNum, int tempSum, int op) { // op가 0이면 포인트 적립x,사용 x 그냥 결제만, 1이면 포인트 사용, 2이면 포인트 적립
+//	public Vector<Vector> selectOne(String keyword, String standard, String type) {
+//		connectDb();
+//		String sql = "SELECT * FROM reviews where keyword like '%"+keyword+"%'" + "Order by "+ standard + " " + type;
+//		try {
+//			pstmt = con.prepareStatement(sql);
+//			rs = pstmt.executeQuery();       
+//            int count = 1;
+//            Vector<Vector> data = new Vector<>(); // 전체 레코드를 저장할 Vector 객체
+//            while (rs.next()) {
+//				Vector rowData = new Vector<>(); 
+//
+//				rowData.add(rs.getString("REVIEW_NUM"));
+//				rowData.add(rs.getString("CONTENT"));
+//				rowData.add(rs.getString("USER_ID"));
+//				rowData.add(rs.getInt("SCORE"));
+//
+//				data.add(rowData);
+//			}
+//            return data;
+//		} catch (SQLException e) {
+//			System.out.println("SQL 구문 오류! - " + e.getMessage());
+//		} finally {
+//			closeDb();
+//		}
+//		return null;
+//	}
+	public Vector<Vector> select_report() {
 		connectDb();
-		String sql = "SELECT * FROM user";
-		ReviewDTO user = new ReviewDTO();
 
 		try {
+			String sql = "SELECT * FROM reviews where is_stop= '1'";
+
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				if (rs.getString("pNum").equals(pNum)) {
-					user.setIdx(rs.getInt("idx"));
-					user.setpNum(rs.getString("pNum"));
-					user.setPoint(rs.getInt("point"));
-					if (op == 1) {
-						int temp = user.getPoint();
-						temp -= tempSum;
-						if (temp < 0)
-							return 1; //포인트 부족으로 인한 결제 취소
-						user.setPoint(temp);
-						ReviewDAO dao = ReviewDAO.getInstance();
-						dao.update(user);
-						return 2; //포인트 사용 완료
-					}
 
-					else if (op == 2) {
-						int temp = user.getPoint();
-						temp += (tempSum / 100); //포인트 적립은 계산가격의 50% 적립
-						user.setPoint(temp);
-						ReviewDAO dao = ReviewDAO.getInstance();
-						dao.update(user);
-						return 3; //포인트 적립 완료
-					}
-
-				} // 여기까지 꺼낸 데이터의 전화번호와 입력받은 전화번호가 같으면 체크
-			}
-			if (op == 1) // 여기서부터는 DB에 입력받은 번호가 없는 경우
-				return 4; // 애초에 기존 데이터도 없어서 포인트 사용 부족으로 인한 결제 취소
-			if (op == 2) {
-				user.setIdx(0);
-				user.setpNum(pNum);
-				user.setPoint((tempSum /100));
-				ReviewDAO dao = ReviewDAO.getInstance();
-				dao.insert(user);
-				return 5;   // 회원 등록과 동시에 포인트 적립
-			}
-		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류! - " + e.getMessage());
-		} finally {
-			closeDb();
-		}
-		return 0;
-	}
-
-	// 신고 댓글목록 조회
-	public Vector<Vector> select() {
-		connectDb();
-
-		try {
-			String sql = "SELECT * FROM reviews where is_stop='1'";
-
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			Vector<Vector> data = new Vector<>(); // 전체 레코드를 저장할 Vector 객체
+			Vector<Vector> data = new Vector<>();
 
 			while (rs.next()) {
-				Vector rowData = new Vector<>(); // 1개 레코드를 저장할 Vector 객체
+				Vector rowData = new Vector<>();
 
-				rowData.add(rs.getInt("keyword"));
-				rowData.add(rs.getString("content"));
-//				rowData.add(rs.getString("point"));
+				rowData.add(rs.getString("REVIEW_NUM"));
+				rowData.add(rs.getString("CONTENT"));
+				rowData.add(rs.getString("USER_ID"));
+				rowData.add(rs.getInt("SCORE"));
 
 				data.add(rowData);
 			}
 
-			return data; // 조회 성공 시 저장된 Vector 객체 리턴
+			return data;
 
 		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류! - " + e.getMessage());
+			System.out.println("SQL 구문 오류 " + e.getMessage());
+		} finally {
+			closeDb();
+		}
+
+		return null;
+	}
+	
+	public Vector<Vector> select(String post_name) {
+		connectDb();
+
+		try {
+			String sql = "SELECT * FROM reviews where is_stop='0' and keyword = '" + post_name + "'";
+
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			Vector<Vector> data = new Vector<>();
+
+			while (rs.next()) {
+				Vector rowData = new Vector<>();
+
+				rowData.add(rs.getString("REVIEW_NUM"));
+				rowData.add(rs.getString("CONTENT"));
+				rowData.add(rs.getString("USER_ID"));
+				rowData.add(rs.getInt("SCORE"));
+
+				data.add(rowData);
+			}
+
+			return data;
+
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류 " + e.getMessage());
 		} finally {
 			closeDb();
 		}
