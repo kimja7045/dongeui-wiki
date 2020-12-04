@@ -263,7 +263,15 @@ public class ReviewDAO {
 
 				rowData.add(rs.getString("REVIEW_NUM"));
 				rowData.add(rs.getString("CONTENT"));
-				rowData.add(rs.getString("USER_ID"));
+				String sql2 = "select nickname from users where id = " + rs.getString("USER_ID");
+                Statement stmt2 = con.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(sql2);
+                if(rs2.next()) {
+                	rowData.add(rs2.getString("nickname"));
+                }
+                else {
+                	rowData.add("확인불가");
+                }
 				rowData.add(rs.getInt("SCORE"));
 
 				data.add(rowData);
