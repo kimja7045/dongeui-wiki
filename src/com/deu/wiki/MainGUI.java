@@ -437,7 +437,11 @@ public class MainGUI extends JFrame {
                     else {
                     	return;
                     }
-                }else {
+                } else if(result.equals("stop")) {
+                	JOptionPane.showMessageDialog(rootPane, "신고 누적으로 인해 정지상태 입니다.(정지 해제는 문의)", "로그인 오류", JOptionPane.ERROR_MESSAGE);
+                    tfDbUsername.requestFocus();
+                    return;
+                } else {
                 	JOptionPane.showMessageDialog(rootPane, result.trim() + "님 환영합니다.", "로그인 성공", JOptionPane.PLAIN_MESSAGE);
                 }
 
